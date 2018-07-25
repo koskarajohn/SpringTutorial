@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Learn Spring Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
+
+        <a class="navbar-brand" href="#page-top">
+            <span class="d-block d-md-none">Learn Spring</span>
+            <span class="d-none d-md-block">
+                <img class="rounded mx-auto mb-2" src="../img/spring2.svg" alt="Spring Image">
+            </span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="step1.html">Βημα 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step2.html">Βημα 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">Βημα 3</a>
+                </li>    
+                <li class="nav-item">
+                        <a class="nav-link" href="#about">Βημα 4</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#about">Βημα 5</a>
+                    </li>  
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+        <div>
+            <h1 class="text-center">Βημα 2 : Δημιουργια εφαρμογης στη πλατφορμα cloud Heroku</h1>
+        </div>
+
+        <section class="px-5 mt-5">
+
+            <h5 class="mt-4">Heroku</h5>
+
+            <p>
+                To Heroku είναι ένα cloud platform as a service (Paas), το οποίο επιτρέπει στους developers
+                να αναπτύσσουν, να λειτουργούν και να τρέχουν εφαρμογές αποκλειστικά στο Cloud. Κάνει τη διαδικασία του deployment,
+                τoυ configuration και της διαχείρσης, όσο πιο απλά γίνονται, επιτρέποντας στους developers, να ασχοληθούν αποκλειστικά
+                με την ανάπτυξη του κώδικα.
+            </p>
+
+            <h5 class="mt-4">Git</h5>
+
+            <p>
+                Το Git είναι ένα distributed version control system, το οποίο επιτρέπει στους developer να διαχειρίζονται τον πηγαίο
+                κώδικα. Το Heroku χρησιμοποιεί το Git, ως το κύριο μέσο για το deployment των  εφαρμογών. Όταν δημιουργούμε μια νέα εφαρμογή
+                στο Heroku, συσχετίζει ένα νέο Git remote, το οποίο συνήθως ονομάζετει heroku, με το τοπικό Git repository για την εφαρμογή.
+                <br>
+                Για να κάνουμε deploy τον κώδικα, χρησιμοποιούμε το γνωστό <strong> git push </strong>, αλλά για το <strong>heroku remote</strong>
+
+                <p class="alert alert-success">git push heroku master</p>
+            </p>
+
+            <h5 class="mt-4">Δημιουργία νέου repository στο github</h5>
+
+            <ol>
+                <li>Εάν δεν έχετε λογαριασμό στο GitHub, πρέπει να δημιουργήσετε έναν. Οι οδηγίες είναι 
+                    <a href="https://services.github.com/on-demand/intro-to-github/create-github-account">εδώ</a>.
+                </li>
+                <li>Αφού κάνετε λογαριασμό και login, κάνετε κλικ στο σταυρό πάνω δεξία στην οθόνη, ο οποίος είναι ανάμεσα από μια καμπάνα και την 
+                    εικόνα προφίλ σας. Ανοίγει ένα pop-up παράθυρο και πατάτε New repository.
+                </li>
+                <li>
+                    <p>
+                        Συμπληρώνετε το όνομα του repository στο πεδίο Repository name. Προαιρετικά, μπορείτε να γράψετε και μια 
+                        περιγραφή της εφαρμογής. Πατήστε στο κουμπί Create repository, για τη δημιουργία του repository.
+                    </p>
+                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/create_repo2.png" alt="Create Repository">                  
+                </li>
+            </ol>
+
+            <h5 class="mt-4">Δημιουργία του Spring Project</h5>
+
+            <ol>
+                <li>Μπορούμε να δημιουργήσουμε το project είτε με το Spring Tool Suite είτε με το Spring Initializr. Σε αυτό το
+                    παράδειγμα, θα χρησιμοποιήσουμε το Spring Initializr, το οποίο είναι μια web εφαρμογή, που δημιουργεί την δομή 
+                    του Spring Boot project. Πηγαίνουμε στη <a href="https://start.spring.io/">σελίδα του Spring Initializr</a>.
+                </li>
+                <li>
+                    Πατάμε Switch to the full version, για να εμφανιστούν όλες οι επιλογές. Επιλέγουμε το Maven, για να κάνουμε build
+                    το project. Μετά κάνουμε τις εξής επιλογές : <br>
+                    <strong>Group</strong> : com.example<br>
+                    <strong>Artifact</strong> : spring-eshop<br>
+                    <strong>Name</strong> : spring-eshop<br>
+                    <strong>Description</strong> : Spring Eshop<br>
+                    <strong>Package Name</strong> : spring-eshop<br>
+                    <strong>Dependencies</strong> : Web, JPA, PostgreSQL, Thymeleaf, Security<br>
+
+                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/spring_initializr.png" alt="Spring Initializr">  
+                    
+                </li>
+            </ol>
+        </section>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+  </body>
+</html>
