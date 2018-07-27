@@ -22,6 +22,11 @@ h5{
     text-transform: uppercase;
 }
 
+pre {
+    text-align: left;
+    white-space: pre-line;
+  }
+
 @media (min-width: 768px) {
     body {
       padding-top: 54px;

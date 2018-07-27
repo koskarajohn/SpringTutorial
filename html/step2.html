@@ -109,11 +109,67 @@
                     <strong>Name</strong> : spring-eshop<br>
                     <strong>Description</strong> : Spring Eshop<br>
                     <strong>Package Name</strong> : spring-eshop<br>
-                    <strong>Dependencies</strong> : Web, JPA, PostgreSQL, Thymeleaf, Security<br>
+                    <strong>Dependencies</strong> : Web, , Thymeleaf<br>
+
+                    <p>Πατάμε το κουμπί Generate Project και κατεβάζουμε το Project σε μορφή zip.</p>
 
                     <img class="img_fluid mx-auto mt-3 w-100" src="../img/spring_initializr.png" alt="Spring Initializr">  
                     
                 </li>
+            </ol>
+
+            <h5 class="mt-4">Δημιουργία τοπικού Git Repository</h5>
+
+            <ol>
+                <li>Πρέπει να κάνουμε clone το remote repository τοπικά. Στο παράδειγμα αυτό θα χρησιμοποιήσουμε το Source Tree, το 
+                    οποίο είναι ένα git client για τα Windows. Μπορείτε να το κατεβάσετε <a href="https://www.sourcetreeapp.com/">εδώ</a>.
+                </li>
+                <li>Κάνουμε κλικ στη καρτέλα Remote πάνω αριστερά. Επιλέγουμε το repository SpringEshop και πατάμε Clone.
+                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/clone_repo1.png" alt="Clone Repo 1">
+                </li>
+                <li>
+                    Επιλέγουμε να το κάνουμε clone στο φάκελο workspace του Spring Tool Suite. Σε αυτό τον υπολογιστή ο φάκελος είναι
+                    C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE. Βάζουμε στο path το SpringEshop και πατάμε Clone.
+                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/clone_repo2.png" alt="Clone Repo 2">
+                </li>
+            </ol>
+
+            <h5 class="mt-4">Import του project στο Spring Tool Suite</h5>
+
+            <ol>
+                <li>Ανοίγουμε το Spring Tool Suite. Πατάμε File ->  Import</li>
+                <li>Επιλέγουμε το φάκελο Maven -> Existing Maven Projects</li>
+                <li>Πατάμε Browse, επιλέγουμε το φάκελο, στον οποίο κάναμε Clone το Repository και πατάμε Finish.</li>
+                <li>Αν όλα είναι σωστά, θα πρέπει, να υπάρχει ένα project SpringEshop με το ακόλουθο Structure στο Package Explorer
+                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/project_structure.png" alt="Project Structure">
+                </li>
+                <li>Τώρα θα προσθέσουμε κώδικα, ώστε να εμφανίζεται στο browser το μήνυμα "Hello World". Ανοίγουμε το SpringEshopApplication.java
+                    , που είναι στο φάκελο src/main/java -> springeshop και προσθέτουμε αρχικά το annotaion @Controller πάνω από το  SpringEshopApplication.
+                    Έπειτα προσθέτουμε την άκολουθο μέθοδο στην κλάση.<br>
+                    <pre>
+                            <code>
+                                    @RequestMapping("/")
+                                    @ResponseBody
+                                    String home() {
+                                      return "Hello World!";
+                                    }
+                            </code>
+                    </pre>
+                    Μπορείτε να τρέξετε την εφαρμογή τοπικά, κάνοντας δεξί κλικ στο project -> Run As -> Spring Boot App και ανοίγοντας στο browser 
+                    το url <a href="http://localhost:8080/">http://localhost:8080/</a>.     
+                </li>
+                <li>
+                    Θα κάνουμε push τις αλλαγές στο remote git repository. Ανοίγουμε το SourceTree, επιλέγουμε το SpringEshop από την καρτέλα Local.
+                    Πατάμε Stage All , επιλέγουμε το όνομα του commit, που επιθυμούμε και πατάμε Commit. Μετά πατάμε Push, κάνουμε κλικ στο Local branch
+                    master και πατάμε το κουμπί Push.
+                </li>
+            </ol>
+
+            <h5 class="mt-4">Deploy της εφαμογής στο Heroku</h5>
+
+            <ol>
+                <li>Αρχικά, πρέπει να δημιουργήσετε <a href="https://signup.heroku.com/">free account στο Heroku</a>.</li>
+                <li>Μετά, πρέπει να <a href="https://devcenter.heroku.com/articles/heroku-cli">κατεβάσετε και να εγκαταστήσετε το Heroku Cli</a>.</li>
             </ol>
         </section>
     </div>
