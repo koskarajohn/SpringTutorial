@@ -35,7 +35,7 @@
                     <a class="nav-link" href="step2.html">Βημα 2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">Βημα 3</a>
+                    <a class="nav-link" href="step3.html">Βημα 3</a>
                 </li>    
                 <li class="nav-item">
                         <a class="nav-link" href="#about">Βημα 4</a>
@@ -121,7 +121,8 @@
             <h5 class="mt-4">Δημιουργία τοπικού Git Repository</h5>
 
             <ol>
-                <li>Πρέπει να κάνουμε clone το remote repository τοπικά. Στο παράδειγμα αυτό θα χρησιμοποιήσουμε το Source Tree, το 
+                <li>Αρχικά, πρέπει να κατεβάσετε <a href="https://gitforwindows.org/">το Git για Windows</a></li>
+                <li>Για να κάνουμε clone το remote repository τοπικά, θα χρησιμοποιήσουμε το Source Tree, το 
                     οποίο είναι ένα git client για τα Windows. Μπορείτε να το κατεβάσετε <a href="https://www.sourcetreeapp.com/">εδώ</a>.
                 </li>
                 <li>Κάνουμε κλικ στη καρτέλα Remote πάνω αριστερά. Επιλέγουμε το repository SpringEshop και πατάμε Clone.
@@ -170,6 +171,13 @@
             <ol>
                 <li>Αρχικά, πρέπει να δημιουργήσετε <a href="https://signup.heroku.com/">free account στο Heroku</a>.</li>
                 <li>Μετά, πρέπει να <a href="https://devcenter.heroku.com/articles/heroku-cli">κατεβάσετε και να εγκαταστήσετε το Heroku Cli</a>.</li>
+                <li>Ανοίγουμε ένα command prompt, πληκτρολογούμε την εντολή heroku login και δίνουμε το email και τον κωδικό.</li>
+                <li>Αλλάζουμε directory και πηγαίνουμε στο φάκελο της εφαρμογής με την εντολή C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE\SpringEshop</li>
+                <li>Πληκτρολογούμε heroku create springeshop, για να δημιουργήσουμε ένα heroku repository με όνομα springeshop.</li>
+                <li>Κάνουμε deploy των κώδικα git push heroku master</li>
+                <li>Μπορούμε να ανοίξουμε την εφαρμογή στο url <a href="http://springeshop.herokuapp.com/">http://springeshop.herokuapp.com/</a>
+                    (αργεί να ανοίξει την πρώτη φορά).
+                </li>
             </ol>
         </section>
     </div>
