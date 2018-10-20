@@ -17,6 +17,17 @@ h5{
     font-weight: bold;
 }
 
+
+a {
+    color: #BD5D38;
+}
+  
+a:hover, a:focus, a:active {
+    color: #824027;
+}
+
+/* --- Side Nav --- */
+
 #sideNav .navbar-nav .nav-item .nav-link {
     font-weight: 600;
     text-transform: uppercase;
@@ -27,14 +38,13 @@ pre {
     white-space: pre-line;
   }
 
-@media (min-width: 768px) {
-    body {
-      padding-top: 54px;
-      padding-left: 17rem;
-    }
-}
-
 @media (min-width: 768px){
+
+    body {
+        padding-top: 54px;
+        padding-left: 18rem;
+      }
+
     #sideNav{
         text-align: center;
         position:fixed;
@@ -72,13 +82,4 @@ pre {
     #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
         display: block;
     }
-    
-    a {
-        color: #BD5D38;
-    }
-      
-    a:hover, a:focus, a:active {
-        color: #824027;
-    }
-
 }
