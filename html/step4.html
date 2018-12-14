@@ -12,6 +12,7 @@
     
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+
   </head>
 
   <body>
@@ -19,7 +20,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
 
         <a class="navbar-brand" href="../index.html">
-            <span>Learn Spring</span>
+             <span>Learn Spring</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
@@ -29,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="step1.html">Βημα 1</a>
+                    <a class="nav-link" href="step1.html">Spring</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="step2.html">Βημα 2</a>
@@ -38,11 +39,14 @@
                     <a class="nav-link" href="step3.html">Βημα 3</a>
                 </li>    
                 <li class="nav-item">
-                        <a class="nav-link" href="step4.html">Βημα 4</a>
+                    <a class="nav-link" href="step4.html">Βημα 4</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="step5.html">Βημα 5</a>
-                    </li>  
+                    <a class="nav-link" href="step5.html">Βημα 5</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="step6.html">Βημα 6</a>
+                </li>
 
             </ul>
         </div>
@@ -50,188 +54,60 @@
 
     <div class="container-fluid content">
         <div>
-            <h1 class="text-center">Βημα 4 : JPA Configuration</h1>
+            <h1 class="text-center">Βημα 4 : Δημιουργια βασης δεδομενων PostgreSQL στο Heroku</h1>
         </div>
 
         <section class="px-5 mt-5">
 
-            <h5 class="mt-4">PostgreSQL</h5>
+                <h5 class="mt-4">Δημουργία add-on</h5>
 
-            <p>
-                Η εφαρμογή μας θα χρειαστεί μια βάση δεδομένων, για να αποθηκεύσουμε δεδομένα όπως προιόντα. Το Heroku παρέχει
-                τη βάση δεδομένων PostgreSQL, οπότε θα χρησιμοποιήσουμε αυτή.
-            </p>
+                <ol>
+                    <li>Κάνουμε <a href="https://id.heroku.com/login">στο λογαριασμό μας στο Heroku</a>.</li>
+                    <li>Επιλέγουμε την εφαρμογή <strong>springeshop</strong> από την λίστα των εφαρμογών</li>
+                    <li>Πατάμε στην καρτέλα <strong>Resources</strong></li>
+                    <li>Κάτω από το <strong>Add-ons</strong>, πληκτρολογούμε <strong>Heroku Postgres</strong> στο πεδίο αναζήτησης και κάνουμε κλικ</li>
+                    <li>Στο Popup παράθυρο που εμφανίζεται, πατάμε <strong>Provision</strong></li>
+                </ol>
 
-            <h5 class="mt-4">ORM</h5>
+                <h5 class="mt-4">PostgreSQL</h5>
 
-            <p>
-                Υπάρχει ασυμβατότητα μεταξύ του μοντέλου αντικειμένου και της  σχεσιακής βάσης δεδομένων.
-                 Η βάση δεδομένων αναπαριστά τα δεδομένα σε μορφή πίνακα, ενώ οι αντικειμενοστραφείς γλώσσες όπως η Java και η C#, 
-                 τα αναπαριστούν ως έναν διασυνδεδεμένο γράφο αντικειμένων.
-            </p>
+                <ol>
+                    <li>Πρέπει, να καταβέσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL</a></li>
+                    <li>Επιλέγουμε την έκδοση <strong>PostgreSQL 10.4</strong>, το λειτουργικό σύστημα και πάταμε <strong>Download Now</strong>.</li>
+                    <li>Αφού κατεβεί, κάνουμε διπλό κλικ στο αρχείο <strong>postgresql-10.4-1-windows-x64.exe</strong></li>
+                    <li>Στη καρτέλα <strong>Select Components</strong>, το <strong>pgAdmin 4</strong> πρέπει να είναι επιλεγμένο</li>
+                    <li>Στη καρτέλα <strong>Password</strong>, ζητάει κωδικό για την βάση στο localhost και όχι στο Heroku</li>
+                </ol>
 
-            <h5 class="mt-4">JPA</h5>
+                <h5 class="mt-4">Απομακρυσμένη σύνδεση στο Heroku</h5>
 
-            <p>
-                Το Java Persistence API(JPA) είναι ένα Java specification για την πρόσβαση, αποθήκευση και διαχείριση δεδομένων μεταξύ των
-                κλάσεων της Java και της βάσης δεδομένων. Θεωρείται η standard προσέγγιση για Object To Relational Mapping(ORM) στη βιομηχανία
-                της Java.
-            </p>
+                <ol>
+                    <li>Αφού κάνουμε <strong>login</strong> στο Heroku, κάνουμε κλικ στην εφαρμογή <strong>springeshop</strong></li>
+                    <li>Κάνουμε κλικ στην καρτέλα <strong>Resources</strong> και μετά στο <strong>Heroku Postgres :: Database</strong>, που βρίσκεται κάτω από τα <strong>Add-ons</strong></li>
+                    <li>Στη καρτέλα <strong>Settings</strong>, πατάμε <strong>View Credentials</strong> στην ενότητα <strong>Database Credentials</strong> 
+                        και εμφανίζονται τα στοιχεία της βάσης</li>
 
-            <p>
-                Είναι ένα specification, όχι προιόν. Είναι ένα σύνολο από interfaces και απαιτεί εφαρμογή. To JPA επιτρέπει 
-                στα Plain Old Java Objects(POJOs), να αποθηκεύονται εύκολα στη βάση, χωρίς να χρειάζεται αυτές οι κλάσεις,
-                να εφαρμόσουν κάποιο interface ή μέθοδο.
-            </p>
+                    <li>Συγκεκριμένα έχει το <strong>όνομα του Host</strong>, το <strong>όνομα της βάσης</strong>, το <strong>username</strong> , 
+                        το <strong>password</strong>  και το <strong>port</strong></li>
 
-            <h5 class="mt-4">Hibernate</h5>
-
-            <p>
-                Είναι ένα object-relational mapping (ORM) framework για τη Java και εφαρμογή του JPA specification. Αντιστοιχίζει κλάσεις της Java σε πίνακες βάσης δεδομένων
-                και τύπους δεδομένων Java σε τύπους SQL
-
-            </p>
-
-            <h5 class="mt-4">Spring Data JPA</h5>
-
-            <p>
-                Το Spring Data JPA δεν είναι ένας πάροχος JPA. Είναι ένα framework, το οποίο παρέχει ένα επιπλέον επίπεδο αφαίρεσης, πάνω από
-                τον JPA provider. Παρέχει υποστήριξη, για τη δημιουργία JPA repositories, κάνοντας extend τα repository interfaces του Spring Data.
-            </p>
-
-            <h5 class="mt-4">Dependencies</h5>
-
-            <p>
-                Για να χρησιμοποιήσουμε το JPA, χρείαζεται να προσθέσουμε στο αρχείο pom.xml, τα ακόλουθα dependencies
-                <pre>
-                    <code>
-                        <dependency>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-starter-data-jpa</artifactId>
-                        </dependency>
-
-                        <dependency>
-                            <groupId>org.postgresql</groupId>
-                            <artifactId>postgresql</artifactId>
-                            <scope>runtime</scope>
-                        </dependency>
-                    </code>
-                </pre>
-                Ο προεπιλεγμένος persistence provider είναι το Hibernate. Επειδή το Spring Data JPA βρίσκεται στο classpath, το Spring Data JPA
-                αυτόματα θα παράξει τα repository implementations, από τα repository interfaces.
-            </p>
-
-            <h5 class="mt-4">JPA Configuration</h5>
-
-            <p>
-                Θα δημιουργήσουμε μια κλάση JpaConfiguration.java, η οποία θα περιέχει διάφορες ρυθμίσεις για το JPA. Χρησιμοποιούμε τα
-                annotations @Configuration, @EnableJpaRepositories και @EnableTransactionManagement.
-                <pre>
-                    <code>
-                        @Configuration
-                        @EnableJpaRepositories(basePackages = "springeshop.repositories",
-                                               entityManagerFactoryRef = "entityManagerFactory",
-                                               transactionManagerRef = "transactionManager")
-                        @EnableTransactionManagement
-                        public class JpaConfiguration {
-                    </code>
-                </pre>
-                @Configuration : Η κλάση περιέχει bean definitions, δηλαδή beans με το annotation @Bean<br>
-                @EnableJpaRepositories : Είναι annotation, για να ενεργοποιηθούν τα JpaRepositories.
-                @EnableTransactionManagement : Είναι annotation, για να ενεργοποιηθεί το transaction management.
-            </p>
-
-            <h5 class="mt-4">Datasource Bean</h5>
-
-            <p>
-                Το Datasource Bean είναι ένα εργοστάσιο για τη δημιουργία συνδέσεων με το φυσικό datasource, το οποίο αυτό
-                Datasource αντικειμένο αναπαριστά, δηλαδή την βάση δεδομένων PostgreSQL. Χρειάζεται, να δώσουμε τιμές σε παραμέτρους, 
-                όπως το url της βάσης, το username, password και το Jdbc Driver.
-                <pre>
-                    <code>
-                        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		                dataSource.setDriverClassName("org.postgresql.Driver");
-		                dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-		                dataSource.setUsername("postgres");
-	                    dataSource.setPassword("root");	
-		                return dataSource;
-                    </code>
-                </pre>
-                
-            </p>
-
-            <h5 class="mt-4">Transaction Manager Bean</h5>
-
-            <p>
-                Πρέπει να δημιουργήσουμε ένα transaction manager bean, το οποίο ενσωματώνει τον JPA provider, με το transaction management
-                του Spring. Θα χρησιμοποιήσουμε την κλάση JpaTransactionManager, ως τον transaction manager της εφαρμογής.
-                <pre>
-                    <code>
-                        @Bean
-	                    @Autowired
-	                    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-		                JpaTransactionManager txManager = new JpaTransactionManager();
-		                txManager.setEntityManagerFactory(emf);
-		                return txManager;
-	                    }
-                    </code>
-                </pre>
-                
-            </p>
-
-            <h5 class="mt-4">JpaVendorAdapter Bean</h5>
-
-            <p>
-                Δηλώνουμε ότι θα χρησιμοποιήσουμε το Hibernate ως persistence provider
-                <pre>
-                    <code>
-                        @Bean
-	                    public JpaVendorAdapter jpaVendorAdapter(){
-		                HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		                return hibernateJpaVendorAdapter;
-	                    }
-                    </code>
-                </pre>
-                
-            </p>
-
-            <h5 class="mt-4">JpaProrties</h5>
-
-            <p>
-                Δηλώνουμε κάποια συγκεκριμένα properties για το Hibernate.
-                <pre>
-                    <code>
-                        private Properties jpaProperties(){
-                        Properties properties = new Properties();	
-                        properties.put("hibernate.hbm2ddl.method", environment.getRequiredProperty("spring.jpa.properties.hibernate.hbm2ddl.method"));
-                        properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.show_sql"));
-                        properties.put("hibernate.format_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.format_sql"));
-                        properties.put("hibernate.dialect", environment.getRequiredProperty("spring.jpa.properties.hibernate.dialect"));
-                        properties.put("hibernate.jdbc.lob.non_contextual_creation", environment.getRequiredProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
-                        return properties;
-                        }
-                    </code>
-                </pre>
-                
-            </p>
-
-            <h5 class="mt-4">EntityManager Bean</h5>
-
-            <p>
-                Για να χρησιμοποιήσουμε το JPA, πρέπει να δημιουργήσουμε τον EntityManager. Ο EntityManager παρέχει λειτουργίες πάνω στη βάση,
-                όπως η εύρεση και η αποθήκευση αντικειμένων.
-                <pre>
-                    <code>
-                        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-                        factoryBean.setDataSource(dataSource());
-                        factoryBean.setPackagesToScan(new String[] { "springeshop.model" });
-                        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-                        factoryBean.setJpaProperties(jpaProperties());
-                        return factoryBean;
-                    </code>
-                </pre>
-                
-            </p>
+                    <li>Ανοίγουμε το  directory <strong>C:\Program Files\PostgreSQL\10\pgAdmin 4\bin</strong> και κάνουμε διπλό κλικ στο <strong>pgAdmin4.exe</strong> </li>
+                    <li>Ανοίγει μια καρτέλα στο browser στο <strong>http://127.0.0.1:49814/browser/</strong></li>
+                    <li>Στη στήλη <strong>Browser</strong>, κάνουμε δεξί κλικ στο <strong>Servers -> Create -> Server..</strong></li>
+                    <li>Στη καρτέλα <strong>General</strong>, δίνουμε όνομα <strong>heroku_server</strong> </li>
+                    <li>Στη καρτέλα <strong>Connection</strong>, συμπληρώνουμε το <strong>Host name/address</strong>, 
+                        <strong>Port</strong>, <strong>Maintenance database</strong>, <strong>Username</strong> και 
+                        <strong>Password</strong>, από τα στοιχεία της βάσης στο Heroku
+                    </li>
+                    <li>Αφού τα συμπληρώσουμε, κάνουμε κλικ στο <strong>Password</strong> και πατάμε <strong>Save</strong></li>
+                    <li>Άμα κάνουμε κλικ στο server, βλέπουμε ότι έχει πόλλες βάσεις, εκτός από τη δική μας</li>
+                    <li>Για να φαίνεται μόνο η δική μας βάση, αρχικά <strong>αποσυνδεόμαστε</strong> από το Server, εάν είμαστε συνδεδεμένοι,
+                        κάνοντας δεξί κλικ στο <strong>heroku_server -> Disconnect Server</strong>
+                    </li>
+                    <li>Μετά κάνουμε πάλι δεξί κλικ στο <strong>heroku_server -> Properties</strong></li>
+                    <li>Στη καρτέλα <strong>Advanced</strong> , πληκτρολογούμε το <strong>όνομα της βάσης</strong> στο πεδίο <strong>DB restriction</strong> και πατάμε <strong>Save</strong>. Τώρα
+                        θα πρέπει, εμφανίζεται μόνο η δικιά μας βάση.
+                    </li>
+                </ol>
 
         </section>
     </div>

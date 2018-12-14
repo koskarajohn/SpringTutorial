@@ -18,9 +18,9 @@
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
 
-            <a class="navbar-brand" href="../index.html">
-                <span>Learn Spring</span>
-            </a>
+        <a class="navbar-brand" href="../index.html">
+            <span>Learn Spring</span>
+        </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="step1.html">Βημα 1</a>
+                    <a class="nav-link" href="step1.html">Spring</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="step2.html">Βημα 2</a>
@@ -38,148 +38,54 @@
                     <a class="nav-link" href="step3.html">Βημα 3</a>
                 </li>    
                 <li class="nav-item">
-                        <a class="nav-link" href="step4.html">Βημα 4</a>
+                    <a class="nav-link" href="step4.html">Βημα 4</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="step5.html">Βημα 5</a>
-                    </li>  
-
+                    <a class="nav-link" href="step5.html">Βημα 5</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="step6.html">Βημα 6</a>
+                </li>
             </ul>
         </div>
     </nav>
 
     <div class="container-fluid content">
         <div>
-            <h1 class="text-center">Βημα 2 : Δημιουργια εφαρμογης στη πλατφορμα cloud Heroku</h1>
+            <h1 class="text-center">Βημα 2 : Εγκατασταση του Spring Tool Suite</h1>
         </div>
 
         <section class="px-5 mt-5">
+                <p>Το Spring Tool Suite είναι ένα περιβάλλον development, βασισμένο στο Eclipse, το οποίο είναι προσαρμοσμένο για την ανάπτυξη
+                εφαρμογών Spring. Παρέχει ένα έτοιμο περιβάλλον, για την δημιουργία, αποσφαλμάτωση, εκτέλεση και deploy Spring εφαρμογών
+                και integrations για Pivotal tc Server, Git, Maven, AspectJ.
+                </p>
 
-            <h5 class="mt-4">Heroku</h5>
+                <p>Για να λειτουργήσει το Spring Tool Suite, χρειάζειτα το Java Development Kit 1.8 ή νεότερη έκδοση του. Εάν το έχετε
+                    εγκαταστήσει ήδη στον υπολογιστή σας, μπορείτε να περάσετε στο 2ο βήμα.
+                </p>
 
-            <p>
-                To Heroku είναι ένα cloud platform as a service (Paas), το οποίο επιτρέπει στους developers
-                να αναπτύσσουν, να λειτουργούν και να τρέχουν εφαρμογές αποκλειστικά στο Cloud. Κάνει τη διαδικασία του deployment,
-                τoυ configuration και της διαχείρσης, όσο πιο απλά γίνονται, επιτρέποντας στους developers, να ασχοληθούν αποκλειστικά
-                με την ανάπτυξη του κώδικα.
-            </p>
+                <h5 class="mt-4">Εγκατάσταση JDK (Τα βήματα της εγκατάστασης είναι πιο αναλυτικά 
+                    <a href="https://www.guru99.com/install-java.html">εδώ</a>)</h5>
 
-            <h5 class="mt-4">Git</h5>
+                <ol>
+                    <li>Πηγαίνετε στην ιστοσελίδα της <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle</a>
+                        , για να κατεβάσετε το JDK 8. Επιλέγετε την κατάλληλη έκδοση, ανάλογα με το λειτουργικό σύστημα του υπολογιστή σας,
+                        πατάτε Accept License Agreement και κατεβάζετε το αρχείο .exe .
 
-            <p>
-                Το Git είναι ένα distributed version control system, το οποίο επιτρέπει στους developer να διαχειρίζονται τον πηγαίο
-                κώδικα. Το Heroku χρησιμοποιεί το Git, ως το κύριο μέσο για το deployment των  εφαρμογών. Όταν δημιουργούμε μια νέα εφαρμογή
-                στο Heroku, συσχετίζει ένα νέο Git remote, το οποίο συνήθως ονομάζετει heroku, με το τοπικό Git repository για την εφαρμογή.
-                <br>
-                Για να κάνουμε deploy τον κώδικα, χρησιμοποιούμε το γνωστό <strong> git push </strong>, αλλά για το <strong>heroku remote</strong>
+                    </li>
+                    <li>Μόλις κατεβεί το αρχείο, το εκτελείτε και ακολουθείτε τον οδηγό, για να εγκαταστήσετε το JDK.</li>
+                </ol>
 
-                <p class="alert alert-success">git push heroku master</p>
-            </p>
+                <h5 class="mt-4">Εγκατάσταση Spring Tool Suite </h5>
 
-            <h5 class="mt-4">Δημιουργία νέου repository στο github</h5>
-
-            <ol>
-                <li>Εάν δεν έχετε λογαριασμό στο GitHub, πρέπει να δημιουργήσετε έναν. Οι οδηγίες είναι 
-                    <a href="https://services.github.com/on-demand/intro-to-github/create-github-account">εδώ</a>.
-                </li>
-                <li>Αφού κάνετε λογαριασμό και login, κάνετε κλικ στο σταυρό πάνω δεξία στην οθόνη, ο οποίος είναι ανάμεσα από μια καμπάνα και την 
-                    εικόνα προφίλ σας. Ανοίγει ένα pop-up παράθυρο και πατάτε New repository.
-                </li>
-                <li>
-                    <p>
-                        Συμπληρώνετε το όνομα του repository στο πεδίο Repository name. Προαιρετικά, μπορείτε να γράψετε και μια 
-                        περιγραφή της εφαρμογής. Πατήστε στο κουμπί Create repository, για τη δημιουργία του repository.
-                    </p>
-                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/create_repo2.png" alt="Create Repository">                  
-                </li>
-            </ol>
-
-            <h5 class="mt-4">Δημιουργία του Spring Project</h5>
-
-            <ol>
-                <li>Μπορούμε να δημιουργήσουμε το project είτε με το Spring Tool Suite είτε με το Spring Initializr. Σε αυτό το
-                    παράδειγμα, θα χρησιμοποιήσουμε το Spring Initializr, το οποίο είναι μια web εφαρμογή, που δημιουργεί την δομή 
-                    του Spring Boot project. Πηγαίνουμε στη <a href="https://start.spring.io/">σελίδα του Spring Initializr</a>.
-                </li>
-                <li>
-                    Πατάμε Switch to the full version, για να εμφανιστούν όλες οι επιλογές. Επιλέγουμε το Maven, για να κάνουμε build
-                    το project. Μετά κάνουμε τις εξής επιλογές : <br>
-                    <strong>Group</strong> : com.example<br>
-                    <strong>Artifact</strong> : spring-eshop<br>
-                    <strong>Name</strong> : spring-eshop<br>
-                    <strong>Description</strong> : Spring Eshop<br>
-                    <strong>Package Name</strong> : spring-eshop<br>
-                    <strong>Dependencies</strong> : Web, , Thymeleaf<br>
-
-                    <p>Πατάμε το κουμπί Generate Project και κατεβάζουμε το Project σε μορφή zip.</p>
-
-                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/spring_initializr.png" alt="Spring Initializr">  
-                    
-                </li>
-            </ol>
-
-            <h5 class="mt-4">Δημιουργία τοπικού Git Repository</h5>
-
-            <ol>
-                <li>Αρχικά, πρέπει να κατεβάσετε <a href="https://gitforwindows.org/">το Git για Windows</a></li>
-                <li>Για να κάνουμε clone το remote repository τοπικά, θα χρησιμοποιήσουμε το Source Tree, το 
-                    οποίο είναι ένα git client για τα Windows. Μπορείτε να το κατεβάσετε <a href="https://www.sourcetreeapp.com/">εδώ</a>.
-                </li>
-                <li>Κάνουμε κλικ στη καρτέλα Remote πάνω αριστερά. Επιλέγουμε το repository SpringEshop και πατάμε Clone.
-                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/clone_repo1.png" alt="Clone Repo 1">
-                </li>
-                <li>
-                    Επιλέγουμε να το κάνουμε clone στο φάκελο workspace του Spring Tool Suite. Σε αυτό τον υπολογιστή ο φάκελος είναι
-                    C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE. Βάζουμε στο path το SpringEshop και πατάμε Clone.
-                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/clone_repo2.png" alt="Clone Repo 2">
-                </li>
-            </ol>
-
-            <h5 class="mt-4">Import του project στο Spring Tool Suite</h5>
-
-            <ol>
-                <li>Ανοίγουμε το Spring Tool Suite. Πατάμε File ->  Import</li>
-                <li>Επιλέγουμε το φάκελο Maven -> Existing Maven Projects</li>
-                <li>Πατάμε Browse, επιλέγουμε το φάκελο, στον οποίο κάναμε Clone το Repository και πατάμε Finish.</li>
-                <li>Αν όλα είναι σωστά, θα πρέπει, να υπάρχει ένα project SpringEshop με το ακόλουθο Structure στο Package Explorer
-                    <img class="img_fluid mx-auto mt-3 w-100" src="../img/project_structure.png" alt="Project Structure">
-                </li>
-                <li>Τώρα θα προσθέσουμε κώδικα, ώστε να εμφανίζεται στο browser το μήνυμα "Hello World". Ανοίγουμε το SpringEshopApplication.java
-                    , που είναι στο φάκελο src/main/java -> springeshop και προσθέτουμε αρχικά το annotaion @Controller πάνω από το  SpringEshopApplication.
-                    Έπειτα προσθέτουμε την άκολουθο μέθοδο στην κλάση.<br>
-                    <pre>
-                            <code>
-                                    @RequestMapping("/")
-                                    @ResponseBody
-                                    String home() {
-                                      return "Hello World!";
-                                    }
-                            </code>
-                    </pre>
-                    Μπορείτε να τρέξετε την εφαρμογή τοπικά, κάνοντας δεξί κλικ στο project -> Run As -> Spring Boot App και ανοίγοντας στο browser 
-                    το url <a href="http://localhost:8080/">http://localhost:8080/</a>.     
-                </li>
-                <li>
-                    Θα κάνουμε push τις αλλαγές στο remote git repository. Ανοίγουμε το SourceTree, επιλέγουμε το SpringEshop από την καρτέλα Local.
-                    Πατάμε Stage All , επιλέγουμε το όνομα του commit, που επιθυμούμε και πατάμε Commit. Μετά πατάμε Push, κάνουμε κλικ στο Local branch
-                    master και πατάμε το κουμπί Push.
-                </li>
-            </ol>
-
-            <h5 class="mt-4">Deploy της εφαμογής στο Heroku</h5>
-
-            <ol>
-                <li>Αρχικά, πρέπει να δημιουργήσετε <a href="https://signup.heroku.com/">free account στο Heroku</a>.</li>
-                <li>Μετά, πρέπει να <a href="https://devcenter.heroku.com/articles/heroku-cli">κατεβάσετε και να εγκαταστήσετε το Heroku Cli</a>.</li>
-                <li>Ανοίγουμε ένα command prompt, πληκτρολογούμε την εντολή heroku login και δίνουμε το email και τον κωδικό.</li>
-                <li>Αλλάζουμε directory και πηγαίνουμε στο φάκελο της εφαρμογής με την εντολή C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE\SpringEshop</li>
-                <li>Πληκτρολογούμε heroku create springeshop, για να δημιουργήσουμε ένα heroku repository με όνομα springeshop.</li>
-                <li>Κάνουμε deploy των κώδικα git push heroku master</li>
-                <li>Μπορούμε να ανοίξουμε την εφαρμογή στο url <a href="http://springeshop.herokuapp.com/">http://springeshop.herokuapp.com/</a>
-                    (αργεί να ανοίξει την πρώτη φορά).
-                </li>
-            </ol>
-        </section>
+                <ol>
+                     <li>Κατεβάζετε την <a href="https://spring.io/tools/sts/all">τελευταία έκδοση του Spring Tool Suite</a>
+                    </li>
+                    <li>Μόλις κατεβεί το αρχείο, το κάνετε unzip.</li>
+                 </ol>
+                
+            </section>
     </div>
 
   </body>
