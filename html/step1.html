@@ -54,8 +54,98 @@
     <div class="container-fluid content">
 
         <section class="create-account mt-5 px-5">
-            <h1 class="text-center">Βημα 1 : Τι είναι το Spring Framework</h1>
+            <h1 class="text-center">Βημα 1 : Τι ειναι το Spring Framework</h1>
 
+            <p>Το Spring Framework είναι μια πλατφόρμα Java, ανοιχτού κώδικα, η οποία παρέχει υποστήριξη
+               για την γρήγορη δημιουργία εφαρμογών Java. Είναι το πιο δημοφιλές framework ανάπτυξης, enterprise
+               εφαρμογών Java.</p>
+
+           <h5 class="mt-4">Features του Spring Framework</h5>
+
+           <p class="mt-4"><strong>1. Ελαφρύ</strong></p>
+
+           <p>Το Spring είναι ένα ελαφρύ, modular framework, το οποίο επιτρέπει την επιλογή οποιουδήποτε module,
+               πάνω απο το Spring Core.
+           </p>
+
+           <p><strong>2. Inversion Of Control</strong></p>
+
+           <p>Οι εξαρτήσεις της εφαρμογής ικανοποιούνται από το ίδιο το framework. Το Framework δημιουργεί τα αντικείμενα
+               κατά την εκτέλεση του εφαρμογής και ικανοποιεί τις εξαρτήσεις της εφαρμογής.
+           </p>
+
+           <p><strong>3. Aspect Oriented Programming</strong></p>
+
+           <p>Οι developers μπορούν να χρησιμοποιήσουν το AOP, για να αναπτύξουν μια εφαρμογή, όπου το business logic είναι 
+               διαχωρισμένο από τα system services.
+           </p>
+
+           <p><strong>4. Container</strong></p>
+
+           <p>Παρέχει το δικό του container, για τη διαχείριση των αντικειμένων - beans.
+           </p>
+
+           <p><strong>5. MVC Framework</strong></p>
+
+           <p>Το Spring MVC Framework μπορεί να χρησιμοποιηθεί, για την ανάπτυξη web εφαρμογών.
+           </p>
+
+           <p><strong>6. Transaction Management</strong></p>
+
+           <p>Παρέχει ένα γενικό επίπεδο Transaction Management.
+           </p>
+
+           <h5 class="mt-5">Πλεονεκτήματα του Spring Framework</h5>
+
+           <ul class="mt-4">
+               <li>Το Spring επιτρέπει στους developers, να αναπτύσουν enterprise εφαρμογές, χρησιμοποιώντας POJOs.
+                   Το πλεονέκτημα της χρησιμοποίησης μόνο POJOs είναι ότι δεν χρειάζομαστε ένα EJB container, όπως ένα
+                   application server, αλλά έχουμε την επιλογή, να χρησιμοποιήσουμε ένα servlet Container όπως Tomcat.
+               </li>
+               <li>Τα IoC containers τείνουν να είναι ελαφριά, ειδικά σε σύγκριση με τα EJB containers. Αυτό είναι χρήσιμο,
+                   για την ανάπτυξη εφαρμογών, που θα φιλεξονηθούν σε υπολογιστές με περιορισμένη μνήμη και CPU. 
+                </li>
+
+                <li>Είναι χωρισμένο σε modules. Αν και έχει πολλά πακέτα και κλάσεις, χρησιμοποιούμε μόνο αυτά που χρειαζόμαστε.</li>
+
+                <li>Δεν προσπαθεί, να ανακαλύψει ξανά τον τροχό. Αντίθετα, χρησιμοποιεί κάποιες από τις υπάρχουσες τεχνολογίες, όπως ORM
+                    Frameworks, loggin frameworks, JEE και άλλες τεχνολογίες.
+                </li>
+
+                <li>Το testing μιας εφαρμογής, γραμμένη σε Spring είναι απλό γιατί ο εξαρτημένος από το περιβάλλον κώδικας, είναι
+                    μετακινημένος μέσα στο framework. Επίσης, χρησιμοποιώντας POJOs, είναι ευκολότερο, να χρησιμοποιήσουμε dependency
+                    injection, για να κάνουμε inject test δεδομένα.
+                </li>
+
+                <li>Το web framework του Spring είναι ένα ένα καλοσχεδιασμένο MVC Framework, το οποίο αποτελεί μια εξαιρετική
+                    εναλλακτική αντί για web frameworks όπως το Strutts.
+                </li>
+           </ul>
+
+           <h5 class="mt-5">Spring Modules</h5>
+
+           <p class="mt-4">Το Spring Framework αποτελείται από features, τα οποία είναι οργανωμένα σε 20 modules. Αυτά τα modules είναι
+               ομαδοποιημένα στο Core Container, Data Access/Integration, Web, AOP (Aspect Oriented Programming), Instrumentation, Messaging
+               , Messaging και Test.
+           </p>
+
+           <img class="img_fluid d-block mx-auto mt-3" src="../img/spring_modules.png" alt="Spring Modules">
+
+           <h5 class="mt-5">Introduction to the Spring IoC Container and Beans</h5>
+
+           <p>Η αντιστροφή των εξαρτήσεων (IoC) είναι γνωστή και ως dependency injection (DI). Είναι μια διαδικασία, στην οποία τα αντικείμενα
+               ορίζουν τις εξαρτήσεις τους (τα άλλα αντικείμενα με τα οποία δουλεύουν), μόνο μέσω παραμέτρων κατασκευαστή, παραμέτρων σε μια μέθοδο-
+               εργοστάσιου ή μέσω properties, τα οποία ορίζονται στο στιγμιότυπο αντικειμένου, αφού αυτό κατασκευαστεί ή επιστραφεί από μέθοδο-εργοστάσιο.
+               Το container ύστερα κάνει inject τις εξαρτήσεις, όταν δημιουργεί το bean. Η διαδικασία είναι ουσιαστικά η αντίστροφη, από το να ελέγχει
+               το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του, χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
+           </p>
+
+           <p>Στο Spring, τα αντικείμενα που αποτελούν τη ραχοκοκαλιά της εφαρμογής και διαχειρίζονται από το Spring IoC Container
+               λέγονται beans. Το bean είναι ένα αντικείμενο, το οποίο αρχικοποιείται, δημιουργείται και διαχείριζεται από το Spring IoC container.
+               Αλλιώς, είναι ένα ένα από τα πολλά αντικείμενα τις εφαρμογής.
+           </p>
+
+           <h5 class="mt-5">Container Overview</h5>
         </section>
 
         
