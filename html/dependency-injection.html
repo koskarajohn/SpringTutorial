@@ -38,6 +38,9 @@
                     <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="annotations.html">Annotations</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="step2.html">Βημα 2</a>
                 </li>
                 <li class="nav-item">
@@ -137,6 +140,27 @@
                          <span class="keyword">public void</span> setMovieFinder(MovieFinder movieFinder) {
                          <span class="this">this</span>.movieFinder = movieFinder;
                          }
+ 
+                         }
+                     </code>
+                 </pre>
+            </p>
+
+            <h5 class="mt-5">Dependency Injection με το annotation @Autowired</h5>
+
+            <p>Ξεκινώντας από την έκδοση 2.5, το Spring εισήγαγε ένα νέο τρόπο, να πραγματοποιήσουμε Dependecy Injection με το annotation
+                @Autowired. Αυτό το annotation επιτρέπει στο Spring να αποφασίζει και να κάνει inject τα συνεργαζόμενα beans σε ένα bean.
+                Μπορεί να χρησιμοποιηθεί είτε σε πεδίο, είτε στον κατασκευαστή.
+            </p>
+
+            <p>
+                <pre>
+                     <code>
+                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+ 
+                         <span class="comments">// Το Spring κάνει inject ενα στιγμιότυπο movieFinder.</span>
+                         <span class="annotation">@Autowired</span>
+                         <span class="keyword">private</span> MovieFinder movieFinder;
  
                          }
                      </code>
