@@ -134,9 +134,9 @@
                 <pre>
                     <code>
                         <span class="annotation">@Configuration</span>
-                        <span class="annotation">@EnableJpaRepositories</span>(basePackages = "springeshop.repositories",
-                                               entityManagerFactoryRef = "entityManagerFactory",
-                                               transactionManagerRef = "transactionManager")
+                        <span class="annotation">@EnableJpaRepositories</span>(basePackages = <span class="string">"springeshop.repositories"</span>,
+                                               entityManagerFactoryRef = <span class="string">"entityManagerFactory"</span>,
+                                               transactionManagerRef = <span class="string">"transactionManager"</span>)
                         <span class="annotation">@EnableTransactionManagement</span>
                         <span class="keyword"> public class</span> <span class="classname"> JpaConfiguration</span> {
                     </code>
@@ -154,12 +154,12 @@
                 όπως το url της βάσης, το username, password και το Jdbc Driver.
                 <pre>
                     <code>
-                        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		                dataSource.setDriverClassName("org.postgresql.Driver");
-		                dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-		                dataSource.setUsername("postgres");
-	                    dataSource.setPassword("root");	
-		                return dataSource;
+                        DriverManagerDataSource dataSource = <span class="keyword">new</span> DriverManagerDataSource();
+		                dataSource.setDriverClassName(<span class="string">"org.postgresql.Driver"</span>);
+		                dataSource.setUrl(<span class="string">"jdbc:postgresql://localhost:5432/postgres"</span>);
+		                dataSource.setUsername(<span class="string">"root"</span>);
+	                    dataSource.setPassword(<span class="string">"root"</span>);	
+		                <span class="keyword">return</span> dataSource;
                     </code>
                 </pre>
                 
@@ -172,12 +172,12 @@
                 του Spring. Θα χρησιμοποιήσουμε την κλάση JpaTransactionManager, ως τον transaction manager της εφαρμογής.
                 <pre>
                     <code>
-                        @Bean
-	                    @Autowired
-	                    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-		                JpaTransactionManager txManager = new JpaTransactionManager();
+                        <span class="annotation">@Bean</span>
+                        <span class="annotation">@Autowired</span>
+	                    <span class="keyword">public</span> PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+		                JpaTransactionManager txManager = <span class="keyword">new</span> JpaTransactionManager();
 		                txManager.setEntityManagerFactory(emf);
-		                return txManager;
+		                <span class="keyword">return</span> txManager;
 	                    }
                     </code>
                 </pre>
@@ -190,10 +190,10 @@
                 Δηλώνουμε ότι θα χρησιμοποιήσουμε το Hibernate ως persistence provider
                 <pre>
                     <code>
-                        @Bean
-	                    public JpaVendorAdapter jpaVendorAdapter(){
-		                HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		                return hibernateJpaVendorAdapter;
+                        <span class="annotation">@Bean</span>
+	                    <span class="keyword">public</span> JpaVendorAdapter jpaVendorAdapter(){
+		                HibernateJpaVendorAdapter hibernateJpaVendorAdapter = <span class="keyword">new</span> HibernateJpaVendorAdapter();
+		                <span class="keyword">return</span> hibernateJpaVendorAdapter;
 	                    }
                     </code>
                 </pre>
@@ -206,14 +206,14 @@
                 Δηλώνουμε κάποια συγκεκριμένα properties για το Hibernate.
                 <pre>
                     <code>
-                        private Properties jpaProperties(){
-                        Properties properties = new Properties();	
-                        properties.put("hibernate.hbm2ddl.method", environment.getRequiredProperty("spring.jpa.properties.hibernate.hbm2ddl.method"));
-                        properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.show_sql"));
-                        properties.put("hibernate.format_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.format_sql"));
-                        properties.put("hibernate.dialect", environment.getRequiredProperty("spring.jpa.properties.hibernate.dialect"));
-                        properties.put("hibernate.jdbc.lob.non_contextual_creation", environment.getRequiredProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
-                        return properties;
+                        <span class="keyword">private</span> Properties jpaProperties(){
+                        Properties properties = <span class="keyword">new</span> Properties();	
+                        properties.put(<span class="string">"hibernate.hbm2ddl.method"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.hbm2ddl.method"</span>));
+                        properties.put(<span class="string">"hibernate.show_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.show_sql"</span>));
+                        properties.put(<span class="string">"hibernate.format_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.format_sql"</span>));
+                        properties.put(<span class="string">"hibernate.dialect"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.dialect"</span>));
+                        properties.put(<span class="string">"hibernate.jdbc.lob.non_contextual_creation"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"</span>));
+                        <span class="keyword">return</span> properties;
                         }
                     </code>
                 </pre>
@@ -227,12 +227,12 @@
                 όπως η εύρεση και η αποθήκευση αντικειμένων.
                 <pre>
                     <code>
-                        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+                        LocalContainerEntityManagerFactoryBean factoryBean = <span class="keyword">new</span> LocalContainerEntityManagerFactoryBean();
                         factoryBean.setDataSource(dataSource());
-                        factoryBean.setPackagesToScan(new String[] { "springeshop.model" });
+                        factoryBean.setPackagesToScan(<span class="keyword">new</span> String[] { <span class="string">"springeshop.model"</span> });
                         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
                         factoryBean.setJpaProperties(jpaProperties());
-                        return factoryBean;
+                        <span class="keyword">return</span> factoryBean;
                     </code>
                 </pre>
                 

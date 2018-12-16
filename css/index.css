@@ -45,6 +45,11 @@ pre code span.classname{
     font-weight : 600;
 }
 
+pre code span.string{
+    color : #ff8000;
+    font-weight: 500;
+}
+
 /* --- Side Nav --- */
 
 #sideNav .navbar-nav .nav-item .nav-link {
