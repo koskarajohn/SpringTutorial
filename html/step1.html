@@ -212,6 +212,30 @@
                 </pre>
            </p>
 
+           <h5 class="mt-5">Setter-based Dependency Injection</h5>
+
+           <p>Το Setter-based DI πραγματοποιείται από το Container, καλώντας μεθόδους setters στα αντικείμενα, αφού καλέσουν πρώτα
+               έναν κατασκευαστή χωρίς παραμέτρους ή μια μέθοδο-εργοστάσιο χωρίς παραμέτρους, για την αρχικοποίηση του αντικειμένου.
+           </p>
+
+           <p>
+                <pre>
+                     <code>
+                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+ 
+                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                         <span class="keyword">private</span> MovieFinder movieFinder;
+ 
+                         <span class="comments">// Χρησιμοποιείται η μέθοδος setter, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                         <span class="keyword">public void</span> setMovieFinder(MovieFinder movieFinder) {
+                         <span class="this">this</span>.movieFinder = movieFinder;
+                         }
+ 
+                         }
+                     </code>
+                 </pre>
+            </p>
+
         </section>
 
         
