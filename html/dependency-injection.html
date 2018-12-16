@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dependency Injection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
+
+        <a class="navbar-brand" href="../index.html">
+            <span>Learn Spring</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="spring.html">Spring</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="spring-container.html">Spring IoC Container</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step2.html">Βημα 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step3.html">Βημα 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step4.html">Βημα 4</a>
+                </li>    
+                <li class="nav-item">
+                    <a class="nav-link" href="step5.html">Βημα 5</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step6.html">Βημα 6</a>
+                </li>  
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid content">
+
+        <section class="mt-5 px-5">
+            <h1 class="text-center">Dependency Injection</h1>
+
+            <h5 class="mt-5">Dependency injection</h5>
+
+           <p>Ο κώδικας είναι πιο "καθαρός" εφμόζοντας DI και το decoupling, είναι πιο αποτελεσματικό, όταν στα αντικείμενα παρέχονται
+               οι εξαρτήσεις τους. Τα αντικείμενα δεν ψάχνουν τις εξαρτήσεις τους και δεν γνωρίζουν την τοποθεσία ή την κλάση των εξαρτήσεων.
+               Έτσι, είναι πιο εύκολο να πραγματοποιηθούν test στις κλάσεις, ειδικά όταν οι εξαρτήσεις είναι διεπαφές ή αφηρημένες κλάσεις,
+               οι οποίες επιτρέπουν, να χρησιμοποιηθούν mock implementations στα unit tests.
+           </p>
+
+           <p>Υπάρχουν δύο είδη dependency injection : <strong>Constructor-based</strong> dependency injection και <strong>Setter-based</strong> dependency injection.</p>
+
+           <h5 class="mt-4">Χωρίς dependency injection</h5>
+
+           <p>
+                <pre>
+                     <code>
+                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+ 
+                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                         <span class="keyword">private</span> MovieFinder movieFinder;
+ 
+                         <span class="keyword">public</span> SimpleMovieLister() {
+                             <span class="this">  this</span>.movieFinder = <span class="keyword">new</span> MovieFinder();
+                         }
+
+                         }
+                     </code>
+                 </pre>
+            </p>
+
+            <p>Η κλάση SimpleMovieLister χρησιμοποιεί ένα στιγμιότυπο της κλάσης MovieFinder και παρέχει η ίδια ένα στιγμιότυπο
+                στο κώδικα, χρησιμοποιώντας το keyword new και τον κατασκευαστή MovieFinder().
+            </p>
+
+           <h5 class="mt-5">Constructor-based Dependency Injection</h5>
+
+           <p>Το Constructor-based DI πραγματοποιείται από το Container, καλώντας έναν κατασκευαστή με έναν αριθμό παραμέτρων, όπου το 
+               καθένα αναπαριστά μια εξάρτηση.
+           </p>
+
+           <p>
+               <pre>
+                    <code>
+                        <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+
+                        <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                        <span class="keyword">private</span> MovieFinder movieFinder;
+
+                        <span class="comments">// Χρησιμοποιείται κατασκευαστής, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                        <span class="keyword">public</span> SimpleMovieLister(MovieFinder movieFinder) {
+                        <span class="this">this</span>.movieFinder = movieFinder;
+                        }
+
+                        }
+                    </code>
+                </pre>
+           </p>
+
+           <h5 class="mt-5">Setter-based Dependency Injection</h5>
+
+           <p>Το Setter-based DI πραγματοποιείται από το Container, καλώντας μεθόδους setters στα αντικείμενα, αφού καλέσουν πρώτα
+               έναν κατασκευαστή χωρίς παραμέτρους ή μια μέθοδο-εργοστάσιο χωρίς παραμέτρους, για την αρχικοποίηση του αντικειμένου.
+           </p>
+
+           <p>
+                <pre>
+                     <code>
+                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+ 
+                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                         <span class="keyword">private</span> MovieFinder movieFinder;
+ 
+                         <span class="comments">// Χρησιμοποιείται η μέθοδος setter, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                         <span class="keyword">public void</span> setMovieFinder(MovieFinder movieFinder) {
+                         <span class="this">this</span>.movieFinder = movieFinder;
+                         }
+ 
+                         }
+                     </code>
+                 </pre>
+            </p>
+        </section>
+
+        
+    </div>
+
+  </body>
+</html>
