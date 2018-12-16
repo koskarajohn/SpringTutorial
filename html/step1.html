@@ -163,6 +163,55 @@
                οι οποίες επιτρέπουν, να χρησιμοποιηθούν mock implementations στα unit tests.
            </p>
 
+           <p>Υπάρχουν δύο είδη dependency injection : <strong>Constructor-based</strong> dependency injection και <strong>Setter-based</strong> dependency injection.</p>
+
+           <h5 class="mt-4">Χωρίς dependency injection</h5>
+
+           <p>
+                <pre>
+                     <code>
+                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+ 
+                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                         <span class="keyword">private</span> MovieFinder movieFinder;
+ 
+                         <span class="keyword">public</span> SimpleMovieLister() {
+                             <span class="this">  this</span>.movieFinder = <span class="keyword">new</span> MovieFinder();
+                         }
+
+                         }
+                     </code>
+                 </pre>
+            </p>
+
+            <p>Η κλάση SimpleMovieLister χρησιμοποιεί ένα στιγμιότυπο της κλάσης MovieFinder και παρέχει η ίδια ένα στιγμιότυπο
+                στο κώδικα, χρησιμοποιώντας το keyword new και τον κατασκευαστή MovieFinder().
+            </p>
+
+           <h5 class="mt-5">Constructor-based Dependency Injection</h5>
+
+           <p>Το Constructor-based DI πραγματοποιείται από το Container, καλώντας έναν κατασκευαστή με έναν αριθμό παραμέτρων, όπου το 
+               καθένα αναπαριστά μια εξάρτηση.
+           </p>
+
+           <p>
+               <pre>
+                    <code>
+                        <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
+
+                        <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                        <span class="keyword">private</span> MovieFinder movieFinder;
+
+                        <span class="comments">// Χρησιμοποιείται κατασκευαστής, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                        <span class="keyword">public</span> SimpleMovieLister(MovieFinder movieFinder) {
+                        <span class="this">this</span>.movieFinder = movieFinder;
+                        }
+
+                        }
+                    </code>
+                </pre>
+           </p>
+
         </section>
 
         

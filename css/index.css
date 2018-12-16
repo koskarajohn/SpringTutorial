@@ -50,6 +50,14 @@ pre code span.string{
     font-weight: 500;
 }
 
+pre code span.comments{
+    color : #B0B0B0;
+}
+
+pre code span.this{
+    color : #DAA520;
+}
+
 /* --- Side Nav --- */
 
 #sideNav .navbar-nav .nav-item .nav-link {
