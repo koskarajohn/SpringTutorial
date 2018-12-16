@@ -146,6 +146,23 @@
            </p>
 
            <h5 class="mt-5">Container Overview</h5>
+
+           <p>Το interface org.springframework.context.ApplicationContext αντιπροσωπεύει το Spring IoC container και είναι υπεύθυνο,
+              για την αρχικοποίηση, ρύθμιση και συναρμολόγηση των αντικειμένων. Το container παίρνει τις οδηγίες, ως προς ποια αντικείμενα
+              να αρχικοποιήσει, να ρυθμίσει και να συναρμολογήσει, διαβάζοντας τα configuration metadata. Τα configuration metadata αναπαρίστανται
+              με XML, Java annotations ή με κώδικα Java.
+           </p>
+
+           <img class="img_fluid d-block mx-auto mt-3" src="../img/spring_ioc_container.png" alt="Spring Ioc Container">
+
+           <h5 class="mt-5">Dependency injection</h5>
+
+           <p>Ο κώδικας είναι πιο "καθαρός" εφμόζοντας DI και το decoupling, είναι πιο αποτελεσματικό, όταν στα αντικείμενα παρέχονται
+               οι εξαρτήσεις τους. Τα αντικείμενα δεν ψάχνουν τις εξαρτήσεις τους και δεν γνωρίζουν την τοποθεσία ή την κλάση των εξαρτήσεων.
+               Έτσι, είναι πιο εύκολο να πραγματοποιηθούν test στις κλάσεις, ειδικά όταν οι εξαρτήσεις είναι διεπαφές ή αφηρημένες κλάσεις,
+               οι οποίες επιτρέπουν, να χρησιμοποιηθούν mock implementations στα unit tests.
+           </p>
+
         </section>
 
         

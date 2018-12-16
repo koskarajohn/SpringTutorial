@@ -133,12 +133,12 @@
                 annotations @Configuration, @EnableJpaRepositories και @EnableTransactionManagement.
                 <pre>
                     <code>
-                        @Configuration
-                        @EnableJpaRepositories(basePackages = "springeshop.repositories",
+                        <span class="annotation">@Configuration</span>
+                        <span class="annotation">@EnableJpaRepositories</span>(basePackages = "springeshop.repositories",
                                                entityManagerFactoryRef = "entityManagerFactory",
                                                transactionManagerRef = "transactionManager")
-                        @EnableTransactionManagement
-                        public class JpaConfiguration {
+                        <span class="annotation">@EnableTransactionManagement</span>
+                        <span class="keyword"> public class</span> <span class="classname"> JpaConfiguration</span> {
                     </code>
                 </pre>
                 @Configuration : Η κλάση περιέχει bean definitions, δηλαδή beans με το annotation @Bean<br>

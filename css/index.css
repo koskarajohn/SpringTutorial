@@ -28,7 +28,22 @@ a:hover, a:focus, a:active {
 pre {
     text-align: left;
     white-space: pre-line;
-  }
+    background-color:#F0F0F0;
+}
+
+pre code span.keyword{
+    color :  #080808;
+    font-weight : 700;
+}
+
+pre code span.annotation{
+    color : #0000b3;
+}
+
+pre code span.classname{
+    color : #0000b3;
+    font-weight : 600;
+}
 
 /* --- Side Nav --- */
 
