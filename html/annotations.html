@@ -327,6 +327,42 @@
                             &emsp;&emsp;&emsp;brands.sort((Brand brand1, Brand brand2) -> brand1.getName().compareTo(brand2.getName()));
 
                             &emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;Brand&#62;&#62;(brands, HttpStatus.OK);
+                            }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@RequestBody</h5>
+
+            <p>
+                <pre>
+                    <code>
+                            <span class="annotation">@RequestMapping( value = <span class="string">"/register"</span></span>, method = RequestMethod.POST)
+                            <span class="keyword">public</span> ResponseEntity&#60;?&#62; registerUser(@Valid @RequestBody User user) {
+                            &emsp;&emsp;&emsp;  logger.info(<span class="string">"Register user : {}"</span>, user);
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(userService.doesUserExist(user)){
+                            &emsp; &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"A user with username "</span> + user.getUsername() + <span class="string">"already exists"</span>), HttpStatus.CONFLICT);
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(userService.doesEmailExist(user)){
+                            &emsp; &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. A user with email "</span> + user.getEmail() + <span class="string">"already exists"</span>), HttpStatus.CONFLICT);
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;  user.setPassword(passwordEncoder.encode(user.getPassword()));
+                            &emsp;&emsp;&emsp;  user.setIs_active(true);
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(userService.addUserAndIsSuccess(user)){
+                            &emsp;&emsp;&emsp;  Authority authority = new Authority();
+                            &emsp;&emsp;&emsp;  authority.setUser(user);
+                            &emsp;&emsp;&emsp;  authority.setRole("ROLE_USER");
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">if</span>(authorityService.saveAuthorityAndIsSuccess(authority)){
+                            &emsp; &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(user, HttpStatus.CONFLICT);
+                            &emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp; <span class="keyword">return new</span>ResponseEntity&#60;&#62;(user, HttpStatus.INTERNAL_SERVER_ERROR);
+                            }
                     </code>
                 </pre>
             </p>
