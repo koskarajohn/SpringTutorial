@@ -223,6 +223,47 @@
                 </pre>
             </p>
 
+            <h5 class="mt-4">@RequestMapping</h5>
+
+            <p>Το annotation αυτό χρησιμοποείται σε επίπεδο κλάσης και μεθόδου. Αντιστοιχίζει ένα αίτημα HTTP σε μια συγκεκριμένη μέθοδο, 
+                η οποία θα το χειριστεί.
+
+                <pre>
+                    <code>                        
+                        
+                        <span class="annotation">@RestController</span>
+                        <span class="annotation">@RequestMapping(<span class="string">"/api"</span></span>)
+                        <span class="keyword">public class</span> DealApiController {
+
+                            &emsp; <span class="annotation">@Autowired</span>
+                            &emsp; <span class="keyword">private</span> DealService dealService;
+
+                            &emsp; <span class="annotation">@Autowired</span>
+                            &emsp; <span class="keyword">private</span> DealImageService dealImageService;
+                            
+                            &emsp; <span class="keyword">public static final</span> Logger logger = LoggerFactory.getLogger(DealApiController.class);
+
+                            &emsp; <span class="annotation">@RequestMapping( value = <span class="string">"/deals"</span></span>, method = RequestMethod.GET)
+	                        &emsp; <span class="keyword">public</span> ResponseEntity&#60;?&#62; getDeals(){
+
+                                &emsp; List<Deal> deals = dealService.findAllDeals();
+		
+                                &emsp; <span class="keyword">if</span>(deals.isEmpty()){
+                                &emsp; &emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                                &emsp; }
+
+                                &emsp; <span class="keyword">for</span>(Deal deal : deals){
+                                &emsp; &emsp; DealImage dealImage = dealImageService.findByDeal(deal);
+                                &emsp; &emsp; deal.setImageUrl(dealImage.getUrl());
+                                &emsp; }
+
+                                &emsp; <span class="keyword">return new</span> ResponseEntity&#60;List&#60;Deal&#62;&#62;(deals, HttpStatus.OK);
+                            &emsp; }
+                        }
+                    </code>
+                </pre>
+            </p>
+
         </section>
 
         
