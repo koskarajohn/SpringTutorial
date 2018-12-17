@@ -269,7 +269,11 @@
 
             <h5 class="mt-4">@PathVariable</h5>
 
-            <p>
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Χειρίζεται δυναμικές αλλαγές στο URL, όπου ένα κομμάτι του URL λειτουργεί
+                ως παράμετρος. Για παράδειγμα, η παρακάτω μέθοδος getProductByName() θέλουμε, να επιστρέφει το σωστό προιόν, ανάλογα με το όνομα του προιόντος στο url.
+                Όταν ο client θέλει το προιόν με όνομα apivita-shampoo-dry-dandruff-250ml, κάνει ένα GET HTTP request στο url 
+                http://localhost:8080/api/products/apivita-shampoo-dry-dandruff-250ml και η παράμετρος name της μεθόδου παίρνει την τιμή
+                "apivita-shampoo-dry-dandruff-250ml".
                 <pre>
                     <code>                        
                         <span class="annotation">@RequestMapping( value = <span class="string">"/products/{name}"</span></span>, method = RequestMethod.GET)
@@ -293,6 +297,36 @@
 
                             &emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Product&#62;(product, HttpStatus.OK);
                         }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@RequestParam</h5>
+
+            <p> Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Αντιστοιχίζει τις παραμέτρους που στέλνει ο client, συνήθως με GET request,
+                με παραμέτρους της μεθόδου , η οποία θα χειριστεί το αίτημα. Όταν o client θέλει τα brands της κατηγορίας shampoos, κάνει ένα GET
+                HTTP request στο URL http://localhost:8080/api/brands?category=shampoos και η παράμετρος category της μεθόδου getCategoryBrands() παίρνει την τιμή 
+                "shampoos". 
+                <pre>
+                    <code>
+                            <span class="annotation">@RequestMapping( value = <span class="string">"/brands"</span></span>, method = RequestMethod.GET)
+                            <span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryBrands(@RequestParam(value =<span class="string">"category"</span>, required = false String category) {
+
+                            &emsp;&emsp;&emsp; Category requestedCategory = categoryService.findByName(getCorrectCategoryName(category));
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(requestedCategory == null){
+                            &emsp; &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category does not exist"</span>), HttpStatus.BAD_REQUEST);
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp; List&#60;Brand&#62 brands = productService.findCategoryBrands(requestedCategory.getId());
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(brands.isEmpty()){
+                            &emsp; &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;brands.sort((Brand brand1, Brand brand2) -> brand1.getName().compareTo(brand2.getName()));
+
+                            &emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;Brand&#62;&#62;(brands, HttpStatus.OK);
                     </code>
                 </pre>
             </p>
