@@ -226,7 +226,10 @@
             <h5 class="mt-4">@RequestMapping</h5>
 
             <p>Το annotation αυτό χρησιμοποείται σε επίπεδο κλάσης και μεθόδου. Αντιστοιχίζει ένα αίτημα HTTP σε μια συγκεκριμένη μέθοδο, 
-                η οποία θα το χειριστεί.
+                η οποία θα το χειριστεί. Όταν το annotation χρησιμοποείται σε επίπεδο κλάσης, ορίζει το βασικό URL, για το οποίο θα χρησιμοποιηθεί
+                ο controller. Η κάθε μέθοδος θα αντιστοιχίζεται σε διαφορετικό URL. Η παράμετρος method δηλώνει τι τύπου θα είναι το HTTP request, το
+                οποίο θα χειριστεί η μέθοδος. Για παράδειγμα, όταν πραγματοποιηθεί GET HTTP αίτημα στο URL
+                http://localhost:8080/api/deals, θα εκτελεστεί η μέθοδος getDeals().
 
                 <pre>
                     <code>                        
@@ -246,19 +249,49 @@
                             &emsp; <span class="annotation">@RequestMapping( value = <span class="string">"/deals"</span></span>, method = RequestMethod.GET)
 	                        &emsp; <span class="keyword">public</span> ResponseEntity&#60;?&#62; getDeals(){
 
-                                &emsp; List<Deal> deals = dealService.findAllDeals();
+                                &emsp;&emsp;&emsp; List<Deal> deals = dealService.findAllDeals();
 		
-                                &emsp; <span class="keyword">if</span>(deals.isEmpty()){
-                                &emsp; &emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
-                                &emsp; }
+                                &emsp;&emsp;&emsp; <span class="keyword">if</span>(deals.isEmpty()){
+                                &emsp;&emsp;&emsp; &emsp; <span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                                &emsp;&emsp;&emsp; }
 
-                                &emsp; <span class="keyword">for</span>(Deal deal : deals){
-                                &emsp; &emsp; DealImage dealImage = dealImageService.findByDeal(deal);
-                                &emsp; &emsp; deal.setImageUrl(dealImage.getUrl());
-                                &emsp; }
+                                &emsp;&emsp;&emsp; <span class="keyword">for</span>(Deal deal : deals){
+                                &emsp;&emsp;&emsp;&emsp; DealImage dealImage = dealImageService.findByDeal(deal);
+                                &emsp;&emsp;&emsp;&emsp; deal.setImageUrl(dealImage.getUrl());
+                                &emsp;&emsp;&emsp; }
 
-                                &emsp; <span class="keyword">return new</span> ResponseEntity&#60;List&#60;Deal&#62;&#62;(deals, HttpStatus.OK);
+                                &emsp;&emsp;&emsp; <span class="keyword">return new</span> ResponseEntity&#60;List&#60;Deal&#62;&#62;(deals, HttpStatus.OK);
                             &emsp; }
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@PathVariable</h5>
+
+            <p>
+                <pre>
+                    <code>                        
+                        <span class="annotation">@RequestMapping( value = <span class="string">"/products/{name}"</span></span>, method = RequestMethod.GET)
+                        <span class="keyword">public</span> ResponseEntity&#60;?&#62; getProductByName(@PathVariable(<span class="string">"name"</span>) String name) {
+                            
+                            &emsp;&emsp;&emsp;logger.info(<span class="string">"Fetching Product with name {}"</span>, name);
+                            &emsp;&emsp;&emsp;Product product = productService.findByName(name);
+
+                            &emsp;&emsp;&emsp;<span class="keyword">if</span>(product == null){
+                            &emsp; &emsp;&emsp;&emsp;    logger.error(<span class="string">"Product with name {} not found."</span>, name);
+                            &emsp; &emsp;&emsp;&emsp;    <span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product with name {}"</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                            &emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;ProductImage productImage = productImageService.findByProductId(product.getId());
+                            &emsp;&emsp;&emsp;product.setSmallImageUrl(productImage.getSmallImageurl());
+                            &emsp;&emsp;&emsp;product.setLargeImageUrl(productImage.getLargeImageurl());
+                            &emsp;&emsp;&emsp;product.setVerySmallImageUrl(productImage.getVerySmallImageurl());
+
+                            &emsp;&emsp;&emsp;int productQuantity = inventoryService.findProductQuantity(product.getId());
+                            &emsp;&emsp;&emsp;product.setQuantity(productQuantity);
+
+                            &emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Product&#62;(product, HttpStatus.OK);
                         }
                     </code>
                 </pre>
