@@ -65,6 +65,8 @@
         <section class="mt-5 px-5">
             <h1 class="text-center">Annotations</h1>
 
+            <h3 class="mt-4">Core Spring Framework Annotations</h3>
+
             <h5 class="mt-4">@Autowired</h5>
 
             <p>Το autowiring είναι ένα μέσο, όπου επιτρέπουμε στο Spring να ικανοποιήσει αυτόματα τις εξαρτήσεις ενός bean, βρίσκοντας
@@ -72,6 +74,154 @@
                 να πραγματοποιηθεί autowiring, χρησιμοποιηούμε το annotation @Autowired είτε σε ένα field, είτε σε ένα κατασκευαστή.
             </p>
 
+            <h5 class="mt-4">@Configuration</h5>
+
+            <p>Με το annotation @Configuration ορίζουμε, ότι η κλάση μας θα είναι configuration class και ότι θα περιέχει λεπτομέρειες,
+                σχετικά με τα αντικείμενα, τα οποία θα δημιουργηθούν στο Spring application context.
+
+                <pre>
+                    <code>
+                        <span class="annotation">@Configuration</span>
+		                <span class="keyword">public class</span> AmazonS3Configuration{
+
+	                    }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@Bean</h5>
+
+            <p>Το annotation @Bean χρησιμοποείται σε επίπεδο μεθόδου και υποδεικνύει στο Spring, ότι η μέθοδος αυτή θα επιστρέψει ένα αντικείμενο, το οποίο θα πρέπει, να εγγραφεί
+                ως bean στο Spring application Context με το όνομα awsS3AudioBucket.
+
+                <pre>
+                    <code>
+                        <span class="annotation">@Configuration</span>
+		                <span class="keyword">public class</span> AmazonS3Configuration{
+
+                        <span class="annotation">@Bean</span>(name = <span class="string">"awsS3AudioBucket"</span>)
+                        <span class="keyword">public String</span>  getAWSS3AudioBucket() {
+                        <span class="keyword">return</span> awsS3AudioBucket;
+                          }
+
+	                    }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@ComponentScan</h5>
+
+            <p class="mb-5">Το annotation @ComponentScan επιτρέπει στο Spring, να αναζητάει annotated components.</p>
+            
+
+            <h3 class="mt-5">Spring Framework Stereotype Annotations</h3>
+
+            <h5 class="mt-4">@Component</h5>
+
+            <p>Χρησιμοποιούμε το annotation @Component, για να δηλώσουμε ότι η κλάση είναι ένα Spring component. Το annotation σημειώνει
+                την κλάση ως ένα bean, ώστε ο μηχανισμός ανίχνευσης components του Spring, να τα προσθέσει στο application context.
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@Component</span>
+                        <span class="keyword">public class</span> EmailServiceImp <span class="keyword">implements</span>  EmailService{
+
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@Repository</h5>
+
+            <p>Το annotation είναι μια πιο ειδική περίπτωση του annotation @Component και χρησιμοποείται για κλάσεις, που έχουν πρόσβαση
+                στη βάση δεδομένων.
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@Repository
+                        <span class="keyword">public interface</span> ProductRepository <span class="keyword">extends</span>  JpaRepository<Product, Integer>{
+
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@Service</h5>
+
+            <p>Το annotation είναι μια πιο ειδική περίπτωση του annotation @Component και χρησιμοποείται για κλάσεις, που ανήκουν στο 
+                service layer.
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@Service(<span class="string">"productService"</span>)</span>
+                        <span class="annotation">@Transactional</span>
+                        <span class="keyword">public class</span> ProductServiceImpl <span class="keyword"> implements</span> ProductService{
+
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@Controller</h5>
+
+            <p class="mb-5">Το annotation είναι μια πιο ειδική περίπτωση του annotation @Component, σημειώνει την κλάση ως Spring Web MVC Controller και
+                εισάγεται στο Spring IoC Container.
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@Controller</span>
+                        <span class="keyword">public class</span> RoutesController {
+
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h3 class="mt-5">Spring Boot Annotations</h3>
+
+            <h5 class="mt-4">@SpringBootApplication</h5>
+
+            <p>Το annotation @SpringBootApplication προσθέτει τα annotations @Configuration, @EnableAutoConfiguration και @ComponentScan.
+                χρησιμοποείται στην κύρια κλάση της εφαρμογής και πρέπει, να βρίσκεται στο base package. Για παράδειγμα, αν η κλάση με το
+                @annotation τοποθετηθεί στο package springeshop, τότε το spring θα κάνει component scan μόνο στα subpackages, όπως springeshop.configuration
+                και springeshop.model . 
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@EnableAsync</span>
+                        <span class="annotation">@SpringBootApplication</span>(scanBasePackages={<span class="string">"springeshop"</span>})
+                        <span class="keyword">public class</span> SpringEshopApplication {
+
+                        }
+                    </code>
+                </pre>
+            </p>
+
+            <h5 class="mt-4">@EnableAutoConfiguration</h5>
+
+            <p class="mb-5">Το annotation @EnableAutoConfiguration τοποθετείται στην κύρια κλάση της εφαρμογής και ενεργοποιεί τον μηχανισμό
+                auto-configuration του Spring. Ο μηχανισμός αυτός προσπαθεί, να ρυθμίσει αυτόματα την εφαρμογή, βασισμένος στα jar dependencies
+                ,που έχουμε προσθέσει στο classpath.
+            </p>
+
+            <h3 class="mt-5">Spring MVC and REST Annotations</h3>
+
+            <h5 class="mt-4">@RestController</h5>
+
+            <p>Το annotation αυτό χρησιμοποείται σε επίπεδο κλάσης. Σημειώνει την κλάση ως έναν controller, ο οποίος θα επιστρέφει ένα
+                domain oject αντί για ένα view. Δηλαδή δεν στέλνεται html ως απάντηση, αλλά ένα domain object σε μορφή, την οποία καταλαβαίνει
+                ο καταναλωτής όπως JSON.
+
+                <pre>
+                    <code>                        
+                        <span class="annotation">@RestController</span>
+                        <span class="annotation">@RequestMapping(<span class="string">"/api"</span></span>)
+                        <span class="keyword">public class</span> CategoryApiController {
+
+                        }
+                    </code>
+                </pre>
+            </p>
 
         </section>
 
