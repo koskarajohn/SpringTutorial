@@ -64,12 +64,10 @@
     </nav>
 
     <div class="container-fluid content">
-        <div>
-            <h1 class="text-center">Βημα 3 : Δημιουργια εφαρμογης στη πλατφορμα cloud Heroku</h1>
-        </div>
 
-        <section class="px-5 mt-5">
+        <h1 class="text-center">Βημα 3 : Δημιουργια εφαρμογης στη πλατφορμα cloud Heroku</h1>
 
+        <section class="intro">
             <h5 class="mt-4">Heroku</h5>
 
             <p>
@@ -90,7 +88,9 @@
 
                 <p class="alert alert-success">git push heroku master</p>
             </p>
+        </section>
 
+        <section class="crete-github-repo">
             <h5 class="mt-4">Δημιουργία νέου repository στο github</h5>
 
             <ol>
@@ -108,7 +108,9 @@
                     <img class="img_fluid mx-auto mt-3 w-100" src="../img/create_repo2.png" alt="Create Repository">                  
                 </li>
             </ol>
+        </section>
 
+        <section class="create-spring-project">
             <h5 class="mt-4">Δημιουργία του Spring Project</h5>
 
             <ol>
@@ -132,7 +134,9 @@
                     
                 </li>
             </ol>
+        </section>
 
+        <section class="create-local-repository">
             <h5 class="mt-4">Δημιουργία τοπικού Git Repository</h5>
 
             <ol>
@@ -149,7 +153,9 @@
                     <img class="img_fluid mx-auto mt-3 w-100" src="../img/clone_repo2.png" alt="Clone Repo 2">
                 </li>
             </ol>
+        </section>
 
+        <section class="import-project">
             <h5 class="mt-4">Import του project στο Spring Tool Suite</h5>
 
             <ol>
@@ -162,15 +168,18 @@
                 <li>Τώρα θα προσθέσουμε κώδικα, ώστε να εμφανίζεται στο browser το μήνυμα "Hello World". Ανοίγουμε το SpringEshopApplication.java
                     , που είναι στο φάκελο src/main/java -> springeshop και προσθέτουμε αρχικά το annotaion @Controller πάνω από το  SpringEshopApplication.
                     Έπειτα προσθέτουμε την άκολουθο μέθοδο στην κλάση.<br>
+
                     <pre>
-                            <code>
-                                    @RequestMapping("/")
-                                    @ResponseBody
-                                    String home() {
-                                      return "Hello World!";
-                                    }
-                            </code>
+                        <code>
+                                <span class="annotation">@RequestMapping</span> (<span class="string">"/"</span>)
+                                <span class="annotation">@ResponseBody</span>
+
+                                &emsp;&emsp;String home() {
+                                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> <span class="string">"Hello World!"</span>;
+                                &emsp;&emsp;}
+                        </code>
                     </pre>
+
                     Μπορείτε να τρέξετε την εφαρμογή τοπικά, κάνοντας δεξί κλικ στο project -> Run As -> Spring Boot App και ανοίγοντας στο browser 
                     το url <a href="http://localhost:8080/">http://localhost:8080/</a>.     
                 </li>
@@ -180,7 +189,9 @@
                     master και πατάμε το κουμπί Push.
                 </li>
             </ol>
+        </section>
 
+        <section class="deploy-heroku">
             <h5 class="mt-4">Deploy της εφαμογής στο Heroku</h5>
 
             <ol>
