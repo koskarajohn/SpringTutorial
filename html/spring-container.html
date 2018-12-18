@@ -65,10 +65,10 @@
 
     <div class="container-fluid content">
 
-        <section class="create-account mt-5 px-5">
-            <h1 class="text-center">Spring Inversion Of Control Container</h1>
+        <h1 class="text-center">Spring Inversion Of Control Container</h1>
 
-            <h5 class="mt-5">Introduction to the Spring IoC Container and Beans</h5>
+        <section class="intro">
+           <h5 class="mt-5">Introduction to the Spring IoC Container and Beans</h5>
 
            <p>Η αντιστροφή των εξαρτήσεων (IoC) είναι γνωστή και ως dependency injection (DI). Είναι μια διαδικασία, στην οποία τα αντικείμενα
                ορίζουν τις εξαρτήσεις τους (τα άλλα αντικείμενα με τα οποία δουλεύουν), μόνο μέσω παραμέτρων κατασκευαστή, παραμέτρων σε μια μέθοδο-
@@ -90,8 +90,10 @@
            </p>
 
            <img class="img_fluid d-block mx-auto mt-3" src="../img/spring_ioc_container.png" alt="Spring Ioc Container">
+        </section>
 
-           <p>Η κλάση POJO είναι η Demo και έχει μια μέθοδο sayHello, η οποία εκτυπώνει στην κονσόλα ένα string από το πληκτρολόγιο.</p>
+        <section class="xml-configuration">
+            <p>Η κλάση POJO είναι η Demo και έχει μια μέθοδο sayHello, η οποία εκτυπώνει στην κονσόλα ένα string από το πληκτρολόγιο.</p>
 
            <pre>
                <code>
@@ -137,8 +139,10 @@
              }
              </code>
             </pre>
-
-           <h5 class="mt-5">Δημιουργία Beans με Java configuration</h5>
+        </section>
+        
+        <section class="java-configuration">
+            <h5 class="mt-5">Δημιουργία Beans με Java configuration</h5>
 
            <p>Χρησιμοποιούμε το annotation @Configuration και δημιουργούμε μια Java configuration κλάση DemoConfig, η οποία θα περιέχει beans. Η μέθοδος demo επιστρέφει ένα αντικείμενο-bean της κλάσης
                Demo με id demoBean.
@@ -171,7 +175,9 @@
              }
              </code>
             </pre>
+        </section>
 
+        <section class="annotation-configuration">
             <h5 class="mt-5">Δημιουργία Beans με Java annotations</h5>
 
             <p>Δημιουργούμε μια Java configuration κλάση DemoConfig, με το annotation @Configuration. Μετά, ενεργοποιούμε το μηχανισμό
@@ -218,8 +224,6 @@
              </code>
             </pre>
         </section>
-
-        
     </div>
 
   </body>
