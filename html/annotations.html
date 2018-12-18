@@ -35,6 +35,9 @@
                     <a class="nav-link" href="spring-container.html">Spring IoC Container</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="spring-beans.html">Spring Beans</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
                 </li>
                 <li class="nav-item">
@@ -334,7 +337,10 @@
 
             <h5 class="mt-4">@RequestBody</h5>
 
-            <p>
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Αντιστοιχίζει την τιμή του HTTP request body με την παράμετρο της
+                μεθόδου, η οποία θα χειριστεί το αίτημα.  Όταν o client θέλει να κάνει register, κάνει ένα POST HTTP request στο URL 
+                http://localhost:8080/api/register και η παράμετρος user της μεθόδου registerUser() παίρνει την τιμή του request body.
+
                 <pre>
                     <code>
                             <span class="annotation">@RequestMapping( value = <span class="string">"/register"</span></span>, method = RequestMethod.POST)
@@ -366,6 +372,40 @@
                     </code>
                 </pre>
             </p>
+
+            <h5 class="mt-4">@RequestPart</h5>
+
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Μπορεί να χρησιμοποιηθεί αντί για το annotation @RequestParam και να
+                πάρουμε το περιεχόμενο μιας φωτογραφίας.
+
+                <pre>
+                    <code>
+                            <span class="annotation">@RequestMapping( value = <span class="string">"/products"</span></span>, method = RequestMethod.POST)
+                            <span class="keyword">public</span> ResponseEntity&#60;?&#62; createProduct(@Valid @RequestPart(value = <span class="string">"product"</span>) Product product, 
+                            &emsp; &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;@RequestPart (value = <span class="string">"smallImage"</span>) MultipartFile smallImage, @RequestPart(value = <span class="string">"largeImage"</span>) MultipartFile largeImage, 
+                            &emsp; &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;@RequestPart (value = <span class="string">"verySmallImage"</span>) MultipartFile verySmallImage) throws InterruptedException, ExecutionException {
+                            
+                    </code>
+                </pre>
+            </p>
+
+            <h3 class="mt-5">JSR-303 Annotations</h3>
+
+            <h5 class="mt-4">@Valid</h5>
+
+            <p>Πραγματοποιεί validation στο μοντέλο, αφού πάρει τιμή.</p>
+
+            <h5 class="mt-4">@Transactional</h5>
+
+            <h3 class="mt-5">Task Execution Annotations</h3>
+
+            <h5 class="mt-4">@Async</h5>
+
+            <p>Το χρησιμοποιούμε, όταν θέλουμε μια μέθοδος να εκτελεστεί σε ξεχωριστό νήμα.</p>
+
+            <h5 class="mt-4">@EnableAsync</h5>
+
+            <p>Ενεργοποιεί τη λειτουργία εκτέλεσης ασύγχρονων μεθόδων του Spring.</p>
 
         </section>
 

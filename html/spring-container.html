@@ -35,6 +35,9 @@
                     <a class="nav-link" href="spring-container.html">Spring IoC Container</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="spring-beans.html">Spring Beans</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
                 </li>
                 <li class="nav-item">
@@ -74,12 +77,11 @@
                το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του, χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
            </p>
 
-           <p>Στο Spring, τα αντικείμενα που αποτελούν τη ραχοκοκαλιά της εφαρμογής και διαχειρίζονται από το Spring IoC Container
-               λέγονται beans. Το bean είναι ένα αντικείμενο, το οποίο αρχικοποιείται, δημιουργείται και διαχείριζεται από το Spring IoC container.
-               Αλλιώς, είναι ένα ένα από τα πολλά αντικείμενα τις εφαρμογής.
+           <p>Τα πακέτα org.springframework.beans και org.springframework.context είναι η βάση του Spring IoC container. Η διεπαφή
+               BeanFactory παρέχει έναν προχωρημένο μηχανισμό ρύθμισεων, ο οποίος είναι ικανός, να διαχειρίζεται οποιοδήποτε τύπο
+               αντικειμένου. Το πακέτο ApplicationContext είναι sub-interface του BeanFactory. To πακέτο BeanFactory παρέχει το configuration
+               framework και τη βασική λειτουργικότητα, ενώ το ApplicationContext περισσότερο enterprise λειτουργικότητα.
            </p>
-
-           <h5 class="mt-5">Container Overview</h5>
 
            <p>Το interface org.springframework.context.ApplicationContext αντιπροσωπεύει το Spring IoC container και είναι υπεύθυνο,
               για την αρχικοποίηση, ρύθμιση και συναρμολόγηση των αντικειμένων. Το container παίρνει τις οδηγίες, ως προς ποια αντικείμενα
@@ -88,6 +90,135 @@
            </p>
 
            <img class="img_fluid d-block mx-auto mt-3" src="../img/spring_ioc_container.png" alt="Spring Ioc Container">
+
+           <p>Η κλάση POJO είναι η Demo και έχει μια μέθοδο sayHello, η οποία εκτυπώνει στην κονσόλα ένα string από το πληκτρολόγιο.</p>
+
+           <pre>
+               <code>
+                <span class="keyword">public class</span> Demo {
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span> sayHello(String name){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; System.out.println(<span class="string">"Hello "</span> + name);
+                    &emsp;&emsp;&emsp;&emsp;}
+
+                }
+               </code>
+           </pre>
+
+           <h5 class="mt-5">Δημιουργία Beans με XML configuration</h5>
+
+           <p>Μπορούμε να δηλώσουμε ένα bean με ένα XML configuration file. Χρησιμοποιούμε το element &#60;bean&#62;&#60;/bean&#62;. Παρακάτω,
+               δηλώνουμε ότι θέλουμε το Spring IoC container, να δημιουργήσει ένα bean με id demoBean από την κλάση Demo.
+           </p>
+
+            <pre>
+            <code>
+                &#60;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">UTF-8"</span> ?&#62;
+                &#60;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span>
+
+                &emsp;&emsp;&emsp;&emsp;xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+                &emsp;&emsp;&emsp;&emsp;xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&#62;
+
+                &emsp;&emsp;&emsp;&emsp;&#60;bean id=<span class="string">"demoBean"</span> class=<span class="string">"com.test.Demo"</span>&#62;&#60;/bean&#62;
+                &#60;/beans&#62;
+
+             }
+             </code>
+            </pre>
+
+            <pre>
+              <code>
+               <span class="keyword">public class</span> Main {
+
+                &emsp;&emsp;&emsp;&emsp;<span class="keyword">public static void</span> main(String args[]) {
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(<span class="string">demo-config.xml</span>>);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Demo bean = (Demo) context.getBean(<span class="string">"demoBean"</span>);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;bean.sayHello(<span class="string">"Kostas"</span>)
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.close();
+                &emsp;&emsp;&emsp;&emsp;}
+             }
+             </code>
+            </pre>
+
+           <h5 class="mt-5">Δημιουργία Beans με Java configuration</h5>
+
+           <p>Χρησιμοποιούμε το annotation @Configuration και δημιουργούμε μια Java configuration κλάση DemoConfig, η οποία θα περιέχει beans. Η μέθοδος demo επιστρέφει ένα αντικείμενο-bean της κλάσης
+               Demo με id demoBean.
+           </p>
+
+           <pre>
+            <code>
+             <span class="annotation">@Configuration</span>
+             <span class="keyword">public class</span> DemoConfig {
+
+                &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>(name =  <span class="string">"demoBean"</span>)
+                &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Demo demo() {
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Demo();
+                &emsp;&emsp;&emsp;&emsp;}
+
+             }
+             </code>
+            </pre>
+
+            <pre>
+              <code>
+               <span class="keyword">public class</span> Main {
+
+                &emsp;&emsp;&emsp;&emsp;<span class="keyword">public static void</span> main(String args[]) {
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Demo bean = (Demo) context.getBean(<span class="string">"demoBean"</span>);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;bean.sayHello(<span class="string">"Kostas"</span>)
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.close();
+                &emsp;&emsp;&emsp;&emsp;}
+             }
+             </code>
+            </pre>
+
+            <h5 class="mt-5">Δημιουργία Beans με Java annotations</h5>
+
+            <p>Δημιουργούμε μια Java configuration κλάση DemoConfig, με το annotation @Configuration. Μετά, ενεργοποιούμε το μηχανισμό
+                αναζήτησης components του Spring με το annotation @ComponentScan, δηλώνοντας και το πακέτο, που είναι τα components. </p>
+
+            <pre>
+             <code>
+               <span class="annotation">@Configuration</span>
+               <span class="annotation">@ComponentScan(<span class="string">"com.test"</span>) </span>
+               <span class="keyword">public class</span> DemoConfig {
+
+             }
+             </code>
+            </pre>
+
+            <p>Δηλώνουμε ότι η κλάση θα είναι ένα Spring component Με το annotation @Component. Το Spring θα δημιουργήσει ένα αντικείμενο-bean
+                της κλάσης με id demoBean και θα το εισάγει στο Spring IoC container.
+            </p>
+
+            <pre>
+               <code>
+                <span class="annotation">@Component(<span class="string">"demoBean"</span>) </span>
+                <span class="keyword">public class</span> Demo {
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span> sayHello(String name){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; System.out.println(<span class="string">"Hello "</span> + name);
+                    &emsp;&emsp;&emsp;&emsp;}
+
+                }
+               </code>
+           </pre>
+
+            <pre>
+              <code>
+               <span class="keyword">public class</span> Main {
+
+                &emsp;&emsp;&emsp;&emsp;<span class="keyword">public static void</span> main(String args[]) {
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Demo bean = (Demo) context.getBean(<span class="string">"demoBean"</span>);
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;bean.sayHello(<span class="string">"Kostas"</span>)
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.close();
+                &emsp;&emsp;&emsp;&emsp;}
+             }
+             </code>
+            </pre>
         </section>
 
         
