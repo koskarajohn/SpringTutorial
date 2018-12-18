@@ -16,7 +16,6 @@ h5{
     font-weight: bold;
 }
 
-
 a {
     color: #BD5D38;
 }
@@ -25,9 +24,21 @@ a:hover, a:focus, a:active {
     color: #824027;
 }
 
+h6{
+    font-size:18px;
+    font-style: 600;
+}
+
 span.highlight{
     font-size: 16px;
     font-weight: 200;
+    font-style: italic;
+}
+
+section{
+    margin-top:48px;
+    padding-left:48px;
+    padding-right:48px;
 }
 
 pre {
@@ -61,6 +72,16 @@ pre code span.comments{
 
 pre code span.this{
     color : #DAA520;
+}
+
+table.scope{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.scope td, table.scope th{
+    border: 1px solid black;
+    padding:8px;
 }
 
 /* --- Side Nav --- */
