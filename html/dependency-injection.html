@@ -85,12 +85,12 @@
                      <code>
                          <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
  
-                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
-                         <span class="keyword">private</span> MovieFinder movieFinder;
+                         &emsp;&emsp;&emsp;&emsp;<span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> MovieFinder movieFinder;
  
-                         <span class="keyword">public</span> SimpleMovieLister() {
-                             <span class="this">  this</span>.movieFinder = <span class="keyword">new</span> MovieFinder();
-                         }
+                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> SimpleMovieLister() {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="this">  this</span>.movieFinder = <span class="keyword">new</span> MovieFinder();
+                        &emsp;&emsp;&emsp;&emsp;}
 
                          }
                      </code>
@@ -112,13 +112,13 @@
                     <code>
                         <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
 
-                        <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
-                        <span class="keyword">private</span> MovieFinder movieFinder;
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> MovieFinder movieFinder;
 
-                        <span class="comments">// Χρησιμοποιείται κατασκευαστής, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
-                        <span class="keyword">public</span> SimpleMovieLister(MovieFinder movieFinder) {
-                        <span class="this">this</span>.movieFinder = movieFinder;
-                        }
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// Χρησιμοποιείται κατασκευαστής, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> SimpleMovieLister(MovieFinder movieFinder) {
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="this">this</span>.movieFinder = movieFinder;
+                        &emsp;&emsp;&emsp;&emsp;}
 
                         }
                     </code>
@@ -136,13 +136,13 @@
                      <code>
                          <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
  
-                         <span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
-                         <span class="keyword">private</span> MovieFinder movieFinder;
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// Η κλάση SimpleMovieLister εξαρτάται από τη MovieFinder</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> MovieFinder movieFinder;
  
-                         <span class="comments">// Χρησιμοποιείται η μέθοδος setter, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
-                         <span class="keyword">public void</span> setMovieFinder(MovieFinder movieFinder) {
-                         <span class="this">this</span>.movieFinder = movieFinder;
-                         }
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// Χρησιμοποιείται η μέθοδος setter, ώστε το Spring Container να κάνει inject ένα στιγμιότυπο Moviefinder.</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span> setMovieFinder(MovieFinder movieFinder) {
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="this">this</span>.movieFinder = movieFinder;
+                                &emsp;&emsp;&emsp;&emsp;}
  
                          }
                      </code>
@@ -161,9 +161,9 @@
                      <code>
                          <span class="keyword">public class</span> <span class="classname"></span>SimpleMovieLister {
  
-                         <span class="comments">// Το Spring κάνει inject ενα στιγμιότυπο movieFinder.</span>
-                         <span class="annotation">@Autowired</span>
-                         <span class="keyword">private</span> MovieFinder movieFinder;
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// Το Spring κάνει inject ενα στιγμιότυπο movieFinder.</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> MovieFinder movieFinder;
  
                          }
                      </code>
