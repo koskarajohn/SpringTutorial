@@ -65,10 +65,10 @@
 
     <div class="container-fluid content">
 
-        <section class="mt-5 px-5">
-            <h1 class="text-center">Dependency Injection</h1>
+        <h1 class="text-center">Dependency Injection</h1>
 
-            <h5 class="mt-5">Dependency injection</h5>
+        <section class="intro">
+           <h5 class="mt-5">Dependency injection</h5>
 
            <p>Ο κώδικας είναι πιο "καθαρός" εφμόζοντας DI και το decoupling, είναι πιο αποτελεσματικό, όταν στα αντικείμενα παρέχονται
                οι εξαρτήσεις τους. Τα αντικείμενα δεν ψάχνουν τις εξαρτήσεις τους και δεν γνωρίζουν την τοποθεσία ή την κλάση των εξαρτήσεων.
@@ -77,8 +77,10 @@
            </p>
 
            <p>Υπάρχουν δύο είδη dependency injection : <strong>Constructor-based</strong> dependency injection και <strong>Setter-based</strong> dependency injection.</p>
+        </section>
 
-           <h5 class="mt-4">Χωρίς dependency injection</h5>
+        <section class="no-dependency-injection">
+            <h5 class="mt-4">Χωρίς dependency injection</h5>
 
            <p>
                 <pre>
@@ -100,8 +102,10 @@
             <p>Η κλάση SimpleMovieLister χρησιμοποιεί ένα στιγμιότυπο της κλάσης MovieFinder και παρέχει η ίδια ένα στιγμιότυπο
                 στο κώδικα, χρησιμοποιώντας το keyword new και τον κατασκευαστή MovieFinder().
             </p>
+        </section>
 
-           <h5 class="mt-5">Constructor-based Dependency Injection</h5>
+        <section class="constructor-dependency-injection">
+            <h5 class="mt-5">Constructor-based Dependency Injection</h5>
 
            <p>Το Constructor-based DI πραγματοποιείται από το Container, καλώντας έναν κατασκευαστή με έναν αριθμό παραμέτρων, όπου το 
                καθένα αναπαριστά μια εξάρτηση.
@@ -124,8 +128,10 @@
                     </code>
                 </pre>
            </p>
+        </section>
 
-           <h5 class="mt-5">Setter-based Dependency Injection</h5>
+        <section class="setter-dependency-injection">
+            <h5 class="mt-5">Setter-based Dependency Injection</h5>
 
            <p>Το Setter-based DI πραγματοποιείται από το Container, καλώντας μεθόδους setters στα αντικείμενα, αφού καλέσουν πρώτα
                έναν κατασκευαστή χωρίς παραμέτρους ή μια μέθοδο-εργοστάσιο χωρίς παραμέτρους, για την αρχικοποίηση του αντικειμένου.
@@ -148,7 +154,9 @@
                      </code>
                  </pre>
             </p>
+        </section>
 
+        <section class="annotation-dependency-injection">
             <h5 class="mt-5">Dependency Injection με το annotation @Autowired</h5>
 
             <p>Ξεκινώντας από την έκδοση 2.5, το Spring εισήγαγε ένα νέο τρόπο, να πραγματοποιήσουμε Dependecy Injection με το annotation
@@ -170,8 +178,6 @@
                  </pre>
             </p>
         </section>
-
-        
     </div>
 
   </body>

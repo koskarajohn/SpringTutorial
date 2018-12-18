@@ -64,13 +64,12 @@
     </nav>
 
     <div class="container-fluid content">
-        <div>
-            <h1 class="text-center">Βημα 5 : JPA Configuration</h1>
-        </div>
 
-        <section class="intro px-5 mt-5">
+        <h1 class="text-center">Βημα 5 : JPA Configuration</h1>
 
-            <h5 class="mt-4">PostgreSQL</h5>
+        <section class="intro ">
+
+            <h5>PostgreSQL</h5>
 
             <p>
                 Η εφαρμογή μας θα χρειαστεί μια βάση δεδομένων, για να αποθηκεύσουμε δεδομένα όπως προιόντα. Το Heroku παρέχει
@@ -120,16 +119,16 @@
                 Για να χρησιμοποιήσουμε το JPA, χρείαζεται να προσθέσουμε στο αρχείο pom.xml, τα ακόλουθα dependencies
                 <pre>
                     <code>
-                        <dependency>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-starter-data-jpa</artifactId>
-                        </dependency>
+                        <span class="annotation">&#60;dependency&#62;</span>
+                        <span class="annotation">&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
+                        <span class="annotation">&#60;artifactId&#60;</span> spring-boot-starter-data-jpa <span class="annotation">&#60;/artifactId&#62;</span>
+                        <span class="annotation">&#60;/dependency&#62;</span>
 
-                        <dependency>
-                            <groupId>org.postgresql</groupId>
-                            <artifactId>postgresql</artifactId>
-                            <scope>runtime</scope>
-                        </dependency>
+                        <span class="annotation">&#60;dependency&#62;</span>
+                        <span class="annotation">&#60;groupId&#62;</span> org.postgresql <span class="annotation">&#60;/groupId&#62;</span>
+                        <span class="annotation">&#60;artifactId&#62;</span> postgresql <span class="annotation">&#60;/artifactId&#62;</span>
+                        <span class="annotation">&#60;scope&#62;</span> runtime <span class="annotation">&#60;/scope&#62;</span>
+                        <span class="annotation">&#60;/dependency&#62;</span>
                     </code>
                 </pre>
                 Ο προεπιλεγμένος persistence provider είναι το Hibernate. Επειδή το Spring Data JPA βρίσκεται στο classpath, το Spring Data JPA
@@ -137,7 +136,7 @@
             </p>
         </section>
 
-        <section class="configuration px-5 mt-5">
+        <section class="configuration">
             <h5 class="mt-4">JPA Configuration</h5>
 
             <p>

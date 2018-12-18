@@ -65,31 +65,34 @@
     </nav>
 
     <div class="container-fluid content">
-        <div>
-            <h1 class="text-center">Βημα 4 : Δημιουργια βασης δεδομενων PostgreSQL στο Heroku</h1>
-        </div>
 
-        <section class="px-5 mt-5">
+        <h1 class="text-center">Βημα 4 : Δημιουργια βασης δεδομενων PostgreSQL στο Heroku</h1>
 
-                <h5 class="mt-4">Δημουργία add-on</h5>
+        <section class="create-addon">
+            <h5 class="mt-4">Δημουργία add-on</h5>
 
-                <ol>
-                    <li>Κάνουμε <a href="https://id.heroku.com/login">στο λογαριασμό μας στο Heroku</a>.</li>
-                    <li>Επιλέγουμε την εφαρμογή <strong>springeshop</strong> από την λίστα των εφαρμογών</li>
-                    <li>Πατάμε στην καρτέλα <strong>Resources</strong></li>
-                    <li>Κάτω από το <strong>Add-ons</strong>, πληκτρολογούμε <strong>Heroku Postgres</strong> στο πεδίο αναζήτησης και κάνουμε κλικ</li>
-                    <li>Στο Popup παράθυρο που εμφανίζεται, πατάμε <strong>Provision</strong></li>
-                </ol>
+            <ol>
+                <li>Κάνουμε <a href="https://id.heroku.com/login">στο λογαριασμό μας στο Heroku</a>.</li>
+                <li>Επιλέγουμε την εφαρμογή <strong>springeshop</strong> από την λίστα των εφαρμογών</li>
+                <li>Πατάμε στην καρτέλα <strong>Resources</strong></li>
+                <li>Κάτω από το <strong>Add-ons</strong>, πληκτρολογούμε <strong>Heroku Postgres</strong> στο πεδίο αναζήτησης και κάνουμε κλικ</li>
+                <li>Στο Popup παράθυρο που εμφανίζεται, πατάμε <strong>Provision</strong></li>
+            </ol>
+        </section>
 
-                <h5 class="mt-4">PostgreSQL</h5>
+        <section class="postgres">
+            <h5 class="mt-4">PostgreSQL</h5>
 
-                <ol>
-                    <li>Πρέπει, να καταβέσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL</a></li>
-                    <li>Επιλέγουμε την έκδοση <strong>PostgreSQL 10.4</strong>, το λειτουργικό σύστημα και πάταμε <strong>Download Now</strong>.</li>
-                    <li>Αφού κατεβεί, κάνουμε διπλό κλικ στο αρχείο <strong>postgresql-10.4-1-windows-x64.exe</strong></li>
-                    <li>Στη καρτέλα <strong>Select Components</strong>, το <strong>pgAdmin 4</strong> πρέπει να είναι επιλεγμένο</li>
-                    <li>Στη καρτέλα <strong>Password</strong>, ζητάει κωδικό για την βάση στο localhost και όχι στο Heroku</li>
-                </ol>
+            <ol>
+                <li>Πρέπει, να καταβέσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL</a></li>
+                <li>Επιλέγουμε την έκδοση <strong>PostgreSQL 10.4</strong>, το λειτουργικό σύστημα και πάταμε <strong>Download Now</strong>.</li>
+                <li>Αφού κατεβεί, κάνουμε διπλό κλικ στο αρχείο <strong>postgresql-10.4-1-windows-x64.exe</strong></li>
+                <li>Στη καρτέλα <strong>Select Components</strong>, το <strong>pgAdmin 4</strong> πρέπει να είναι επιλεγμένο</li>
+                <li>Στη καρτέλα <strong>Password</strong>, ζητάει κωδικό για την βάση στο localhost και όχι στο Heroku</li>
+            </ol>
+        </section>
+        
+        <section class="heroku-connection">
 
                 <h5 class="mt-4">Απομακρυσμένη σύνδεση στο Heroku</h5>
 
