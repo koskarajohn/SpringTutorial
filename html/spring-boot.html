@@ -93,7 +93,8 @@
 
             <p>Το Spring Boot προσπαθεί αυτόματα, να ρυθμίσει την εφαρμογή, βασιζόμενο στα jar dependencies της εφαρμογής. Για παράδειγμα, εάν
                 το Thymeleaf βρίσκεται στο classpath, τότε το Spring Boot ρυθμίζει το Thymeleaf ως το view option για το Spring MVC και δημιουργεί τα
-                beans, τα οποία περιέχει η παρακάτω configuration κλάση.
+                beans, τα οποία περιέχει η παρακάτω configuration κλάση. Έτσι, μειώνεται ο χρόνος του configuration και γίνεται πιο γρήγορα η διαδικασία
+                ανάπτυξης της εφαρμογής.
             </p>
 
             <pre>
@@ -134,7 +135,30 @@
             </pre>
         </section>
 
-        
+        <section class="spring-starter-dependencies">
+
+            <h5>Spring Starter Dependencies</h5>
+
+            <p>Η διαχείρηση των dependencies γίνεται πολύπλοκη σε μεγάλα projects. Το Spring Boot λύνει αυτό το πρόβλημα, παρέχοντας
+                ένα σύνολο από Spring Boot starters, για να διευκολύνει τους developers. Τα Starter POMS είναι ένα σύνολο από βολικούς περιγραφείς
+                των dependencies. Εάν κάποιος θέλει, να γράψει ένα REST API, τότε πρέπει
+                να εισάγει στο pom.xml, το ακόλουθο dependency και το Spring Boot θα προσθέσει στο classpath τα dependencies : spring-web, spring-webmvc,
+                hibernate-validator, spring-boot-starter, spring-boot-starter-json και spring-boot-starter-tomcat.
+            </p>
+
+            <pre>
+                <code>
+                    <span class="annotation">&#60;dependency&#62;</span>
+                    &emsp;&emsp;<span class="annotation">&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
+                    &emsp;&emsp;<span class="annotation">&#60;artifactId&#60;</span> spring-boot-starter-web <span class="annotation">&#60;/artifactId&#62;</span>
+                    <span class="annotation">&#60;/dependency&#62;</span>
+                </code>
+            </pre>
+
+            <p>Ο αριθμός των dependencies, που πρέπει να προσθέσουμε μειώνεται. Επίσης, το Spring Boot επιλέγει ποιες εκδόσεις των βιβλιοθηκών, να χρησιμοποιήσει
+                και δεν υπάρχει έτσι κίνδυνος ασυμβατότητας μεταξύ τους.
+            </p>
+        </section>
     </div>
 
   </body>
