@@ -44,6 +44,9 @@
                     <a class="nav-link" href="annotations.html">Annotations</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="spring-boot.html">Spring Boot</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="step2.html">Βημα 2</a>
                 </li>
                 <li class="nav-item">
@@ -69,19 +72,19 @@
             <h1 class="text-center">Spring Beans</h1>
 
             <p>Στο Spring, τα αντικείμενα που αποτελούν τη ραχοκοκαλιά της εφαρμογής και διαχειρίζονται από το Spring IoC Container
-                λέγονται <span class="highlight">beans</span>. Το bean είναι ένα αντικείμενο, το οποίο αρχικοποιείται, δημιουργείται και διαχείριζεται από το Spring IoC container.
-                Αλλιώς, είναι ένα από τα πολλά αντικείμενα τις εφαρμογής.
+                λέγονται <span class="bold">beans</span>. Το bean είναι <span class="bold">ένα αντικείμενο</span>, το οποίο αρχικοποιείται, δημιουργείται 
+                και διαχείριζεται από το <span class="bold">Spring IoC container</span>. Αλλιώς, είναι ένα από τα πολλά αντικείμενα τις εφαρμογής.
             </p>
 
             <p>
-                Μέσα στο Spring Container, τα bean definitions αναπαρίστανται ως BeanDefinititon αντικείμενα, τα οποία περιέχουν τα ακόλουθα
+                Μέσα στο Spring Container, τα <span class="bold">bean</span> definitions αναπαρίστανται ως <span class="bold">BeanDefinititon</span> αντικείμενα, τα οποία περιέχουν τα ακόλουθα
                 μεταδεδομένα :
                 <ul>
-                    <li>Ένα package-qualified όνομα κλάσης : συνήθως της πραγματικής κλάσης-υλοποίησης του bean, το οποίο ορίζεται.</li>
-                    <li>Συμπεριφορικά στοιχεία ρυθμίσεων του bean, τα οποία περιέχουν πως πρέπει, να συμπεριφέρεται το bean στο container(
+                    <li>Ένα package-qualified <span class="bold">όνομα κλάσης</span> : συνήθως της πραγματικής κλάσης-υλοποίησης του bean, το οποίο ορίζεται.</li>
+                    <li>Συμπεριφορικά <span class="bold">στοιχεία ρυθμίσεων</span> του bean, τα οποία περιέχουν πως πρέπει, να συμπεριφέρεται το bean στο container(
                         scope, lifecycle callbacks)
                     </li>
-                    <li>Αναφορές σε άλλα beans, τα οποία χρειάζονται, για να δουλέψει το bean. Οι αναφορές λέγονται και collaborators ή εξαρτήσεις.</li>
+                    <li><span class="bold">Αναφορές</span> σε άλλα beans, τα οποία χρειάζονται, για να δουλέψει το bean. Οι αναφορές λέγονται και collaborators ή εξαρτήσεις.</li>
                     <li>Άλλες ρυθμίσεις που χρειάζεται το bean.</li>
                 </ul>
             </p>   
@@ -91,17 +94,17 @@
         <section class="naming">
             <h5 class="text-center">Ονομασία των beans</h5>
 
-            <p>Κάθε bean έχει ένα ή περισσότερα αναγνωριστικά. Τα αναγνωριστικά πρέπει, να είναι μοναδικά μέσα στο container, το οποίο φιλοξενεί το bean.
-                Συνήθως κάθε bean έχει ένα μόνο αναγνωριστικό.
+            <p>Κάθε <span class="bold">bean</span> έχει ένα ή περισσότερα <span class="bold">αναγνωριστικά</span>. Τα αναγνωριστικά πρέπει, να είναι <span class="bold">μοναδικά μέσα στο container</span>
+                , το οποίο φιλοξενεί το bean. Συνήθως κάθε bean έχει ένα μόνο αναγνωριστικό.
             </p>
 
-            <p>Στη περίπτωση του XML configuration, χρησιμοποιούμε το id attribute, το name attribute ή και τα δύο για το αναγνωριστικό του bean.
+            <p>Στη περίπτωση του <span class="bold">XML configuration</span>, χρησιμοποιούμε το <span class="bold">id attribute</span>, το <span class="bold">name attribute</span>  ή και τα δύο για το αναγνωριστικό του bean.
                 Το id attribute μας επιτρέπει, να δηλώσουμε ένα μόνο id. Τα ονόματα μπορούν, να περιέχουν απλούς χαρακτήρες <span class="highlight">('myBean')</span>, αλλά και ειδικούς χαρακτήρες.
                 Στην περιπτώση των annotations, δηλώνουμε το αναγνωριστικό στην παράμετρο, που παίρνουν :  <span class="highlight">@Component('myBean')</span>, 
                 <span class="highlight">@Bean('myBean')</span>, <span class="highlight">@Service('myBean')</span> κλπ.
             </p>
 
-            <p>Η δήλωση αναγνωριστικού για το bean δεν είναι υποχρεωτική. Εάν δηλώσουμε ρητά το id ή το name, το container παράγει ένα μοναδικό όνομα για το bean.
+            <p>Η δήλωση αναγνωριστικού για το bean <span class="bold">δεν είναι υποχρεωτική</span>. Εάν δηλώσουμε ρητά το id ή το name, το container παράγει ένα μοναδικό όνομα για το bean.
                 Εάν θέλουμε, να αναφερθούμε στο bean μέσω ονόματος,χρησιμοποιώντας το ref element, τότε πρέπει, δώσουμε ένα όνομα.
             </p>
 

@@ -26,13 +26,17 @@ a:hover, a:focus, a:active {
 
 h6{
     font-size:18px;
-    font-style: 600;
+    font-weight: bold;
 }
 
 span.highlight{
     font-size: 16px;
     font-weight: 200;
     font-style: italic;
+}
+
+span.bold{
+    font-weight: bold;
 }
 
 section{

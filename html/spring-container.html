@@ -44,6 +44,9 @@
                     <a class="nav-link" href="annotations.html">Annotations</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="spring-boot.html">Spring Boot</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="step2.html">Βημα 2</a>
                 </li>
                 <li class="nav-item">
@@ -70,23 +73,23 @@
         <section class="intro">
            <h5 class="mt-5">Introduction to the Spring IoC Container and Beans</h5>
 
-           <p>Η αντιστροφή των εξαρτήσεων (IoC) είναι γνωστή και ως dependency injection (DI). Είναι μια διαδικασία, στην οποία τα αντικείμενα
-               ορίζουν τις εξαρτήσεις τους (τα άλλα αντικείμενα με τα οποία δουλεύουν), μόνο μέσω παραμέτρων κατασκευαστή, παραμέτρων σε μια μέθοδο-
+           <p>Η <span class="bold">αντιστροφή των εξαρτήσεων</span> (IoC) είναι γνωστή και ως <span class="bold">dependency injection</span> (DI). Είναι μια διαδικασία, στην οποία 
+            <span class="bold">τα αντικείμενα ορίζουν τις εξαρτήσεις τους</span> (τα άλλα αντικείμενα με τα οποία δουλεύουν), μόνο μέσω παραμέτρων κατασκευαστή, παραμέτρων σε μια μέθοδο-
                εργοστάσιου ή μέσω properties, τα οποία ορίζονται στο στιγμιότυπο αντικειμένου, αφού αυτό κατασκευαστεί ή επιστραφεί από μέθοδο-εργοστάσιο.
-               Το container ύστερα κάνει inject τις εξαρτήσεις, όταν δημιουργεί το bean. Η διαδικασία είναι ουσιαστικά η αντίστροφη, από το να ελέγχει
-               το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του, χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
+               Το container ύστερα κάνει inject τις εξαρτήσεις, όταν δημιουργεί το bean. Η διαδικασία είναι ουσιαστικά η <span class="bold"></span>αντίστροφη, από το 
+               <span class="bold">να ελέγχει το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του</span> , χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
            </p>
 
-           <p>Τα πακέτα org.springframework.beans και org.springframework.context είναι η βάση του Spring IoC container. Η διεπαφή
+           <p>Τα πακέτα <span class="bold">org.springframework.beans</span> και <span class="bold">org.springframework.context</span> είναι η βάση του Spring IoC container. Η διεπαφή
                BeanFactory παρέχει έναν προχωρημένο μηχανισμό ρύθμισεων, ο οποίος είναι ικανός, να διαχειρίζεται οποιοδήποτε τύπο
                αντικειμένου. Το πακέτο ApplicationContext είναι sub-interface του BeanFactory. To πακέτο BeanFactory παρέχει το configuration
                framework και τη βασική λειτουργικότητα, ενώ το ApplicationContext περισσότερο enterprise λειτουργικότητα.
            </p>
 
-           <p>Το interface org.springframework.context.ApplicationContext αντιπροσωπεύει το Spring IoC container και είναι υπεύθυνο,
-              για την αρχικοποίηση, ρύθμιση και συναρμολόγηση των αντικειμένων. Το container παίρνει τις οδηγίες, ως προς ποια αντικείμενα
+           <p>Το interface <span class="bold">org.springframework.context.ApplicationContext</span> αντιπροσωπεύει <span class="bold">το Spring IoC container</span> και είναι υπεύθυνο,
+              για την <span class="bold">αρχικοποίηση</span>, <span class="bold">ρύθμιση</span> και <span class="bold">συναρμολόγηση των αντικειμένων</span>. Το container παίρνει τις οδηγίες, ως προς ποια αντικείμενα
               να αρχικοποιήσει, να ρυθμίσει και να συναρμολογήσει, διαβάζοντας τα configuration metadata. Τα configuration metadata αναπαρίστανται
-              με XML, Java annotations ή με κώδικα Java.
+              με <span class="bold">XML</span>, <span class="bold">Java annotations</span> ή με <span class="bold">κώδικα Java</span>.
            </p>
 
            <img class="img_fluid d-block mx-auto mt-3" src="../img/spring_ioc_container.png" alt="Spring Ioc Container">
