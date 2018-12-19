@@ -92,7 +92,8 @@
             <h5>Spring Boot Auto-Configuration</h5>
 
             <p>Το Spring Boot προσπαθεί αυτόματα, να ρυθμίσει την εφαρμογή, βασιζόμενο στα jar dependencies της εφαρμογής. Για παράδειγμα, εάν
-                το Thymeleaf βρίσκεται στο classpath, τότε το Spring Boot ρυθμίζει το Thymeleaf ως το view option για το Spring MVC.
+                το Thymeleaf βρίσκεται στο classpath, τότε το Spring Boot ρυθμίζει το Thymeleaf ως το view option για το Spring MVC και δημιουργεί τα
+                beans, τα οποία περιέχει η παρακάτω configuration κλάση.
             </p>
 
             <pre>
@@ -106,11 +107,26 @@
                         &emsp;&emsp;&emsp;&emsp;private ApplicationContext applicationContext;
 
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
-                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ViewResolver viewResolver() {
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> SpringResourceTemplateResolver templateResolver() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SpringResourceTemplateResolver templateResolver = <span class="keyword">new</span> SpringResourceTemplateResolver();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;templateResolver.setApplicationContext(applicationContext);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;templateResolver.setSuffix(".html");
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> templateResolver;
+                        &emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> SpringTemplateEngine  templateEngine() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SpringTemplateEngine templateEngine  = <span class="keyword">new</span> SpringTemplateEngine();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;templateEngine.setTemplateResolver(templateResolver());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;templateEngine.setEnableSpringELCompiler(true);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> templateEngine ;
+                        &emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> configureViewResolvers(ViewResolverRegistry registry) {
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ThymeleafViewResolver resolver = <span class="keyword">new</span> ThymeleafViewResolver();
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;resolver.setTemplateEngine(templateEngine());
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;resolver.setCharacterEncoding(<span class="string">"UTF-8"</span>);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> resolver;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;registry.viewResolver(resolver);
                         &emsp;&emsp;&emsp;&emsp;}
 
                     }
