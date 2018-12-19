@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Springb Boot</title>
+    <title>Spring Boot</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -70,9 +70,52 @@
 
         <h1 class="text-center">Τι είναι το Spring Boot</h1>
 
-        <section>
+        <section class="intro">
 
-            
+            <p>Το Spring Boot είναι ένα open source, Java framework, το οποίο επιτρέπει στους developers, να αναπτύσσουν 
+                stand-alone και επιπέδου production εφαρμογές, τις οποίες απλά τις τρέχει κάποιος. Οι περισσότερες εφαρμογές Spring
+                χρειάζονται πολύ λίγες ρυθμίσεις του Spring.
+            </p>
+
+            <h5>Στόχοι του Spring Boot</h5>
+
+            <ul>
+                <li>Η αποφυγή το πολύπλοκου XML configuration του Spring</li>
+                <li>Η ανάπτυξη production ready Spring εφαρμογών, με τον ευκολότερο τρόπο</li>
+                <li>Η μείωση του χρόνου της ανάπτυξης της εφαρμογής </li>
+                <li>Η παροχή ενός ευκολότερο τρόπου, έναρξης της διαδικασίας, ανάπτυξης της εφαρμογής.</li>
+            </ul>
+        </section>
+
+        <section class="how-does-it-work">
+
+            <h5>Spring Boot Auto-Configuration</h5>
+
+            <p>Το Spring Boot προσπαθεί αυτόματα, να ρυθμίσει την εφαρμογή, βασιζόμενο στα jar dependencies της εφαρμογής. Για παράδειγμα, εάν
+                το Thymeleaf βρίσκεται στο classpath, τότε το Spring Boot ρυθμίζει το Thymeleaf ως το view option για το Spring MVC.
+            </p>
+
+            <pre>
+                <code>
+                    <span class="annotation">@Component</span>
+                    <span class="annotation">@EnableWebMvc</span>
+                    <span class="annotation">@Component(<span class="string">"com.springeshop"</span>) </span>
+                    <span class="keyword">public class</span> ThymeleafConfig <span class="keyword"></span>implements WebMvcConfigurer, ApplicationContextAware{
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;private ApplicationContext applicationContext;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ViewResolver viewResolver() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ThymeleafViewResolver resolver = <span class="keyword">new</span> ThymeleafViewResolver();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;resolver.setTemplateEngine(templateEngine());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;resolver.setCharacterEncoding(<span class="string">"UTF-8"</span>);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> resolver;
+                        &emsp;&emsp;&emsp;&emsp;}
+
+                    }
+                </code>
+            </pre>
         </section>
 
         
