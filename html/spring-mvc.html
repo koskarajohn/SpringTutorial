@@ -128,25 +128,54 @@
 
                             &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
                             &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Class&#60;?&#62;[] getRootConfigClasses() {
-                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Class&#60;?&#62;[] { RootConfig.class };
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> null;
                             &emsp;&emsp;&emsp;&emsp;}
 
                             &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
                             &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Class&#60;?&#62;[] getServletConfigClasses() {
-                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Class&#60;?&#62;[] { App1Config.class };
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Class&#60;?&#62;[] { MyWebConfig.class };
                             &emsp;&emsp;&emsp;&emsp;}
 
                             &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
                             &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String[] getServletMappings() {
-                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> String[] { <span class="string">"/app1/*"</span> };
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> String[] { <span class="string">"/"</span> };
                             &emsp;&emsp;&emsp;&emsp;}
                         }
                 </code>
             </pre>
 
+            <p>Εάν χρησιμοποιούμε Spring Boot, χρησιμοποιώντας το starter dependency <span class="highlight">spring-boot-starter-web</span>, το Spring Boot
+            παρέχει το configuration και δημιουργεί το DispatcherServlet για εμάς.</p>
         </section>
 
-        
+        <section class="controllers">
+            <h5>Annotated Controllers</h5>
+
+            <p>Το Spring MVC παρέχει ένα annotation-based προγραμματιστικό μοντέλο, όπου τα @Controller και @RestController components, 
+                χρησιμοποιούν annotations, για να δηλώσουν request mappings, request input, exception handling κ.α. Οι annotated controllers έχουν
+                ευέλικτες υπογραφές μεθόδων και όυτε κάνουν extend base κλάσεις, ούτε υλοποιούν συγκεκριμένες διεπαφές.
+            </p>
+
+            <p>Μπορούμε, να δηλώσουμε controller beans, χρησιμοποιώντας τον τυπικό τρόπο ορισμού των Spring beans, στο WebApplicationContext του Servlet.
+                Το @Controller stereotype καθιστά δυνατή, την εύρεση του controller bean από το μηχανισμό εύρεσης components του Spring και υποδεικνύει
+                ότι είναι ένα web component. Το παρακάτω παράδειγμα δείχνει έναν controller, που ορίζεται με annotations;
+            </p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@Controller</span>
+                        <span class="keyword">public class</span> HelloController {
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String handle (Model model) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;model.addAttribute(<span class="string">"message"</span>, <span class="string">"Hello World!"</span>);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> <span class="string">"index"</span>;
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+        </section>
     </div>
 
   </body>
