@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Βημα 6 : Δημιουργία Amazon S3 account</title>
+    <title>Spring MVC</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -71,16 +71,26 @@
 
     <div class="container-fluid content">
 
-        <h1 class="text-center">Βημα 5 : Δημιουργία Amazon S3 account</h1>
+        <h1 class="text-center">Spring MVC</h1>
 
-        <section class="create-account">
+        <section class="intro">
 
-            <h5 class="mt-4">Δημιουργία λογαριαμού</h5>
+            <p>To Spring Web MVC framework παρέχει το μοντέλο αρχικτονικής Model-View-Controller(MVC) και έτοιμα components, ώστε
+                να δημιουργήσουμε ευέλικτες και με χαμηλή σύζευξη εφαρμογές To MVC pattern διαχωρίζει τα διάφορα κομμάτια της εφαρμογής 
+                (input logic, business logic και UI logic) και παρέχει χαμηλή σύζευξη μεταξύ αυτών των στοιχείων.</p>
 
-            <ol class="mt-4">
-                <li>Πηγαίνουμε στην <a href="https://aws.amazon.com/free/">ιστοσελίδα του Amazon Web Services</a> και πατάμε Create a Free Account.</li>
-                <li></li>
-            </ol>
+            <ul>
+                <li>Το <span class="bold">Model</span> ενθυλακώνει τα <span class="bold">δεδομένα της εφαρμογής</span> και γενικά αποτελείται από τα POJOs.</li>
+                <li>Το <span class="bold">View</span> είναι υπεύθυνο για την <span class="bold">εμφανίση των δεδομένω του Model</span> και γενικά το τελικό προιόν που παράγει, είναι HTML, 
+                    την οποία μπορεί, να μεταφράσει ο browser του client.
+                </li>
+                <li>Ο <span class="bold">Controller</span> είναι υπεύθυνος για την <span class="bold">διαχείριση των αιτημάτων</span> του χρήστη, 
+                    την <span class="bold">δημιουργία του κατάλληλου Model</span>, το οποίο <span class="bold">περνάει στο View</span>, έτσι ώστε να το εμφανίσει.
+                </li>
+            </ul>
+
+            <img class="img-fluid d-block mx-auto my-5" src="../img/mvc-diagram.png" alt="Mvc Diagram">
+            
         </section>
 
         
