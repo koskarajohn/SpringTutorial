@@ -39,6 +39,12 @@ span.bold{
     font-weight: bold;
 }
 
+span.code{
+    letter-spacing: 0.25px;
+    color: #212529;
+    background-color: #F0F0F0;
+}
+
 section{
     margin-top:64px;
     padding-left:48px;

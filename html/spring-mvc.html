@@ -151,13 +151,13 @@
         <section class="controllers">
             <h5>Annotated Controllers</h5>
 
-            <p>Το Spring MVC παρέχει ένα annotation-based προγραμματιστικό μοντέλο, όπου τα @Controller και @RestController components, 
+            <p>Το Spring MVC παρέχει ένα annotation-based προγραμματιστικό μοντέλο, όπου τα <span class="code">@Controller</span> και <span class="code">@RestController</span> components, 
                 χρησιμοποιούν annotations, για να δηλώσουν request mappings, request input, exception handling κ.α. Οι annotated controllers έχουν
                 ευέλικτες υπογραφές μεθόδων και όυτε κάνουν extend base κλάσεις, ούτε υλοποιούν συγκεκριμένες διεπαφές.
             </p>
 
             <p>Μπορούμε, να δηλώσουμε controller beans, χρησιμοποιώντας τον τυπικό τρόπο ορισμού των Spring beans, στο WebApplicationContext του Servlet.
-                Το @Controller stereotype καθιστά δυνατή, την εύρεση του controller bean από το μηχανισμό εύρεσης components του Spring και υποδεικνύει
+                Το <span class="code">@Controller</span> stereotype καθιστά δυνατή, την εύρεση του controller bean από το μηχανισμό εύρεσης components του Spring και υποδεικνύει
                 ότι είναι ένα web component. Το παρακάτω παράδειγμα δείχνει έναν controller, που ορίζεται με annotations;
             </p>
 
@@ -170,6 +170,56 @@
                             &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String handle (Model model) {
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;model.addAttribute(<span class="string">"message"</span>, <span class="string">"Hello World!"</span>);
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> <span class="string">"index"</span>;
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+
+            <p>Η μέθοδος δέχεται ένα Model και επιστρέφει ένα όνομα view ως String.</p>
+
+            <p>Το <span class="code">@RestController</span> είναι ένα σύνθετο annotation, το οποίο περιέχει τα annotations <span class="code">@Controller</span> και 
+                <span class="code">@ResponseBody</span> και υποδεικνύει έναν controller, του οποίου όλες οι μέθοδοι κληρονομούν το type-level 
+                <span class="code">@ResponseBody</span> annotation, όποτε γράφουν κατευθείαν στο response body και δεν κάνουν render ένα HTML template.</p>
+        </section>
+
+        <section class="request-mapping">
+            <h5>Request Mapping</h5>
+
+            <p>Το annotation <span class="code">@RequestMapping</span> χρησιμοποιείται για την αντιστοίχιση αιτημάτων με μεθόδους του controller. Έχει διάφορα attributes,
+                ώστε να πραγματοποιείται αντιστοίχιση σύμφωνα με την HTTP μέθοδο, τα request paremeters, τα headers και media types. Μπορεί να χρησιμοποιηθεί
+                σε επίπεδο κλάσης, ώστε να εκφράσει μοιραζόμενες αντιστοιχίσεις ή σε επίπεδο μεθόδου, για να αντιστοιχιστεί με ένα συγκεκριμένο endpoint.
+            </p>
+
+            <p>Υπάρχουν επίσης συντομεύσεις του <span class="code">@RequestMapping</span>, ανάλογα με την HTTP μέθοδο :</p>
+
+            <ul>
+                <li><span class="code">@GetMapping</span></li> 
+                <li><span class="code">@PostMapping</span></li> 
+                <li><span class="code">@PutMapping</span></li> 
+                <li><span class="code">@DeleteMapping</span></li> 
+                <li><span class="code">@PatchMapping</span></li> 
+            </ul>
+
+            <p>Το επόμενο παράδειγμα έχει mapping επιπέδου τύπου και μεθόδου:</p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@RestController</span>
+                        <span class="annotation">@RequestMapping(</span><span class="string">"/persons"</span>)
+                        <span class="keyword">public class</span> PersonController {
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// GET /persons/11</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span><span class="string">"/{id}"</span>)
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Person getPerson (<span class="annotation">@PathVariable</span> Long id) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// POST /persons</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@PostMapping</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@ResponseStatus</span>(HttpStatus.CREATED)
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> void add (<span class="annotation">@RequestBody </span> Person person) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
                             &emsp;&emsp;&emsp;&emsp;}
 
                         }
