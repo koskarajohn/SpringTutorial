@@ -93,6 +93,59 @@
             
         </section>
 
+        <section class="dispatcher-servlet">
+            <h5>Dispatcher Servlet</h5>
+
+            <p>Το Spring MVC, όπως και άλλα web frameworks, είναι σχεδιασμένο γύρω από το front controller pattern, όπου ένα κεντρικό Servlet
+                , το Dispatcher Servlet, παρέχει έναν μοιραζόμενο αλγόριθμο για την επεξεργασία των αιτημάτων, ενώ η πραγματική δουλειά
+                ανατίθεται και πραγματοποιείται απο ρυθμιζόμενα components.
+            </p>
+
+            <img class="img-fluid d-block mx-auto my-5" src="../img/dispatcher-servlet.png" alt="Dispatcher Servlet">
+
+            <p>Όταν γίνεται ένα HTTP αίτημα στο <span class="highlight">DispatcherServlet</span>, πραγματοποιείται η εξής ακολουθία γεγονότων:</p>
+
+            <ol>
+                <li>Όταν λάβει ένα HTTP request, το <span class="highlight">DispatcherServlet</span> συμβουλεύεται το 
+                    <span class="highlight">HandlerMapping</span>, για να καλέσει τον κατάλληλο <span class="highlight">Controller</span>.</li>
+                <li>O <span class="highlight">Controller</span> παίρνει το αίτημα και καλεί την κατάλληλη μέθοδο, που θα το διαχειριστεί, ανάλογα με την HTTP μέθοδο. 
+                    Η μέθοδος του <span class="highlight">Controller</span> θα δημιουργήσει τα δεδομένα του <span class="highlight">Model</span>, 
+                    σύμφωνα με το business logic και θα επιστρέψει το όνομα του <span class="highlight">DispatcherServlet</span>View στο <span class="highlight">DispatcherServlet</span>.
+                </li>
+                <li>Το <span class="highlight">DispatcherServlet</span> περνάει το λογικό όνομα του <span class="highlight">View</span> στον <span class="highlight">ViewResolver</span> και 
+                    αυτος επιστρέφει την πραγματική υλοποίηση του <span class="highlight">View</span>.
+                </li>
+                <li>
+                    Το <span class="highlight">DispatcherServlet</span> περνάει τα δεδομένα στο <span class="highlight">View</span> και επιστρέφει την απάντηση στον browser του client.
+                </li>
+            </ol>
+
+            <p>Για να δημιουργήσουμε το DispatcherServlet, χρειάζεται XML ή Java Configuration. Παρακάτω δίνεται το Java configuration.</p>
+
+            <pre>
+                <code>
+                        <span class="keyword">public class</span> MyWebAppInitializer  <span class="keyword">extends</span> AbstractAnnotationConfigDispatcherServletInitializer {
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Class&#60;?&#62;[] getRootConfigClasses() {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Class&#60;?&#62;[] { RootConfig.class };
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Class&#60;?&#62;[] getServletConfigClasses() {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> Class&#60;?&#62;[] { App1Config.class };
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String[] getServletMappings() {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> String[] { <span class="string">"/app1/*"</span> };
+                            &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+        </section>
+
         
     </div>
 
