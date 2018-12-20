@@ -226,6 +226,58 @@
                 </code>
             </pre>
         </section>
+
+        <section class="url-variable">
+            <h5>URL Variables</h5>
+
+            <p>Μπορούμε να δηλώσουμε URL variable και πάρουμε την τιμή τους με το annotation <span class="code">@PathVariable</span>. </p>
+
+            <pre>
+                <code>
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="comments">// GET /owners/11/pets/20</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span><span class="string">"/owners/{ownerId}/pets/{petId}"</span>)
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Pet findPet (<span class="annotation">@PathVariable</span> Long ownerId, <span class="annotation">@PathVariable</span> Long petId) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ownerId = 11</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// petId = 20</span>
+                            &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+        </section>
+
+        <section class="media-types">
+            <h5>Consumable Media Types</h5>
+
+            <p>Μπορούμε να ορίσουμε το <span class="code">Content-Type</span> του αιτήματος. </p>
+
+            <pre>
+                <code>
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@PostMapping(</span> path = <span class="string">"/path"</span>, consumes  = <span class="string">"application/json"</span>)
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> void addPet (<span class="annotation">@RequestBody )</span> Pet pet{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+                            &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <h5 class="mt-5">Producible  Media Types</h5>
+
+            <p>Μπορούμε να ορίσουμε το περιεχόμενο της απάντησης, ανάλογα με το <span class="code">Accept</span> header του αιτήματος. </p>
+
+            <pre>
+                <code>
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span> path = <span class="string">"/pets/{petId}"</span>, produces   = <span class="string">"application/json;charset=UTF-8"</span>)
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@ResponseBody</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Pet getPet (<span class="annotation">@PathVariable  )</span> String petId{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+                            &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+        </section>
     </div>
 
   </body>
