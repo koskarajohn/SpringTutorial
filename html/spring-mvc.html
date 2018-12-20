@@ -278,6 +278,118 @@
                 </code>
             </pre>
         </section>
+
+        <section class="request-param">
+            <h5>@RequestParam</h5>
+
+            <p>Με το annotation <span class="code">@RequestParam</span>, μπορούμε να κάνουμε bind τις παραμέτρους του αιτήματος του Servlet
+            (τις παράμετρους του query ή δεδομένα της φόρμας) σε μια παραμέτρος μεθόδου ενός controller.</p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@Controller</span>
+                        <span class="annotation">@RequestMapping(</span><span class="string">"/pets"</span>)
+                        <span class="keyword">public class</span> EditPetForm  {
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String setupForm (<span class="annotation">@RequestParam(<span class="string">"petId"</span></span> int petId, Model model) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Pet pet = <span class="this">this</span>.clinic.loadPet(petId);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;model.addAttribute(<span class="string">"pet"</span>, pet);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> <span class="string">"petForm"</span>;
+                            &emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+
+            <p>Εξ' ορισμού, οι παράμετροι μεθόδων με το annotation αυτό είναι υποχρεωτικές, αλλα μπορούμε να τις κάνουμε προαιρετικές, 
+                θέτοντας το required flag την τιμή false.
+            </p>
+        </section>
+
+        <section class="multipart">
+            <h5>Multipart</h5>
+
+            <p>Αφού ενεργοποιηθεί το MultipartResolver, το περιεχόμενο των POST αιτημάτων με multipart/form-data (αρχεία, φωτογραφίες) γίνεται
+                parse και είναι προσβάσιμο ως απλή παράμετρος αιτήματος.
+            </p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@Controller</span>
+                        <span class="keyword">public class</span> FileUploadController   {
+
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">@PostMapping(</span><span class="string">"/form"</span>)
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> String handleFormUpload (<span class="annotation">@RequestParam(<span class="string">"name"</span></span>) String name, 
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(<span class="string">"file"</span></span>) MultipartFile file) {
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">if </span>(!file.isEmpty()) {
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;byte[] bytes = file.getBytes();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">store the bytes somewhere</span>// 
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> <span class="string">"redirect:uploadSuccess"</span>;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> <span class="string">"redirect:uploadFailure"</span>;
+                            &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+        </section>
+
+        <section class="request-body">
+            <h5>@RequestBody</h5>
+
+            <p>Μπορούμε να χρησιμοποιήσουμε το annotation @RequestBody, ώστε να διαβαστεί το request body και να γίνει deserialize σε ένα
+                Object μέσω του HttpMessageConverter. Εάν χρησιμοποιήσουμε και το annotation javax.validation.Valid, τότε εφαρμόζεται
+                Standard Bean Validation.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@PostMapping(</span><span class="string">"/accounts"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> void String handleFormUpload (<span class="annotation">@Valid</span> <span class="annotation">@RequestBody</span> Account account){
+                    &emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+        </section>
+
+        <section class="request-body">
+            <h5>@ResponseBody</h5>
+
+            <p>Μπορούμε να χρησιμοποιήσουμε το annotation @ResponseBody σε μια μέθοδο, ώστε η απάντηση να γίνει deserialized στο response body
+                μέσω του HttpMessageConverter.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span><span class="string">"/accounts/{id}"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@ResponseBody(</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> Account handle (){
+                    &emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+        </section>
+
+        <section class="request-body">
+            <h5>@ResponseEntity</h5>
+
+            <p>Το annotation @ResponseEntity είναι σαν το @ResponseBody, αλλά μπορούμε να επιστρέψουμε status και headers.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span><span class="string">"/accounts/{id}"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ResponseEntity&#60;?&#62 getAccount (){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Account account = ...; 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Account&#62;( account, HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+        </section>
     </div>
 
   </body>
