@@ -84,12 +84,12 @@ pre code span.this{
     color : #DAA520;
 }
 
-table.scope, table.resources, table.verbs{
+table.scope, table.resources, table.verbs, table.codes{
     width: 100%;
     border-collapse: collapse;
 }
 
-table.scope td, table.scope th, table.resources td, table.resources th, table.verbs td, table.verbs th{
+table.scope td, table.scope th, table.resources td, table.resources th, table.verbs td, table.verbs th, table.codes td, table.codes th{
     border: 1px solid black;
     padding:8px;
 }

@@ -210,10 +210,74 @@
                 <span class="string">&#60;/product&#62;</span>
                 </code>
             </pre>
-
-
-            
         </section>
+
+        <section class="status-codes">
+
+            <h5>Status Codes</h5>
+
+            <p>Κάθε απάντηση του server περιέχει και ένα status code, το οποίο ενημερώνει τον client, σχετικά με την επιτυχία της λειτουργίας.
+                Τα πιο συγκεκριμένα περιγράφονται παρακάτω.
+            </p>
+
+            <table class="codes">
+                <tr>
+                    <th>Status code</th>
+                    <th>Περιγραφή</th>
+                </tr>
+                <tr>
+                    <td><span class="bold">200 (ΟΚ)</span></td>
+                    <td>Είναι η τυπική απάντηση για τα επιτυχημένα HTTP requests.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">201 (CREATED)</span></td>
+                    <td>Είναι η τυπική απάντηση, όταν ένα HTTP request, είχε ως αποτέλεσμα τη δημιουργία ενός resource.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">204 (NO CONTENT)</span></td>
+                    <td>Είναι η τυπική απάντηση για τα επιτυχημένα HTTP requests, τα οποία έχουν κενό response body.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">400 (BAD REQUEST)</span></td>
+                    <td>Το αίτημα δεν μπορεί, να επεξεργαστεί λόγω κακής σύνταξης του αιτήματος ή κάποιου σφάλματος του client.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">403 (FORBIDDEN)</span></td>
+                    <td>Ο client δεν έχει άδεια πρόσβασης, σε αυτό το resource.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">404 (NOT FOUND)</span></td>
+                    <td>Το resource δεν βρέθηκε. Μπορεί, να διαγράφηκε ή να μην έχει δημιουργηθεί ακόμα.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">500 (INTERNAL SERVER ERROR)</span></td>
+                    <td>Είναι μια γενική απάντηση, για κάποια αναπάνταχη αποτυχία, όταν δεν υπάρχουν πιο συγκεκριμένες πληροφορίες.</td>
+                </tr>
+ 
+            </table>
+
+            <p class="mt-5">Παρακάτω, δίνεται ένα παράδειγμα, ο server βρίσκει ένα συγκεκριμένο προιόν resource, σύμφωνα με το id και επιστρέφει
+                το προιόν και το status code 200 (OK).
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span><span class="string">"/products/{id}"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ResponseEntity&#60;?&#62 getProduct(<span class="annotation">@PathVariable</span> int id){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findById(id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Product&#62;( product, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+        </section>
+
+        
 
         <section class="references">
 
