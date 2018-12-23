@@ -92,9 +92,127 @@
             <ul>
                 <li> <span class="bold">Αρχιτεκτονική client - server</span> : Πρέπει, να υπάρχει διαχωρισμός των αρμοδιοτήτων client και server</li>
                 <li> <span class="bold">Statelessness</span> : Ο server δεν θα πρέπει, να γνωρίζει και να αποθηκεύει την κατάσταση, στην οποία βρισκεται ο client</li>
-                <li> <span class="bold">Cacheability</span> : Η απάντηση πρέπει, να αναφέρει αν τα δεδομένα είναι cachable ή όχι.</li>  
-                <li> <span class="bold"></span>Layered system : </li>
+                <li> <span class="bold">Cacheability</span> : Η απάντηση πρέπει να αναφέρει, αν τα δεδομένα είναι cachable ή όχι.</li>  
+                <li> <span class="bold">Layered system</span> : Ο client δεν θα πρέπει, να γνωρίζει αν είναι συνδεδεμένος σε έναν end server ή σε έναν ενδιάμεσο.</li>
+                <li> <span class="bold">Code on demand (προαιρετικό)</span> : Ο server μπορεί, να επεκτείνει την λειτουργικότητα του client
+                μεταφέρονοτας εκτελέσιμο κώδικα.</li>
+                <li> <span class="bold">Uniform interface</span> : Οι αλληλεπιδράσεις μεταξύ client και server, βασίζονται στην ομοιομορφία των
+                διεπιφανειών τους.</li>
             </ul>
+        </section>
+
+        <section class="resources">
+
+            <h5>Resources</h5>
+
+            <p>Για το REST, πολύ σημαντική έννοια είναι το resource. Resource είναι οτιδήποτε μπορεί, να ονομαστεί. Παραδείγματα
+                από resources είναι χρήστες, προιόντα, βίντεο και συνήθως σχετίζονται μεταξύ τους. Κάθε resource έχει ένα URI ως αναγνωριστικο.
+                Θα πρέπει, να χρησιμοποιούμε ουσιαστικά, για να αναπαριστάμε resources.
+            </p>
+
+            <table class="resources">
+                <tr>
+                    <th>URI</th>
+                    <th>Περιγραφή Resource</th>
+                </tr>
+                <tr>
+                    <td><span class="bold">https://api.example/products</span></td>
+                    <td>Αναπαριστά μια συλλογή από προιόντα  resources.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">https://api.example/products/2</span></td>
+                    <td>Αναπαριστά ένα προιόν resource με το αναγνωριστικό 2.</td>
+                </tr>
+ 
+            </table>
+        </section>
+
+        <section class="communication">
+
+            <h5>Επικοινωνία μεταξύ client και server</h5>
+
+            <p>Στην αρχιτεκτονική REST, ο client στέλνει ένα αίτημα, για να πάρει ή να τροποποιήσει ένα resource και ο server στέλνει απαντήσεις
+                σε αυτά τα αιτήματα. ΤΟ υποκείμενο πρωτόκολλο του REST είναι το HTTP, το οποίο είναι το βασικό πρωτόκολλο του διαδικτύου. Ένα αίτημα
+                αποτελείται από :
+            </p>
+
+            <ul>
+                <li>ένα HTTP verb, το οποίο ορίζει τι λειτουργία θα πραγματοποιηθεί</li>
+                <li>ένα header, το οποίο επιτρέπει στον client να μεταφέρει πληροφορίες, σχετικά με το αίτημα</li>
+                <li>Το path του resource</li>
+                <li>Ένα προαιρετικό message body, που περιέχει τα δεδομένα</li>
+            </ul>
+            
+        </section>
+
+        <section class="http-verbs">
+
+            <h5>HTTP Verbs</h5>
+
+            <p>Υπάρχουν 4 βάσικα HTTP ρήματα, τα οποία χρησιμοποιούμε, για να αλληλεπιδράσουμε με τα resources.</p>
+
+            <table class="verbs">
+                <tr>
+                    <th>Verb</th>
+                    <th>Λειτουργία</th>
+                </tr>
+                <tr>
+                    <td><span class="bold">GET</span></td>
+                    <td>Ανακτούμε ένα resource ή μια συλλογή από resources.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">POST</span></td>
+                    <td>Δημιουργούμε ένα καινούριο resource.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">PUT</span></td>
+                    <td>Ενημερώνουμε ένα καινούριο resource.</td>
+                </tr>
+
+                <tr>
+                    <td><span class="bold">DELETE</span></td>
+                    <td>Διαγράφουμε ένα καινούριο resource.</td>
+                </tr>
+ 
+            </table>
+            
+        </section>
+
+        <section class="representation">
+
+            <h5>Αναπαράσταση των Resources</h5>
+
+            <p>Τα RESTful resources είναι αφηρημένες οντότητες. O server πριν στείλει την απάντηση στον client, πρέπει να κάνει serialize τα δεδομένα
+                της απάντησης στην κατάλληλη αναπαράσταση. Οι πιο συνηθισμένες μορφές αναπαράστασης των resources είναι το JSON και η XML. Ένα προιόν resource
+                μπορεί, να αναπαρασταθεί σε JSON ως εξής:
+
+            </p>
+
+            <pre>
+                <code>
+                {
+                    &emsp;&emsp;<span class="string">"id"</span> : 10,
+                    &emsp;&emsp;<span class="string">"name"</span> : <span class="string">"iPhone-7"</span>,
+                    &emsp;&emsp;<span class="string">"price"</span> : 1200
+                }
+                </code>
+            </pre>
+
+            <p>Το ίδιο resource, μπορεί να αναπαρασταθεί σε XML μορφή ως εξής:</p>
+
+            <pre>
+                <code>
+                <span class="string">&#60;product&#62;</span>
+                &emsp;&emsp;<span class="string">&#60;id&#62;</span>10<span class="string">&#60;/id&#62;</span>
+                &emsp;&emsp;<span class="string">&#60;name&#62;</span>iPhone-7<span class="string">&#60;/name&#62;</span>
+                &emsp;&emsp;<span class="string">&#60;price&#62;</span>1200<span class="string">&#60;/price&#62;</span>
+                <span class="string">&#60;/product&#62;</span>
+                </code>
+            </pre>
+
+
+            
         </section>
 
         <section class="references">
@@ -104,6 +222,9 @@
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/Application_programming_interface">Wikipedia : REST</a></li>
                 <li><a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Roy Fielding's Dissertation</a></li>
+                <li><a href="https://www.codecademy.com/articles/what-is-rest">Code Academy : What is Rest</a></li>
+                <li><a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Spring REST</a></li>
+                <li><a href="https://www.tutorialspoint.com/restful/restful_resources.htm">tutorialspoint : Resources</a></li>
             </ul>
         </section>
     </div>
