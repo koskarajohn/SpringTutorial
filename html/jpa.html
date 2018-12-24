@@ -110,7 +110,8 @@
                 <li>Η κλάση δεν πρέπει, να δηλωθεί ως final. Καμία μέθοδος ή persistent μεταβλητή στιγμιότυπου δεν πρέπει, να δηλωθεί ως final.</li>
             </ul>
 
-            <p>Όλα τα πεδία αποθηκεύονται στη βάση δεδομένων, εκτός αν κάποιο έχει το annotation <span class="code">@Transient</span>. Παρακάτω δίνεται ένα Entity.</p>
+            <p>Όλα τα πεδία αποθηκεύονται στη βάση δεδομένων, εκτός αν κάποιο έχει το annotation <span class="code">@Transient</span>. Παρακάτω δίνεται ένα παράδειγμα 
+            ενος Entity:</p>
 
             <pre>
                 <code>
@@ -126,7 +127,12 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> thisWillNotBeSavedInTheDatabaseTable;
+
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
 		
 	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
