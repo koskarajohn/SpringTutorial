@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JPA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
+
+        <a class="navbar-brand" href="../index.html">
+            <span>Learn Spring</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="spring.html">Spring</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="spring-container.html">Spring IoC Container</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="spring-beans.html">Spring Beans</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="annotations.html">Annotations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="spring-boot.html">Spring Boot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="spring-mvc.html">Spring MVC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rest-api.html">REST API</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="jpa.html">JPA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step2.html">Βημα 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step3.html">Βημα 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step4.html">Βημα 4</a>
+                </li>    
+                <li class="nav-item">
+                    <a class="nav-link" href="step5.html">Βημα 5</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="step6.html">Βημα 6</a>
+                </li>  
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid content">
+
+        <h1 class="text-center">JPA</h1>
+
+        <section class="intro">
+
+            <p>Το Java Persistance API (JPA) είναι ένα Java specification, μέρος της Java EE, για την ανάκτηση, αποθήκευση και διαχείριση δεδομένων, μεταξύ
+                αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για Object to Relational Mapping (ORM)
+                στη βιομηχανία της Java.
+            </p>
+
+            <p>To JPA είναι ένα σύνολο από διεπαφές, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
+                Apache OpenJPA. Η υλοποίηση του JPA συνήθως λέγεται persistence provider.
+            </p>
+
+            <p>Επίσης, επιτρέπει στους developers, να δουλεύουν απευθείας με objects (POJOs), αντί με εντολές SQL. Η αντιστοίχιση των κλάσεων της Java, με 
+                τους πίνακες της βάσης δεδομένων πραγματοποιείται με annotations ή XML.
+            </p>
+
+        </section>
+
+        <section class="entities">
+
+            <h5>Entities</h5>
+
+            <p>Ένα entity είναι ένα ελαφρύ, persistance domain object. Αντιπροσωπεύει έναν πίνακα στην βάση δεδομένων και κάθε στιγμιότυπο του entity,
+                αντιστοιχεί σε μια γραμμή εκείνου του πίνακα. Μια entity κλάση πρέπει, να ικανοποιεί τις ακόλουθες απαιτήσεις:
+            </p>
+
+            <ul>
+                <li>Η κλάση πρέπει, να έχει το annotation <span class="code">@Entity</span>.</li>
+                <li>Η κλάση πρέπει τουλάχιστον έναν <span class="code">public</span> ή <span class="code">protected</span>, κενό κατασκευαστή. </li>
+                <li>Η κλάση δεν πρέπει, να δηλωθεί ως final. Καμία μέθοδος ή persistent μεταβλητή στιγμιότυπου δεν πρέπει, να δηλωθεί ως final.</li>
+            </ul>
+
+            <p>Όλα τα πεδία αποθηκεύονται στη βάση δεδομένων, εκτός αν κάποιο έχει το annotation <span class="code">@Transient</span>. Παρακάτω δίνεται ένα Entity.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"categories"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
+		
+	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://javaee.github.io/tutorial/toc.html">Java EE 8 - Tutorial</a></li>
+                <li><a href="https://en.wikibooks.org/wiki/Java_Persistence/What_is_JPA%3F">Wikibooks : Java Persistence/What is JPA?</a></li>
+                <li><a href="http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html">Voggela : Java persistence API - Tutorial</a></li>
+            </ul>
+        </section>
+        
+    </div>
+
+  </body>
+</html>
