@@ -451,21 +451,122 @@
                 </code>
             </pre>
 
+            <h5 class="mt-4">@Transient</h5>
+
+            <p>Ορίζει ότι αυτό το πεδίο δεν θα αποθηκευτεί στον πίνακα της βάσης.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> int quantity;
+                </code>
+            </pre>
+
             <h5 class="mt-4">@Id</h5>
 
             <p>Ορίζει το πρωτεύον κλειδί του πίνακα.</p>
+
+            <pre>
+                <code>
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+                </code>
+            </pre>
 
             <h5 class="mt-4">@GeneratedValue(strategy = STRATEGY)</h5>
 
             <p>Ορίζει την στρατηγική παραγωγής τιμών του πρωτεύοντος κλειδιού.</p>
 
+            <pre>
+                <code>
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+                </code>
+            </pre>
+
             <h5 class="mt-4">@NotNull</h5>
 
             <p>Ορίζει το συγκεκριμένο πεδίο δεν πρέπει, να είναι null.</p>
 
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide category name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+                </code>
+            </pre>
+
             <h5 class="mt-4">@OneToOne, @OneToMany, @ManyToOne, @ManyToMany</h5>
 
-            <p>Ορίζει το συγκεκριμένο πεδίο δεν πρέπει, να είναι null.</p>
+            <p>Xρησιμοποείται, για να δηλώσουμε την πολλαπλότητα της σχέσης των entities.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@ManyToOne</span> (optional = false)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn(</span>name = <span class="string">"category_id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Category category;
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@JoinColumn</h5>
+
+            <p>Ορίζει τη στήλη, ως τη join στήλη για τη συσχέτιση των entities.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@ManyToOne</span> (optional = false)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn(</span>name = <span class="string">"category_id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Category category;
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@Embeddable</h5>
+
+            <p>Χρησιμοποείται σε μια κλάση, για να αναπαραστήσει την κατάσταση ενός entity, αλλά δεν θα αποθηκευτεί στη βάση δεδομένων.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Embeddable</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProductPrimaryKey <span class="keyword">implements</span> Serializable  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@EmbeddedId</h5>
+
+            <p>Χρησιμοποείται σε ένα πεδίο, για να δηλώσει ότι είναι σύνθετο πρωτεύον κλειδί και embeddable κλάση.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@EmbeddedId</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> OrderProductPrimaryKey id;
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@MapsId</h5>
+
+            <p>Χρησιμοποείται σε attributes συσχέτισης @ManyToOne ή @OneToOne, το οποίο παρέχει την αντιστοίχιση για ένα attribute μέσα σε ένα @EmbeddedId πρωτεύον κλειδί.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span> (fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@MapsId(</span><span class="string">"orderId"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Order order;
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
 
         </section>
 
