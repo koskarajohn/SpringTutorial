@@ -111,7 +111,7 @@
             </ul>
 
             <p>Όλα τα πεδία αποθηκεύονται στη βάση δεδομένων, εκτός αν κάποιο έχει το annotation <span class="code">@Transient</span>. Παρακάτω δίνεται ένα παράδειγμα 
-            ενος Entity:</p>
+            ενος Entity. Αντιστοιχίζεται η κλάση Category, με τον πίνακα categories της βάσης δεδομένων.</p>
 
             <pre>
                 <code>
@@ -125,6 +125,8 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide category name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
@@ -132,9 +134,188 @@
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
 
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
 		
 	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+        </section>
+
+        <section class="validation">
+            <h5>Bean validation</h5>
+
+            <p>Το Java API για τα JavaBeans Validation (Bean Validation) παρέχει έναν μηχανισμό, για να κάνουμε validate τα δεδομένα της εφαρμογής.</p>
+
+            <p>Παρέχει περιορισμούς Bean Validation, τα οποία εφαρμοζόνται στα πεδία των persistent κλάσεων.</p>
+
+            <p>Στο προηγούμενο παράδειγμα, το annotation @NotNull του πεδίου name, δηλώνει ότι το πεδίο αυτό είναι υποχρεωτικό. Εάν δημιουργηθεί ένα 
+                στιγμιότυπο Category, στο οποίο δεν έχει αρχικοποιηθεί το πεδίο name, τότε το Bean Validation θα προκαλέσει ένα validation error. Αντιστοίχα,
+                το annotation @Size δηλώνει ότι το πεδίο name, πρέπει να έχει μήκος 3 εώς 200 χαρακτήρων. 
+            </p>
+        </section>
+
+        <section class="primary-keys">
+            <h5>Πρωτεύοντα κλειδιά στα Entities</h5>
+
+            <p>Κάθε entity έχει ένα μοναδικό αναγνωριστικό αντικειμένου, δηλαδή ένα πρωτεύον κλειδί. Αυτό μπορεί, να είναι απλό ή σύνθετο.</p>
+
+            <p>Για να δηλώσουμε ένα απλό πρωτεύον κλειδί, χρησιμοποιούμε το annotation @Id.</p>
+
+            <p>Σύνθετο πρωτεύον κλειδί χρησιμοποιούμε, όταν το κλειδί αποτελείται από περισσότερα από ενα πεδία. Τότε το κλειδί πρέπει, να οριστεί σε μια κλάση
+                πρωτεύοντος κλειδιού. Για να δηλώσουμε, ένα σύνθετο πρωτεύον κλειδί, χρησιμοποιούμε το annotation @EmbeddedId.
+            </p>
+
+            <p>Παράδειγμα απλού πρωτεύοντος κλειδιού.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"categories"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide category name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+		
+	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Παράδειγμα σύνθετου πρωτεύοντος κλειδιού.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Embeddable</span> 
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProductPrimaryKey implements Serializable{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> orderId;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> productId;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> OrderProductPrimaryKey() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> OrderProductPrimaryKey(<span class="keyword">int</span> orderId, <span class="keyword">int</span> productId) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   <span class="this">this</span>.orderId = orderId;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   <span class="this">this</span>.productId = productId;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public boolean</span> equals(Object o) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">if</span> (<span class="this">this</span> == o) <span class="keyword">return true</span> ;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">if</span> (!(o <span class="keyword">instanceof</span> OrderProductPrimaryKey))<span class="keyword"> return false</span> ;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; OrderProductPrimaryKey that = (OrderProductPrimaryKey) o;    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">return</span>  Objects.equals(getOrderId(), that.getOrderId()) && Objects.equals(getProductId(), that.getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public int</span> hashCode() {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">return</span>  Objects.hash(getOrderId(), getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span> 
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"order_products"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProduct  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@EmbeddedId</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> OrderProductPrimaryKey id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span> (fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@MapsId(</span><span class="string">"orderId"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Order order;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span> (fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@MapsId(</span><span class="string">"productId"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Product product;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull</span> (message = "Please provide quantity"))
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"quantity"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> int quantity;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> OrderProduct() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+        </section>
+
+        <section class="multiplicity ">
+
+            <h5>Πολλαπλότητα στις σχέσεις των entities</h5>
+
+            <table class="multiplicity-annotations">
+                <tr>
+                    <th>Πολλαπλότητα</th>
+                    <th>Περιγραφή</th>
+                </tr>
+                <tr>
+                    <td><span class="bold">1-1</span></td>
+                    <td>Κάθε στιγμιότυπο του entity, συσχετίζεται με ένα μόνο στιγμιότυπο ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToOne</span> στο αντίστιοιχο πεδίο.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">1-Ν</span></td>
+                    <td>Κάθε στιγμιότυπο του entity, συσχετίζεται με πολλά στιγμιότυπα ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToMany</span> στο αντίστιοιχο πεδίο.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">Ν-1</span></td>
+                    <td>Πολλά στιγμιότυπα του entity, συσχετίζονται με ένα μόνο στιγμιότυπο ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToOne</span> στο αντίστιοιχο πεδίο.</td>
+                </tr>
+                <tr>
+                    <td><span class="bold">Ν-Ν</span></td>
+                    <td>Πολλά στιγμιότυπα του entity, συσχετίζονται με πολλά στιγμιότυπα ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToMany</span> στο αντίστιοιχο πεδίο.</td>
+                </tr>
+            </table>
+
+            <p class="mt-5">Παρακάτω, δίνεται ένα παράδειγμα Ν-1. Στην βάση δεδομένων υπάρχουν δύο πίνακες products και categories, οι οποίοι αντιστιχίζονται με 
+                τα entities Product και Category. Ο πίνακας products έχει ένα ξένο κλειδί category_id, το οποίο αναφέρεται στο πρωτεύον κλειδί του πίνακα
+                 categories. Το entity Product έχει ένα πεδίο Category, το οποίο έχει annotation @ManyToOne. Αυτό το annotation σημαίνει ότι πολλά προιόντα
+                 μπορούν, να ανήκουν σε μία μόνο κατηγορία.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span> 
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"products"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Product  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@ManyToOne</span> (optional = false)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn(</span>name = <span class="string">"category_id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull</span> 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Category category;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Rest of the fields ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Product() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
 
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>

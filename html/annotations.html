@@ -408,6 +408,67 @@
             </p>
         </section>
 
+        <section class="jpa-annotations">
+
+            <h3 class="mt-5">JPA Annotations</h3>
+
+            <h5 class="mt-4">@Entity</h5>
+            
+            <p>Ορίζει ότι η αυτή η κλάση, είναι ένα entity.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span> 
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"brands"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Brand  {
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@Table(name = "tableName")</h5>
+
+            <p>Ορίζει τον πίνακα της βάσης δεδομένων, με τον οποίο θα αντιστοιχίστει το entity.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span> 
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"brands"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Brand  {
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@Column(name = "columnName")</h5>
+
+            <p>Ορίζει την στήλη του πίνακα, με την οποία θα αντιστοιχίστει το πεδίο του entity.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"quantity"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> int quantity;
+                </code>
+            </pre>
+
+            <h5 class="mt-4">@Id</h5>
+
+            <p>Ορίζει το πρωτεύον κλειδί του πίνακα.</p>
+
+            <h5 class="mt-4">@GeneratedValue(strategy = STRATEGY)</h5>
+
+            <p>Ορίζει την στρατηγική παραγωγής τιμών του πρωτεύοντος κλειδιού.</p>
+
+            <h5 class="mt-4">@NotNull</h5>
+
+            <p>Ορίζει το συγκεκριμένο πεδίο δεν πρέπει, να είναι null.</p>
+
+            <h5 class="mt-4">@OneToOne, @OneToMany, @ManyToOne, @ManyToMany</h5>
+
+            <p>Ορίζει το συγκεκριμένο πεδίο δεν πρέπει, να είναι null.</p>
+
+        </section>
+
         <section class="other-annotations">
 
             <h3 class="mt-5">JSR-303 Annotations</h3>
