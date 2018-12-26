@@ -322,12 +322,31 @@
             </pre>
         </section>
 
+        <section class="entity-managers">
+            <h5>Entity Manager</h5>
+
+            <p>Τα entities διαχειρίζονται από τον entity manager, ο οποίος αντιπροσωπεύεται από την διεπαφή javax.persistence.EntityManager.
+                Κάθε στιγμιότυπο EntityManager είναι συσχετισμένο με ένα persistence context. Persistence context είναι ένα σύνολο από 
+                διαχειριζόμενα στιγμιότυπα από entities, τα οποία υπάρχουν σε μια συγκεκριμένη αποθήκη δεδομένων. Ορίζει την εμβέλεια, μέσα στην οποία δημιουργούνται,
+                ανακτούνται και διαγράφονται τα στιγμιότυπα των entities. Η διεπαφή EntityManager παρέχει μεθόδους για την αλληλεπίδραση με τοτ Persistence Context.
+            </p>
+
+            <p class="font-weight-bold">Container-Managed Entity Managers</p>
+
+            <p >Στην περίπτωση του Container-Managed Entity Manager, ο EntityManager δημιουργείται και διαχειρίζεται από το container.</p>
+
+            <p class="font-weight-bold">Application-Managed Entity Managers</p>
+
+            <p>Στην περίπτωση του Application-Managed Entity Manager, πρέπει εμείς, να δημιουργήσουμε και να διαχειρίστουμε τον EntityManager.</p>
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
 
             <ul>
-                <li><a href="https://javaee.github.io/tutorial/toc.html">Java EE 8 - Tutorial</a></li>
+                <li><a href="https://javaee.github.io/tutorial/persistence-intro002.html">Java EE 8 - Entities</a></li>
+                <li><a href="https://javaee.github.io/tutorial/persistence-intro004.html#BNBQY">Java EE 8 - Managing Entities</a></li>
                 <li><a href="https://en.wikibooks.org/wiki/Java_Persistence/What_is_JPA%3F">Wikibooks : Java Persistence/What is JPA?</a></li>
                 <li><a href="http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html">Voggela : Java persistence API - Tutorial</a></li>
             </ul>
