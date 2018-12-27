@@ -178,11 +178,9 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {}
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
-		
-	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
@@ -191,7 +189,7 @@
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CategoryRepositoryImpl{
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CategoryRepositoryImpl <span class="keyword">implements</span> CateroryRepository{
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PersistenceContext</span>
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> EntityManager entityManager;
@@ -203,7 +201,17 @@
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
+
+            <p>Η μέθοδος create του repository είναι πολύ μικρότερη και δεν κάνουμε έλεγχο για exceptions. Παρ' όλα αυτά, πρέπει να γράψουμε μια μέθοδο 
+                για κάθε CRUD λειτουργεία, που θέλουμε, να πραγματοποιήσουμε στη βάση.
+            </p>
         
+        </section>
+
+        <section class="repositories">
+
+            <h5>Repositories</h5>
+
         </section>
 
         <section class="references">
