@@ -84,9 +84,76 @@
 
         <section class="intro">
 
+            <p>Στις περισσότερες enterprise εφαρμογές, η ανάκτηση πληροφοριών από την βάση δεδομένων είναι συχνή απαίτηση. H Java
+                παρέχει το JDBC API, το οποίο μας επιτρέπει, να εκτελούμε SQL εντολές στη βάση δεδομένων. Όμως όταν χρησιμοποιούμε το JDBC,
+                πρέπει εμείς, να διαχειριστούμε τους πόρους της βάσης δεδομένων και τα Exceptions, που προκύπτουν κατά την εκτέλεση του κώδικα. Επίσης,
+                ο κώδικας είναι αρκετά φλύαρος. Παρακάτω δίνεται ο κώδικας, που εκτελεί ένα SELECT στη βάση δεδομένων:
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProduct  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Όνομα JDBC driver και το url της βάσης δεδομένων</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">static final</span>  String JDBC_DRIVER = <span class="string">"com.mysql.jdbc.Driver"</span>;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">static final</span>  String DB_URL = <span class="string">"jdbc:mysql://localhost/database"</span>;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Όνομα χρήστη και κωδικός</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">static final</span>  String USER = <span class="string">"username"</span>;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">static final</span>  String PASS = <span class="string">"password"</span>;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static void</span> main(String[] args) {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Connection conn = null;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Statement stmt = null;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">try</span>{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;stmt = conn.createStatement();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String sql = <span class="string">"SELECT id, name FROM Categories"</span>;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ResultSet rs = stmt.executeQuery(sql);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">while</span>(rs.next()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int id  = rs.getInt(<span class="string">"id"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String name = rs.getString(<span class="string">"name"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Μετά κάνουμε ότι θέλουμε με τα αποτελέσματα</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rs.close();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}<span class="keyword">catch</span>(SQLException se){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;se.printStackTrace();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}<span class="keyword">catch</span>(Exception  e){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}<span class="keyword">finally</span>{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">try</span>{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; stmt.close();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <span class="keyword">if</span>(conn != <span class="keyword">null</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; conn.close();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}<span class="keyword">catch</span>(SQLException se){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;se.printStackTrace();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
         </section>
 
-        
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://www.tutorialspoint.com/jdbc/index.htm">tutorialpoint : JDBC</a></li>
+            </ul>
+        </section>
     </div>
 
   </body>
