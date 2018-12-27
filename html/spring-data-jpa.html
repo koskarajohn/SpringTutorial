@@ -92,7 +92,7 @@
 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProduct  {
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> JDBCExample  {
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Όνομα JDBC driver και το url της βάσης δεδομένων</span>
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">static final</span>  String JDBC_DRIVER = <span class="string">"com.mysql.jdbc.Driver"</span>;
@@ -144,6 +144,66 @@
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
+        </section>
+
+        <section class="jpa">
+
+            <h5>JPA</h5>
+
+            <p>Εναλλακτικά, μπορούμε να χρησιμοποιήσουμε το JPA. Το Java Persistance API (JPA) είναι ένα Java specification, μέρος της Java EE, για την ανάκτηση, αποθήκευση και διαχείριση δεδομένων, μεταξύ
+                αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για Object to Relational Mapping (ORM)
+                στη βιομηχανία της Java.</p>
+
+            <p>To JPA είναι ένα σύνολο από διεπαφές, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
+                Apache OpenJPA. Η υλοποίηση του JPA συνήθως λέγεται persistence provider.
+            </p>
+
+            <p>Επίσης, επιτρέπει στους developers, να δουλεύουν απευθείας με objects (POJOs), αντί με εντολές SQL. Η αντιστοίχιση των κλάσεων της Java, με 
+                τους πίνακες της βάσης δεδομένων πραγματοποιείται με annotations ή XML. Παρακάτω, δίνεται ένα παράδειγμα αποθήκευσης ενός entity στη βάση δεδομένων:
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"categories"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide category name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+		
+	                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CategoryRepositoryImpl{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PersistenceContext</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> EntityManager entityManager;
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span> create(Category category) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;entityManager.persist(category);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+        
         </section>
 
         <section class="references">
