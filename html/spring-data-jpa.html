@@ -84,8 +84,8 @@
 
         <section class="intro">
 
-            <p>Στις περισσότερες enterprise εφαρμογές, η ανάκτηση πληροφοριών από την βάση δεδομένων είναι συχνή απαίτηση. H Java
-                παρέχει το JDBC API, το οποίο μας επιτρέπει, να εκτελούμε SQL εντολές στη βάση δεδομένων. Όμως όταν χρησιμοποιούμε το JDBC,
+            <p>Στις περισσότερες enterprise εφαρμογές, η <span class="bold">ανάκτηση πληροφοριών</span> από την <span class="bold">βάση δεδομένων</span> είναι συχνή απαίτηση. H Java
+                παρέχει το <span class="bold">JDBC API</span>, το οποίο μας επιτρέπει, να εκτελούμε SQL εντολές στη βάση δεδομένων. Όμως όταν χρησιμοποιούμε το JDBC,
                 πρέπει εμείς, να διαχειριστούμε τους πόρους της βάσης δεδομένων και τα Exceptions, που προκύπτουν κατά την εκτέλεση του κώδικα. Επίσης,
                 ο κώδικας είναι αρκετά φλύαρος. Παρακάτω δίνεται ο κώδικας, που εκτελεί ένα SELECT στη βάση δεδομένων:
             </p>
@@ -150,15 +150,15 @@
 
             <h5>JPA</h5>
 
-            <p>Εναλλακτικά, μπορούμε να χρησιμοποιήσουμε το JPA. Το Java Persistance API (JPA) είναι ένα Java specification, μέρος της Java EE, για την ανάκτηση, αποθήκευση και διαχείριση δεδομένων, μεταξύ
-                αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για Object to Relational Mapping (ORM)
-                στη βιομηχανία της Java.</p>
+            <p>Εναλλακτικά, μπορούμε να χρησιμοποιήσουμε το JPA. Το <span class="bold">Java Persistance API (JPA)</span> είναι ένα Java <span class="bold">specification</span>, μέρος της Java EE, 
+                για την <span class="bold">ανάκτηση, αποθήκευση και διαχείριση δεδομένων</span>, μεταξύ αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για 
+                <span class="bold">Object to Relational Mapping (ORM)</span> στη βιομηχανία της Java.</p>
 
-            <p>To JPA είναι ένα σύνολο από διεπαφές, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
+            <p>To JPA είναι ένα <span class="bold">σύνολο</span> από <span class="bold">διεπαφές</span>, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
                 Apache OpenJPA. Η υλοποίηση του JPA συνήθως λέγεται persistence provider.
             </p>
 
-            <p>Επίσης, επιτρέπει στους developers, να δουλεύουν απευθείας με objects (POJOs), αντί με εντολές SQL. Η αντιστοίχιση των κλάσεων της Java, με 
+            <p>Επίσης, επιτρέπει στους developers, να <span class="bold">δουλεύουν απευθείας με objects (POJOs)</span>, <span class="bold">αντί με εντολές SQL</span>. Η αντιστοίχιση των κλάσεων της Java, με 
                 τους πίνακες της βάσης δεδομένων πραγματοποιείται με annotations ή XML. Παρακάτω, δίνεται ένα παράδειγμα αποθήκευσης ενός entity στη βάση δεδομένων:
             </p>
 
@@ -210,8 +210,35 @@
 
         <section class="repositories">
 
-            <h5>Repositories</h5>
+            <h5>Data Access Object - Repositories</h5>
 
+            <p>Ο σκοπός του <span class="bold">Data Access Object(DAO) pattern</span> είναι ο <span class="bold">διαχωρισμός του data access logic</span>, <span class="bold">από το business logic και το presentation
+                logic</span>. Αυτό το pattern προτείνει, το data access logic να <span class="bold">ενθυλακώνεται σε ανεξάρτητα modules</span>, που λέγονται <span class="bold">data access objects</span>.
+            </p>
+
+            <p>Το Spring υποστηρίζει το Data Access Object, καθιστώντας εύκολο, να δουλεύουμε με διαφορετικές τεχνολογίες data access(JDBC, 
+                Hibernate ή JPA) με έναν συνεπή τρόπο. <span class="bold">Mεταφράζει συγκεριμένα τεχνολογικά exceptions</span>, όπως SQLException, στην δικιά του ιεραρχία
+                exception κλάσεων, τα οποία έχουν  το DataAccessException ως exception ρίζα. Αυτά τα exceptions περικλείουν το αρχικό exception.
+            </p>
+
+            <p>Για να δηλώσουμε ότι μια κλάση είναι DAO ή repository και αυτή να παρέχει μετάφραση των exceptions, χρησιμοποιούμε το annotation <span class="code">@Repository</span>.
+            </p>
+
+            <p>Παράδειγμα Repository</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> JpaMovieFinder <span class="keyword">implements</span> MovieFinder{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PersistenceContext</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> EntityManager entityManager;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
         </section>
 
         <section class="references">
@@ -220,6 +247,9 @@
 
             <ul>
                 <li><a href="https://www.tutorialspoint.com/jdbc/index.htm">tutorialpoint : JDBC</a></li>
+                <li><a href="https://www.apress.com/la/book/9781484227893">Spring 5 Recipes : A Problem Solution Approach</a></li>
+                <li><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/data-access.html">Spring Framework : Data Access</a></li>
+                <li><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/">Spring Data JPA - Reference Documentation</a></li>
             </ul>
         </section>
     </div>

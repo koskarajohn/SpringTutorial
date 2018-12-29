@@ -84,17 +84,17 @@
 
         <section class="intro">
 
-            <p>Το Java Persistance API (JPA) είναι ένα Java specification, μέρος της Java EE, για την ανάκτηση, αποθήκευση και διαχείριση δεδομένων, μεταξύ
-                αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για Object to Relational Mapping (ORM)
-                στη βιομηχανία της Java.
+            <p>Το <span class="bold">Java Persistance API (JPA)</span> είναι ένα Java <span class="bold">specification</span>, μέρος της Java EE, 
+                για την <span class="bold">ανάκτηση, αποθήκευση και διαχείριση δεδομένων</span>, μεταξύ αντικειμένων της Java και της σχεσιακής βάσης δεδομένων. Θεωρείται η πιο standard προσέγγιση για 
+                <span class="bold">Object to Relational Mapping (ORM)</span> στη βιομηχανία της Java.
             </p>
 
-            <p>To JPA είναι ένα σύνολο από διεπαφές, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
+            <p>To JPA είναι ένα <span class="bold">σύνολο</span> από <span class="bold">διεπαφές</span>, οι οποίες απαιτούν μια υλοποίηση. Δημοφιλείς υλοποιήσεις είναι το Hibernate, EclipseLink και 
                 Apache OpenJPA. Η υλοποίηση του JPA συνήθως λέγεται persistence provider.
             </p>
 
-            <p>Επίσης, επιτρέπει στους developers, να δουλεύουν απευθείας με objects (POJOs), αντί με εντολές SQL. Η αντιστοίχιση των κλάσεων της Java, με 
-                τους πίνακες της βάσης δεδομένων πραγματοποιείται με annotations ή XML.
+            <p>Επίσης, επιτρέπει στους developers, να <span class="bold">δουλεύουν απευθείας με objects (POJOs)</span>, <span class="bold">αντί με εντολές SQL</span>. Η αντιστοίχιση των κλάσεων της Java, με 
+                τους πίνακες της βάσης δεδομένων πραγματοποιείται με annotations ή XML. Παρακάτω, δίνεται ένα παράδειγμα αποθήκευσης ενός entity στη βάση δεδομένων:
             </p>
 
         </section>
@@ -103,14 +103,15 @@
 
             <h5>Entities</h5>
 
-            <p>Ένα entity είναι ένα ελαφρύ, persistance domain object. Αντιπροσωπεύει έναν πίνακα στην βάση δεδομένων και κάθε στιγμιότυπο του entity,
-                αντιστοιχεί σε μια γραμμή εκείνου του πίνακα. Μια entity κλάση πρέπει, να ικανοποιεί τις ακόλουθες απαιτήσεις:
+            <p>Ένα entity είναι ένα <span class="bold">ελαφρύ</span>, <span class="bold">persistance domain object</span>. Αντιπροσωπεύει έναν <span class="bold">πίνακα</span> στην <span class="bold">βάση δεδομένων</span> 
+                και <span class="bold">κάθε στιγμιότυπο</span> του entity, <span class="bold">αντιστοιχεί σε μια γραμμή</span> εκείνου του πίνακα. 
+                Μια entity κλάση πρέπει, να ικανοποιεί τις ακόλουθες απαιτήσεις:
             </p>
 
             <ul>
                 <li>Η κλάση πρέπει, να έχει το annotation <span class="code">@Entity</span>.</li>
-                <li>Η κλάση πρέπει τουλάχιστον έναν <span class="code">public</span> ή <span class="code">protected</span>, κενό κατασκευαστή. </li>
-                <li>Η κλάση δεν πρέπει, να δηλωθεί ως final. Καμία μέθοδος ή persistent μεταβλητή στιγμιότυπου δεν πρέπει, να δηλωθεί ως final.</li>
+                <li>Η κλάση πρέπει <span class="bold">τουλάχιστον</span> έναν <span class="code">public</span> ή <span class="code">protected</span>, <span class="bold">κενό κατασκευαστή</span>. </li>
+                <li>Η κλάση δεν πρέπει, να δηλωθεί ως <span class="code">final</span>. Καμία μέθοδος ή persistent μεταβλητή στιγμιότυπου δεν πρέπει, να δηλωθεί ως <span class="code">final</span>.</li>
             </ul>
 
             <p>Όλα τα πεδία αποθηκεύονται στη βάση δεδομένων, εκτός αν κάποιο έχει το annotation <span class="code">@Transient</span>. Παρακάτω δίνεται ένα παράδειγμα 
@@ -147,25 +148,26 @@
         <section class="validation">
             <h5>Bean validation</h5>
 
-            <p>Το Java API για τα JavaBeans Validation (Bean Validation) παρέχει έναν μηχανισμό, για να κάνουμε validate τα δεδομένα της εφαρμογής.</p>
+            <p>Το Java API για τα <span class="bold">JavaBeans Validation (Bean Validation)</span> παρέχει έναν μηχανισμό, για να κάνουμε <span class="bold">validate τα δεδομένα</span> της εφαρμογής.</p>
 
-            <p>Παρέχει περιορισμούς Bean Validation, τα οποία εφαρμοζόνται στα πεδία των persistent κλάσεων.</p>
+            <p>Παρέχει <span class="bold">περιορισμούς</span> Bean Validation, τα οποία <span class="bold">εφαρμοζόνται στα πεδία</span> των persistent κλάσεων.</p>
 
-            <p>Στο προηγούμενο παράδειγμα, το annotation @NotNull του πεδίου name, δηλώνει ότι το πεδίο αυτό είναι υποχρεωτικό. Εάν δημιουργηθεί ένα 
-                στιγμιότυπο Category, στο οποίο δεν έχει αρχικοποιηθεί το πεδίο name, τότε το Bean Validation θα προκαλέσει ένα validation error. Αντιστοίχα,
-                το annotation @Size δηλώνει ότι το πεδίο name, πρέπει να έχει μήκος 3 εώς 200 χαρακτήρων. 
+            <p>Στο προηγούμενο παράδειγμα, το annotation <span class="code">@NotNull</span> του πεδίου name, δηλώνει ότι το πεδίο αυτό είναι υποχρεωτικό. Εάν δημιουργηθεί ένα 
+                στιγμιότυπο Category, στο οποίο δεν έχει αρχικοποιηθεί το πεδίο name, τότε το Bean Validation θα προκαλέσει ένα <span class="bold">validation error</span>. Αντιστοίχα,
+                το annotation <span class="code">@Size</span> δηλώνει ότι το πεδίο name, πρέπει να έχει μήκος 3 εώς 200 χαρακτήρων. 
             </p>
         </section>
 
         <section class="primary-keys">
             <h5>Πρωτεύοντα κλειδιά στα Entities</h5>
 
-            <p>Κάθε entity έχει ένα μοναδικό αναγνωριστικό αντικειμένου, δηλαδή ένα πρωτεύον κλειδί. Αυτό μπορεί, να είναι απλό ή σύνθετο.</p>
+            <p>Κάθε entity έχει <span class="bold">ένα μοναδικό αναγνωριστικό</span> αντικειμένου, δηλαδή ένα <span class="bold">πρωτεύον κλειδί</span>. 
+                Αυτό μπορεί, να είναι <span class="bold">απλό</span> ή <span class="bold">σύνθετο</span>.</p>
 
-            <p>Για να δηλώσουμε ένα απλό πρωτεύον κλειδί, χρησιμοποιούμε το annotation @Id.</p>
+            <p>Για να δηλώσουμε ένα <span class="bold">απλό</span> πρωτεύον κλειδί, χρησιμοποιούμε το <span class="bold">annotation</span> <span class="code">@Id</span>.</p>
 
-            <p>Σύνθετο πρωτεύον κλειδί χρησιμοποιούμε, όταν το κλειδί αποτελείται από περισσότερα από ενα πεδία. Τότε το κλειδί πρέπει, να οριστεί σε μια κλάση
-                πρωτεύοντος κλειδιού. Για να δηλώσουμε, ένα σύνθετο πρωτεύον κλειδί, χρησιμοποιούμε το annotation @EmbeddedId.
+            <p><span class="bold">Σύνθετο</span> πρωτεύον κλειδί χρησιμοποιούμε, όταν το <span class="bold">κλειδί αποτελείται από περισσότερα από ενα πεδία</span>. Τότε το κλειδί πρέπει, να οριστεί σε μια κλάση
+                πρωτεύοντος κλειδιού. Για να δηλώσουμε, ένα σύνθετο πρωτεύον κλειδί, χρησιμοποιούμε το <span class="bold">annotation</span> <span class="code">@EmbeddedId</span>.
             </p>
 
             <p>Παράδειγμα απλού πρωτεύοντος κλειδιού.</p>
@@ -274,25 +276,25 @@
                 </tr>
                 <tr>
                     <td><span class="bold">1-1</span></td>
-                    <td>Κάθε στιγμιότυπο του entity, συσχετίζεται με ένα μόνο στιγμιότυπο ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToOne</span> στο αντίστιοιχο πεδίο.</td>
+                    <td><span class="bold">Κάθε στιγμιότυπο</span> του entity, συσχετίζεται με <span class="bold">ένα μόνο στιγμιότυπο</span> ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToOne</span> στο αντίστιοιχο πεδίο.</td>
                 </tr>
                 <tr>
                     <td><span class="bold">1-Ν</span></td>
-                    <td>Κάθε στιγμιότυπο του entity, συσχετίζεται με πολλά στιγμιότυπα ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToMany</span> στο αντίστιοιχο πεδίο.</td>
+                    <td><span class="bold">Κάθε στιγμιότυπο</span> του entity, συσχετίζεται με <span class="bold">πολλά στιγμιότυπα</span> ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@OneToMany</span> στο αντίστιοιχο πεδίο.</td>
                 </tr>
                 <tr>
                     <td><span class="bold">Ν-1</span></td>
-                    <td>Πολλά στιγμιότυπα του entity, συσχετίζονται με ένα μόνο στιγμιότυπο ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToOne</span> στο αντίστιοιχο πεδίο.</td>
+                    <td><span class="bold">Πολλά στιγμιότυπα</span> του entity, συσχετίζονται με <span class="bold">ένα μόνο στιγμιότυπο</span> ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToOne</span> στο αντίστιοιχο πεδίο.</td>
                 </tr>
                 <tr>
                     <td><span class="bold">Ν-Ν</span></td>
-                    <td>Πολλά στιγμιότυπα του entity, συσχετίζονται με πολλά στιγμιότυπα ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToMany</span> στο αντίστιοιχο πεδίο.</td>
+                    <td><span class="bold">Πολλά στιγμιότυπα</span> του entity, συσχετίζονται με <span class="bold">πολλά στιγμιότυπα</span> ενός άλλου entity. Χρησιμοποιούμε το annotation <span class="bold">@ManyToMany</span> στο αντίστιοιχο πεδίο.</td>
                 </tr>
             </table>
 
             <p class="mt-5">Παρακάτω, δίνεται ένα παράδειγμα Ν-1. Στην βάση δεδομένων υπάρχουν δύο πίνακες products και categories, οι οποίοι αντιστιχίζονται με 
                 τα entities Product και Category. Ο πίνακας products έχει ένα ξένο κλειδί category_id, το οποίο αναφέρεται στο πρωτεύον κλειδί του πίνακα
-                 categories. Το entity Product έχει ένα πεδίο Category, το οποίο έχει annotation @ManyToOne. Αυτό το annotation σημαίνει ότι πολλά προιόντα
+                 categories. Το entity Product έχει ένα πεδίο Category, το οποίο έχει annotation <span class="code">@ManyToOne</span>. Αυτό το annotation σημαίνει ότι πολλά προιόντα
                  μπορούν, να ανήκουν σε μία μόνο κατηγορία.
             </p>
 
@@ -326,10 +328,10 @@
         <section class="entity-managers">
             <h5>Entity Manager</h5>
 
-            <p>Τα entities διαχειρίζονται από τον entity manager, ο οποίος αντιπροσωπεύεται από την διεπαφή javax.persistence.EntityManager.
-                Κάθε στιγμιότυπο EntityManager είναι συσχετισμένο με ένα persistence context. Persistence context είναι ένα σύνολο από 
-                διαχειριζόμενα στιγμιότυπα από entities, τα οποία υπάρχουν σε μια συγκεκριμένη αποθήκη δεδομένων. Ορίζει την εμβέλεια, μέσα στην οποία δημιουργούνται,
-                ανακτούνται και διαγράφονται τα στιγμιότυπα των entities. Η διεπαφή EntityManager παρέχει μεθόδους για την αλληλεπίδραση με τοτ Persistence Context.
+            <p>Τα entities <span class="bold">διαχειρίζονται από τον entity manager</span>, ο οποίος αντιπροσωπεύεται από την <span class="bold">διεπαφή</span> <span class="code">javax.persistence.EntityManager</span>.
+                Κάθε στιγμιότυπο EntityManager είναι συσχετισμένο με ένα persistence context. <span class="bold">Persistence context</span> είναι<span class="bold">ένα σύνολο από 
+                    διαχειριζόμενα στιγμιότυπα από entities</span> , τα οποία υπάρχουν σε μια συγκεκριμένη <span class="bold">αποθήκη δεδομένων</span>. Ορίζει την εμβέλεια, μέσα στην οποία δημιουργούνται,
+                ανακτούνται και διαγράφονται τα στιγμιότυπα των entities. Η διεπαφή EntityManager παρέχει <span class="bold">μεθόδους για την αλληλεπίδραση</span> με το Persistence Context.
             </p>
 
             <p class="font-weight-bold">Container-Managed Entity Managers</p>
