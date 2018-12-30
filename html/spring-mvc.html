@@ -84,13 +84,13 @@
 
         <section class="intro">
 
-            <p>To Spring Web MVC framework παρέχει το μοντέλο αρχικτονικής Model-View-Controller(MVC) και έτοιμα components, ώστε
-                να δημιουργήσουμε ευέλικτες και με χαμηλή σύζευξη εφαρμογές To MVC pattern διαχωρίζει τα διάφορα κομμάτια της εφαρμογής 
-                (input logic, business logic και UI logic) και παρέχει χαμηλή σύζευξη μεταξύ αυτών των στοιχείων.</p>
+            <p>To Spring Web MVC framework παρέχει το μοντέλο αρχιτεκτονικής <span class="bold">Model-View-Controller(MVC)</span> και έτοιμα components, ώστε
+                να δημιουργήσουμε ευέλικτες και με χαμηλή σύζευξη εφαρμογές. To MVC pattern <span class="bold">διαχωρίζει τα διάφορα κομμάτια της εφαρμογής</span> 
+                (input logic, business logic και UI logic) και παρέχει <span class="bold">χαμηλή σύζευξη</span> μεταξύ αυτών των στοιχείων.</p>
 
             <ul>
-                <li>Το <span class="bold">Model</span> ενθυλακώνει τα <span class="bold">δεδομένα της εφαρμογής</span> και γενικά αποτελείται από τα POJOs.</li>
-                <li>Το <span class="bold">View</span> είναι υπεύθυνο για την <span class="bold">εμφανίση των δεδομένω του Model</span> και γενικά το τελικό προιόν που παράγει, είναι HTML, 
+                <li>Το <span class="bold">Model</span> ενθυλακώνει τα <span class="bold">δεδομένα της εφαρμογής</span> και γενικά αποτελείται από τα <span class="bold">POJOs</span>.</li>
+                <li>Το <span class="bold">View</span> είναι υπεύθυνο για την <span class="bold">εμφανίση των δεδομένων του Model</span> και γενικά το τελικό προιόν που παράγει, είναι HTML, 
                     την οποία μπορεί, να μεταφράσει ο browser του client.
                 </li>
                 <li>Ο <span class="bold">Controller</span> είναι υπεύθυνος για την <span class="bold">διαχείριση των αιτημάτων</span> του χρήστη, 
@@ -105,9 +105,9 @@
         <section class="dispatcher-servlet">
             <h5>Dispatcher Servlet</h5>
 
-            <p>Το Spring MVC, όπως και άλλα web frameworks, είναι σχεδιασμένο γύρω από το front controller pattern, όπου ένα κεντρικό Servlet
-                , το Dispatcher Servlet, παρέχει έναν μοιραζόμενο αλγόριθμο για την επεξεργασία των αιτημάτων, ενώ η πραγματική δουλειά
-                ανατίθεται και πραγματοποιείται απο ρυθμιζόμενα components.
+            <p>Το Spring MVC, όπως και άλλα web frameworks, είναι σχεδιασμένο γύρω από το <span class="bold">front controller pattern</span>, όπου ένα κεντρικό Servlet
+                , το <span class="bold">Dispatcher Servlet</span>, παρέχει έναν μοιραζόμενο αλγόριθμο για την επεξεργασία των αιτημάτων, ενώ η πραγματική δουλειά
+                <span class="bold">ανατίθεται</span> και <span class="bold">πραγματοποιείται</span> απο ρυθμιζόμενα components.
             </p>
 
             <img class="img-fluid d-block mx-auto my-5" src="../img/dispatcher-servlet.png" alt="Dispatcher Servlet">
@@ -160,9 +160,9 @@
         <section class="controllers">
             <h5>Annotated Controllers</h5>
 
-            <p>Το Spring MVC παρέχει ένα annotation-based προγραμματιστικό μοντέλο, όπου τα <span class="code">@Controller</span> και <span class="code">@RestController</span> components, 
+            <p>Το Spring MVC παρέχει ένα <span class="bold">annotation-based</span> προγραμματιστικό μοντέλο, όπου τα <span class="code">@Controller</span> και <span class="code">@RestController</span> components, 
                 χρησιμοποιούν annotations, για να δηλώσουν request mappings, request input, exception handling κ.α. Οι annotated controllers έχουν
-                ευέλικτες υπογραφές μεθόδων και όυτε κάνουν extend base κλάσεις, ούτε υλοποιούν συγκεκριμένες διεπαφές.
+                ευέλικτες υπογραφές μεθόδων και όυτε κάνουν <span class="code">extend</span> base κλάσεις, ούτε υλοποιούν συγκεκριμένες διεπαφές.
             </p>
 
             <p>Μπορούμε, να δηλώσουμε controller beans, χρησιμοποιώντας τον τυπικό τρόπο ορισμού των Spring beans, στο WebApplicationContext του Servlet.
@@ -195,9 +195,9 @@
         <section class="request-mapping">
             <h5>Request Mapping</h5>
 
-            <p>Το annotation <span class="code">@RequestMapping</span> χρησιμοποιείται για την αντιστοίχιση αιτημάτων με μεθόδους του controller. Έχει διάφορα attributes,
-                ώστε να πραγματοποιείται αντιστοίχιση σύμφωνα με την HTTP μέθοδο, τα request paremeters, τα headers και media types. Μπορεί να χρησιμοποιηθεί
-                σε επίπεδο κλάσης, ώστε να εκφράσει μοιραζόμενες αντιστοιχίσεις ή σε επίπεδο μεθόδου, για να αντιστοιχιστεί με ένα συγκεκριμένο endpoint.
+            <p>Το annotation <span class="code">@RequestMapping</span> χρησιμοποιείται για την <span class="bold">αντιστοίχιση αιτημάτων με μεθόδους</span> του controller. Έχει διάφορα attributes,
+                ώστε να πραγματοποιείται αντιστοίχιση σύμφωνα με την <span class="bold">HTTP μέθοδο</span>, τα <span class="bold">request parameters</span>, τα <span class="bold">headers</span> 
+                και <span class="bold">media types</span>. Μπορεί να χρησιμοποιηθεί σε επίπεδο κλάσης, ώστε να εκφράσει μοιραζόμενες αντιστοιχίσεις ή σε επίπεδο μεθόδου, για να αντιστοιχιστεί με ένα συγκεκριμένο endpoint.
             </p>
 
             <p>Υπάρχουν επίσης συντομεύσεις του <span class="code">@RequestMapping</span>, ανάλογα με την HTTP μέθοδο :</p>
@@ -344,8 +344,8 @@
         <section class="request-body">
             <h5>@RequestBody</h5>
 
-            <p>Μπορούμε να χρησιμοποιήσουμε το annotation @RequestBody, ώστε να διαβαστεί το request body και να γίνει deserialize σε ένα
-                Object μέσω του HttpMessageConverter. Εάν χρησιμοποιήσουμε και το annotation javax.validation.Valid, τότε εφαρμόζεται
+            <p>Μπορούμε να χρησιμοποιήσουμε το annotation <span class="code">@RequestBody</span>, ώστε να διαβαστεί το request body και να γίνει deserialize σε ένα
+                Object μέσω του HttpMessageConverter. Εάν χρησιμοποιήσουμε και το annotation <span class="code">javax.validation.Valid</span>, τότε εφαρμόζεται
                 Standard Bean Validation.
             </p>
 
@@ -363,7 +363,7 @@
         <section class="request-body">
             <h5>@ResponseBody</h5>
 
-            <p>Μπορούμε να χρησιμοποιήσουμε το annotation @ResponseBody σε μια μέθοδο, ώστε η απάντηση να γίνει deserialized στο response body
+            <p>Μπορούμε να χρησιμοποιήσουμε το annotation <span class="code">@ResponseBody</span> σε μια μέθοδο, ώστε η απάντηση να γίνει deserialized στο response body
                 μέσω του HttpMessageConverter.
             </p>
 
@@ -382,7 +382,7 @@
         <section class="request-body">
             <h5>@ResponseEntity</h5>
 
-            <p>Το annotation @ResponseEntity είναι σαν το @ResponseBody, αλλά μπορούμε να επιστρέψουμε status και headers.
+            <p>Το annotation <span class="code">@ResponseEntity</span> είναι σαν το <span class="code">@ResponseBody</span>, αλλά μπορούμε να επιστρέψουμε status και headers.
             </p>
 
             <pre>
