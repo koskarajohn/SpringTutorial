@@ -84,9 +84,9 @@
 
         <section class="intro">
 
-            <p>Το Representational State Transfer(REST) είναι ένα στυλ αρχιτεκτονικής λογισμικού, το οποίο ορίζει ένα σύνολο από περιορισμούς,
-                για την δημιουργία web services. Παρουσιάστηκε και ορίστηκε από το Roy Fielding το 2000. Τα web services, τα οποίο συμμορφώνονται με αυτόυς τους περιορισμούς, ονομάζονται RESTful web services
-                και παρέχουν διαλειτουργικότητα μεταξύ υπολογιστικών συστημάτων στο διαδίκτυο.
+            <p>Το <span class="bold">Representational State Transfer(REST)</span> είναι ένα <span class="bold">στυλ αρχιτεκτονικής λογισμικού</span>, το οποίο ορίζει <span class="bold">ένα σύνολο από περιορισμούς</span>,
+                για την δημιουργία web services. Παρουσιάστηκε και ορίστηκε από το <span class="bold">Roy Fielding</span> το 2000. Τα <span class="bold">web services</span>, 
+                τα οποίο συμμορφώνονται με αυτόυς τους περιορισμούς, ονομάζονται <span class="bold">RESTful</span> web services και παρέχουν διαλειτουργικότητα μεταξύ υπολογιστικών συστημάτων στο διαδίκτυο.
             </p>
 
             <p>Τα Restful web services επιτρέπουν στα αιτούμενα συστήματα, να έχουν πρόσβαση και να χειρίζονται κειμενικές αναπαραστάσεις των web
@@ -111,9 +111,9 @@
 
             <h5>Resources</h5>
 
-            <p>Για το REST, πολύ σημαντική έννοια είναι το resource. Resource είναι οτιδήποτε μπορεί, να ονομαστεί. Παραδείγματα
-                από resources είναι χρήστες, προιόντα, βίντεο και συνήθως σχετίζονται μεταξύ τους. Κάθε resource έχει ένα URI ως αναγνωριστικο.
-                Θα πρέπει, να χρησιμοποιούμε ουσιαστικά, για να αναπαριστάμε resources.
+            <p>Για το REST, πολύ σημαντική έννοια είναι το resource. <span class="bold">Resource είναι οτιδήποτε μπορεί, να ονομαστεί</span>. Παραδείγματα
+                από resources είναι χρήστες, προιόντα, βίντεο και συνήθως σχετίζονται μεταξύ τους. Κάθε resource <span class="bold">έχει ένα URI ως αναγνωριστικο</span>.
+                Θα πρέπει, να <span class="bold">χρησιμοποιούμε ουσιαστικά</span>, για να αναπαριστάμε resources.
             </p>
 
             <table class="resources">
@@ -137,16 +137,16 @@
 
             <h5>Επικοινωνία μεταξύ client και server</h5>
 
-            <p>Στην αρχιτεκτονική REST, ο client στέλνει ένα αίτημα, για να πάρει ή να τροποποιήσει ένα resource και ο server στέλνει απαντήσεις
-                σε αυτά τα αιτήματα. ΤΟ υποκείμενο πρωτόκολλο του REST είναι το HTTP, το οποίο είναι το βασικό πρωτόκολλο του διαδικτύου. Ένα αίτημα
+            <p>Στην αρχιτεκτονική REST, ο client <span class="bold">στέλνει ένα αίτημα</span>, για να πάρει ή να τροποποιήσει <span class="bold">ένα resource</span> και ο server <span class="bold">στέλνει απαντήσεις</span>
+                σε αυτά τα αιτήματα. ΤΟ υποκείμενο πρωτόκολλο του REST είναι <span class="bold">το HTTP</span>, το οποίο είναι το βασικό πρωτόκολλο του διαδικτύου. Ένα αίτημα
                 αποτελείται από :
             </p>
 
             <ul>
-                <li>ένα HTTP verb, το οποίο ορίζει τι λειτουργία θα πραγματοποιηθεί</li>
-                <li>ένα header, το οποίο επιτρέπει στον client να μεταφέρει πληροφορίες, σχετικά με το αίτημα</li>
-                <li>Το path του resource</li>
-                <li>Ένα προαιρετικό message body, που περιέχει τα δεδομένα</li>
+                <li>ένα <span class="bold">HTTP verb</span>, το οποίο ορίζει τι λειτουργία θα πραγματοποιηθεί</li>
+                <li>ένα <span class="bold">header</span>, το οποίο επιτρέπει στον client να μεταφέρει πληροφορίες, σχετικά με το αίτημα</li>
+                <li>Το <span class="bold">path</span> του resource</li>
+                <li>Ένα προαιρετικό <span class="bold">message body</span> , που περιέχει τα δεδομένα</li>
             </ul>
             
         </section>
@@ -155,7 +155,7 @@
 
             <h5>HTTP Verbs</h5>
 
-            <p>Υπάρχουν 4 βάσικα HTTP ρήματα, τα οποία χρησιμοποιούμε, για να αλληλεπιδράσουμε με τα resources.</p>
+            <p>Υπάρχουν 4 βάσικα <span class="bold">HTTP ρήματα</span>, τα οποία χρησιμοποιούμε, για να αλληλεπιδράσουμε με τα resources.</p>
 
             <table class="verbs">
                 <tr>
@@ -164,21 +164,21 @@
                 </tr>
                 <tr>
                     <td><span class="bold">GET</span></td>
-                    <td>Ανακτούμε ένα resource ή μια συλλογή από resources.</td>
+                    <td><span class="bold">Ανακτούμε</span> ένα resource ή μια συλλογή από resources.</td>
                 </tr>
                 <tr>
                     <td><span class="bold">POST</span></td>
-                    <td>Δημιουργούμε ένα καινούριο resource.</td>
+                    <td><span class="bold">Δημιουργούμε</span> ένα καινούριο resource.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">PUT</span></td>
-                    <td>Ενημερώνουμε ένα καινούριο resource.</td>
+                    <td><span class="bold">Ενημερώνουμε</span> ένα καινούριο resource.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">DELETE</span></td>
-                    <td>Διαγράφουμε ένα καινούριο resource.</td>
+                    <td><span class="bold">Διαγράφουμε</span> ένα καινούριο resource.</td>
                 </tr>
  
             </table>
@@ -189,8 +189,8 @@
 
             <h5>Αναπαράσταση των Resources</h5>
 
-            <p>Τα RESTful resources είναι αφηρημένες οντότητες. O server πριν στείλει την απάντηση στον client, πρέπει να κάνει serialize τα δεδομένα
-                της απάντησης στην κατάλληλη αναπαράσταση. Οι πιο συνηθισμένες μορφές αναπαράστασης των resources είναι το JSON και η XML. Ένα προιόν resource
+            <p>Τα RESTful resources είναι <span class="bold">αφηρημένες οντότητες</span>. O server πριν στείλει την απάντηση στον client, πρέπει να κάνει <span class="bold">serialize τα δεδομένα</span>
+                της απάντησης στην <span class="bold">κατάλληλη αναπαράσταση</span>. Οι πιο συνηθισμένες <span class="bold">μορφές αναπαράστασης</span> των resources είναι το <span class="bold">JSON</span> και η <span class="bold">XML</span> . Ένα προιόν resource
                 μπορεί, να αναπαρασταθεί σε JSON ως εξής:
 
             </p>
@@ -222,7 +222,8 @@
 
             <h5>Status Codes</h5>
 
-            <p>Κάθε απάντηση του server περιέχει και ένα status code, το οποίο ενημερώνει τον client, σχετικά με την επιτυχία της λειτουργίας.
+            <p>Κάθε <span class="bold">απάντηση</span> του server περιέχει και ένα <span class="bold">status code</span>, 
+                ο οποίο ενημερώνει τον client, σχετικά με την <span class="bold">επιτυχία της λειτουργίας</span>.
                 Τα πιο συγκεκριμένα περιγράφονται παρακάτω.
             </p>
 
@@ -233,36 +234,36 @@
                 </tr>
                 <tr>
                     <td><span class="bold">200 (ΟΚ)</span></td>
-                    <td>Είναι η τυπική απάντηση για τα επιτυχημένα HTTP requests.</td>
+                    <td>Είναι η τυπική απάντηση για τα <span class="bold">επιτυχημένα HTTP requests</span>.</td>
                 </tr>
                 <tr>
                     <td><span class="bold">201 (CREATED)</span></td>
-                    <td>Είναι η τυπική απάντηση, όταν ένα HTTP request, είχε ως αποτέλεσμα τη δημιουργία ενός resource.</td>
+                    <td>Είναι η τυπική απάντηση, όταν ένα HTTP request, είχε ως αποτέλεσμα τη <span class="bold">δημιουργία ενός resource</span>.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">204 (NO CONTENT)</span></td>
-                    <td>Είναι η τυπική απάντηση για τα επιτυχημένα HTTP requests, τα οποία έχουν κενό response body.</td>
+                    <td>Είναι η τυπική απάντηση για τα <span class="bold">επιτυχημένα</span> HTTP requests, τα οποία έχουν <span class="bold">κενό response body</span>.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">400 (BAD REQUEST)</span></td>
-                    <td>Το αίτημα δεν μπορεί, να επεξεργαστεί λόγω κακής σύνταξης του αιτήματος ή κάποιου σφάλματος του client.</td>
+                    <td>Το αίτημα δεν μπορεί, να επεξεργαστεί λόγω <span class="bold">κακής σύνταξης</span> του αιτήματος ή κάποιου <span class="bold">σφάλματος του client</span>.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">403 (FORBIDDEN)</span></td>
-                    <td>Ο client δεν έχει άδεια πρόσβασης, σε αυτό το resource.</td>
+                    <td>Ο client <span class="bold">δεν έχει άδεια πρόσβασης</span>, σε αυτό το resource.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">404 (NOT FOUND)</span></td>
-                    <td>Το resource δεν βρέθηκε. Μπορεί, να διαγράφηκε ή να μην έχει δημιουργηθεί ακόμα.</td>
+                    <td>Το resource <span class="bold">δεν βρέθηκε</span>. Μπορεί, να διαγράφηκε ή να μην έχει δημιουργηθεί ακόμα.</td>
                 </tr>
 
                 <tr>
                     <td><span class="bold">500 (INTERNAL SERVER ERROR)</span></td>
-                    <td>Είναι μια γενική απάντηση, για κάποια αναπάνταχη αποτυχία, όταν δεν υπάρχουν πιο συγκεκριμένες πληροφορίες.</td>
+                    <td>Είναι μια γενική απάντηση, για κάποια αναπάνταχη <span class="bold">αποτυχία του server</span>, όταν δεν υπάρχουν πιο συγκεκριμένες πληροφορίες.</td>
                 </tr>
  
             </table>
