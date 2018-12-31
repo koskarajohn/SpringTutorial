@@ -249,11 +249,11 @@
 
             <h5 class="mt-4">@RequestMapping</h5>
 
-            <p>Το annotation αυτό χρησιμοποείται σε επίπεδο κλάσης και μεθόδου. Αντιστοιχίζει ένα αίτημα HTTP σε μια συγκεκριμένη μέθοδο, 
+            <p>Το annotation αυτό χρησιμοποείται σε επίπεδο κλάσης και μεθόδου. <span class="bold">Αντιστοιχίζει ένα αίτημα HTTP</span> σε μια συγκεκριμένη <span class="bold">μέθοδο</span>, 
                 η οποία θα το χειριστεί. Όταν το annotation χρησιμοποείται σε επίπεδο κλάσης, ορίζει το βασικό URL, για το οποίο θα χρησιμοποιηθεί
                 ο controller. Η κάθε μέθοδος θα αντιστοιχίζεται σε διαφορετικό URL. Η παράμετρος method δηλώνει τι τύπου θα είναι το HTTP request, το
-                οποίο θα χειριστεί η μέθοδος. Για παράδειγμα, όταν πραγματοποιηθεί GET HTTP αίτημα στο URL
-                http://localhost:8080/api/deals, θα εκτελεστεί η μέθοδος getDeals().
+                οποίο θα χειριστεί η μέθοδος. Για παράδειγμα, όταν πραγματοποιηθεί HTTP GET αίτημα στο URL
+                <span class="bold">http://localhost:8080/api/deals</span>, θα εκτελεστεί η μέθοδος getDeals().
 
                 <pre>
                     <code>                        
@@ -293,10 +293,10 @@
 
             <h5 class="mt-4">@PathVariable</h5>
 
-            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Χειρίζεται δυναμικές αλλαγές στο URL, όπου ένα κομμάτι του URL λειτουργεί
-                ως παράμετρος. Για παράδειγμα, η παρακάτω μέθοδος getProductByName() θέλουμε, να επιστρέφει το σωστό προιόν, ανάλογα με το όνομα του προιόντος στο url.
-                Όταν ο client θέλει το προιόν με όνομα apivita-shampoo-dry-dandruff-250ml, κάνει ένα GET HTTP request στο url 
-                http://localhost:8080/api/products/apivita-shampoo-dry-dandruff-250ml και η παράμετρος name της μεθόδου παίρνει την τιμή
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Χειρίζεται δυναμικές αλλαγές στο URL, όπου <span class="bold">ένα κομμάτι του URL λειτουργεί
+                ως παράμετρος</span>. Για παράδειγμα, η παρακάτω μέθοδος getProductByName() θέλουμε, να επιστρέφει το σωστό προιόν, ανάλογα με το όνομα του προιόντος στο url.
+                Όταν ο client θέλει το προιόν με όνομα apivita-shampoo-dry-dandruff-250ml, κάνει ένα <span class="bold">HTTP GET request</span> στο url 
+                <span class="bold">http://localhost:8080/api/products/apivita-shampoo-dry-dandruff-250ml</span> και η <span class="bold"></span>παράμετρος name της μεθόδου παίρνει την τιμή
                 "apivita-shampoo-dry-dandruff-250ml".
                 <pre>
                     <code>                        
@@ -327,9 +327,9 @@
 
             <h5 class="mt-4">@RequestParam</h5>
 
-            <p> Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Αντιστοιχίζει τις παραμέτρους που στέλνει ο client, συνήθως με GET request,
-                με παραμέτρους της μεθόδου , η οποία θα χειριστεί το αίτημα. Όταν o client θέλει τα brands της κατηγορίας shampoos, κάνει ένα GET
-                HTTP request στο URL http://localhost:8080/api/brands?category=shampoos και η παράμετρος category της μεθόδου getCategoryBrands() παίρνει την τιμή 
+            <p> Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. <span class="bold">Αντιστοιχίζει τις παραμέτρους</span> που στέλνει ο client, συνήθως με GET request,
+                <span class="bold">με παραμέτρους της μεθόδου</span> , η οποία θα χειριστεί το αίτημα. Όταν o client θέλει τα brands της κατηγορίας shampoos, κάνει ένα <span class="bold">GET
+                    HTTP request</span> στο URL <span class="bold">http://localhost:8080/api/brands?category=shampoos</span> και η <span class="bold">παράμετρος category</span> της μεθόδου getCategoryBrands() παίρνει την τιμή 
                 "shampoos". 
                 <pre>
                     <code>
@@ -358,9 +358,9 @@
 
             <h5 class="mt-4">@RequestBody</h5>
 
-            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Αντιστοιχίζει την τιμή του HTTP request body με την παράμετρο της
-                μεθόδου, η οποία θα χειριστεί το αίτημα.  Όταν o client θέλει να κάνει register, κάνει ένα POST HTTP request στο URL 
-                http://localhost:8080/api/register και η παράμετρος user της μεθόδου registerUser() παίρνει την τιμή του request body.
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. <span class="bold">Αντιστοιχίζει την τιμή</span> του HTTP <span class="bold">request body</span> με την <span class="bold">παράμετρο της
+                μεθόδου</span>, η οποία θα χειριστεί το αίτημα.  Όταν o client θέλει να κάνει register, κάνει ένα <span class="bold">HTTP POST request</span> στο URL 
+                <span class="bold">http://localhost:8080/api/register </span>και η παράμετρος user της μεθόδου registerUser() παίρνει την τιμή του request body.
 
                 <pre>
                     <code>
@@ -396,7 +396,7 @@
 
             <h5 class="mt-4">@RequestPart</h5>
 
-            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Μπορεί να χρησιμοποιηθεί αντί για το annotation @RequestParam και να
+            <p>Το annotation χρησιμοποείται στις παραμέτρους μεθόδου. Μπορεί να χρησιμοποιηθεί αντί για το annotation <span class="code">@RequestParam</span> και να
                 πάρουμε το περιεχόμενο μιας φωτογραφίας.
 
                 <pre>
@@ -417,7 +417,7 @@
 
             <h5 class="mt-4">@Entity</h5>
             
-            <p>Ορίζει ότι η αυτή η κλάση, είναι ένα entity.</p>
+            <p>Ορίζει ότι η αυτή η κλάση, είναι ένα <span class="bold">entity</span>.</p>
 
             <pre>
                 <code>
@@ -431,7 +431,7 @@
 
             <h5 class="mt-4">@Table(name = "tableName")</h5>
 
-            <p>Ορίζει τον πίνακα της βάσης δεδομένων, με τον οποίο θα αντιστοιχίστει το entity.</p>
+            <p>Ορίζει τον <span class="bold">πίνακα της βάσης δεδομένων</span>, με τον οποίο θα <span class="bold">αντιστοιχίστει το entity</span>.</p>
 
             <pre>
                 <code>
@@ -445,7 +445,7 @@
 
             <h5 class="mt-4">@Column(name = "columnName")</h5>
 
-            <p>Ορίζει την στήλη του πίνακα, με την οποία θα αντιστοιχίστει το πεδίο του entity.</p>
+            <p>Ορίζει την <span class="bold">στήλη του πίνακα</span>, με την οποία θα <span class="bold">αντιστοιχίστει το πεδίο</span> του entity.</p>
 
             <pre>
                 <code>
@@ -456,7 +456,7 @@
 
             <h5 class="mt-4">@Transient</h5>
 
-            <p>Ορίζει ότι αυτό το πεδίο δεν θα αποθηκευτεί στον πίνακα της βάσης.</p>
+            <p>Ορίζει ότι αυτό <span class="bold">το πεδίο δεν θα αποθηκευτεί</span> στον πίνακα της βάσης.</p>
 
             <pre>
                 <code>
@@ -467,7 +467,7 @@
 
             <h5 class="mt-4">@Id</h5>
 
-            <p>Ορίζει το πρωτεύον κλειδί του πίνακα.</p>
+            <p>Ορίζει το <span class="bold">πρωτεύον κλειδί</span> του πίνακα.</p>
 
             <pre>
                 <code>
@@ -481,7 +481,7 @@
 
             <h5 class="mt-4">@GeneratedValue(strategy = STRATEGY)</h5>
 
-            <p>Ορίζει την στρατηγική παραγωγής τιμών του πρωτεύοντος κλειδιού.</p>
+            <p>Ορίζει την <span class="bold">στρατηγική παραγωγής τιμών</span> του πρωτεύοντος κλειδιού.</p>
 
             <pre>
                 <code>
@@ -495,7 +495,7 @@
 
             <h5 class="mt-4">@NotNull</h5>
 
-            <p>Ορίζει το συγκεκριμένο πεδίο δεν πρέπει, να είναι null.</p>
+            <p>Ορίζει το συγκεκριμένο πεδίο <span class="bold">δεν πρέπει, να είναι null</span>.</p>
 
             <pre>
                 <code>
@@ -507,7 +507,7 @@
 
             <h5 class="mt-4">@OneToOne, @OneToMany, @ManyToOne, @ManyToMany</h5>
 
-            <p>Xρησιμοποείται, για να δηλώσουμε την πολλαπλότητα της σχέσης των entities.</p>
+            <p>Xρησιμοποείται, για να <span class="bold"></span>δηλώσουμε την πολλαπλότητα της σχέσης των entities.</p>
 
             <pre>
                 <code>
@@ -521,7 +521,7 @@
 
             <h5 class="mt-4">@JoinColumn</h5>
 
-            <p>Ορίζει τη στήλη, ως τη join στήλη για τη συσχέτιση των entities.</p>
+            <p>Ορίζει τη στήλη, ως τη <span class="bold">join στήλη</span> για τη συσχέτιση των entities.</p>
 
             <pre>
                 <code>
@@ -548,7 +548,7 @@
 
             <h5 class="mt-4">@EmbeddedId</h5>
 
-            <p>Χρησιμοποείται σε ένα πεδίο, για να δηλώσει ότι είναι σύνθετο πρωτεύον κλειδί και embeddable κλάση.</p>
+            <p>Χρησιμοποείται σε ένα πεδίο, για να δηλώσει ότι είναι <span class="bold">σύνθετο πρωτεύον</span> κλειδί και embeddable κλάση.</p>
 
             <pre>
                 <code>
@@ -579,7 +579,7 @@
 
             <h5 class="mt-4">@Valid</h5>
 
-            <p>Πραγματοποιεί validation στο μοντέλο, αφού πάρει τιμή.</p>
+            <p>Πραγματοποιεί <span class="bold">validation</span> στο μοντέλο, αφού πάρει τιμή.</p>
 
             <h5 class="mt-4">@Transactional</h5>
 
@@ -587,11 +587,11 @@
 
             <h5 class="mt-4">@Async</h5>
 
-            <p>Το χρησιμοποιούμε, όταν θέλουμε μια μέθοδος να εκτελεστεί σε ξεχωριστό νήμα.</p>
+            <p>Το χρησιμοποιούμε, όταν θέλουμε μια μέθοδος να <span class="bold">εκτελεστεί σε ξεχωριστό νήμα</span>.</p>
 
             <h5 class="mt-4">@EnableAsync</h5>
 
-            <p>Ενεργοποιεί τη λειτουργία εκτέλεσης ασύγχρονων μεθόδων του Spring.</p>
+            <p> <span class="bold">Ενεργοποιεί</span> τη λειτουργία εκτέλεσης <span class="bold">ασύγχρονων μεθόδων</span> του Spring.</p>
         </section>
     </div>
 
