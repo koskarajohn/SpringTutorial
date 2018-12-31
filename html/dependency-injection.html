@@ -85,13 +85,20 @@
         <section class="intro">
            <h5 class="mt-5">Dependency injection</h5>
 
-           <p>Ο κώδικας είναι πιο "καθαρός" εφμόζοντας DI και το decoupling, είναι πιο αποτελεσματικό, όταν στα αντικείμενα παρέχονται
-               οι εξαρτήσεις τους. Τα αντικείμενα δεν ψάχνουν τις εξαρτήσεις τους και δεν γνωρίζουν την τοποθεσία ή την κλάση των εξαρτήσεων.
+           <p><span class="bold">Dependency injection (DI)</span> είναι μια διαδικασία, στην οποία 
+            <span class="bold">τα αντικείμενα ορίζουν τις εξαρτήσεις τους</span> (τα άλλα αντικείμενα με τα οποία δουλεύουν), μόνο μέσω παραμέτρων κατασκευαστή, παραμέτρων σε μια μέθοδο-
+               εργοστάσιου ή μέσω properties, τα οποία ορίζονται στο στιγμιότυπο αντικειμένου, αφού αυτό κατασκευαστεί ή επιστραφεί από μέθοδο-εργοστάσιο.
+               Το <span class="bold">container ύστερα κάνει inject τις εξαρτήσεις</span>, όταν δημιουργεί το bean. Η διαδικασία είναι ουσιαστικά η <span class="bold"></span>αντίστροφη, από το 
+               <span class="bold">να ελέγχει το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του</span> , χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
+           </p>
+
+           <p>Ο κώδικας είναι <span class="bold">πιο "καθαρός"</span> εφαρμόζοντας DI και πετυχαίνουμε <span class="bold">χαμηλή σύζευξη</span>, όταν στα αντικείμενα <span class="bold">παρέχονται
+            οι εξαρτήσεις τους</span>. Τα αντικείμενα <span class="bold"></span>δεν ψάχνουν τις εξαρτήσεις τους και δεν γνωρίζουν την τοποθεσία ή την κλάση των εξαρτήσεων.
                Έτσι, είναι πιο εύκολο να πραγματοποιηθούν test στις κλάσεις, ειδικά όταν οι εξαρτήσεις είναι διεπαφές ή αφηρημένες κλάσεις,
                οι οποίες επιτρέπουν, να χρησιμοποιηθούν mock implementations στα unit tests.
            </p>
 
-           <p>Υπάρχουν δύο είδη dependency injection : <strong>Constructor-based</strong> dependency injection και <strong>Setter-based</strong> dependency injection.</p>
+           <p>Υπάρχουν <span class="bold">δύο είδη</span> dependency injection : <strong>Constructor-based</strong> dependency injection και <strong>Setter-based</strong> dependency injection.</p>
         </section>
 
         <section class="no-dependency-injection">
@@ -174,8 +181,8 @@
         <section class="annotation-dependency-injection">
             <h5 class="mt-5">Dependency Injection με το annotation @Autowired</h5>
 
-            <p>Ξεκινώντας από την έκδοση 2.5, το Spring εισήγαγε ένα νέο τρόπο, να πραγματοποιήσουμε Dependecy Injection με το annotation
-                @Autowired. Αυτό το annotation επιτρέπει στο Spring να αποφασίζει και να κάνει inject τα συνεργαζόμενα beans σε ένα bean.
+            <p>Ξεκινώντας από την έκδοση 2.5, το Spring εισήγαγε ένα νέο τρόπο, να πραγματοποιήσουμε Dependency Injection με το annotation
+                <span class="code">@Autowired</span>. Αυτό το annotation επιτρέπει στο Spring να αποφασίζει και να κάνει inject τα συνεργαζόμενα beans σε ένα bean.
                 Μπορεί να χρησιμοποιηθεί είτε σε πεδίο, είτε στον κατασκευαστή.
             </p>
 

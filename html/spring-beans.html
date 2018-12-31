@@ -84,8 +84,8 @@
             <h1 class="text-center">Spring Beans</h1>
 
             <p>Στο Spring, τα αντικείμενα που αποτελούν τη ραχοκοκαλιά της εφαρμογής και διαχειρίζονται από το Spring IoC Container
-                λέγονται <span class="bold">beans</span>. Το bean είναι <span class="bold">ένα αντικείμενο</span>, το οποίο αρχικοποιείται, δημιουργείται 
-                και διαχείριζεται από το <span class="bold">Spring IoC container</span>. Αλλιώς, είναι ένα από τα πολλά αντικείμενα τις εφαρμογής.
+                λέγονται <span class="bold">beans</span>. Το bean είναι <span class="bold">ένα αντικείμενο</span>, το οποίο <span class="bold">αρχικοποιείται</span>, <span class="bold">δημιουργείται</span> 
+                και <span class="bold">διαχείριζεται</span> από το <span class="bold">Spring IoC container</span>. Αλλιώς, είναι ένα από τα πολλά αντικείμενα τις εφαρμογής.
             </p>
 
             <p>
@@ -111,9 +111,9 @@
             </p>
 
             <p>Στη περίπτωση του <span class="bold">XML configuration</span>, χρησιμοποιούμε το <span class="bold">id attribute</span>, το <span class="bold">name attribute</span>  ή και τα δύο για το αναγνωριστικό του bean.
-                Το id attribute μας επιτρέπει, να δηλώσουμε ένα μόνο id. Τα ονόματα μπορούν, να περιέχουν απλούς χαρακτήρες <span class="highlight">('myBean')</span>, αλλά και ειδικούς χαρακτήρες.
-                Στην περιπτώση των annotations, δηλώνουμε το αναγνωριστικό στην παράμετρο, που παίρνουν :  <span class="highlight">@Component('myBean')</span>, 
-                <span class="highlight">@Bean('myBean')</span>, <span class="highlight">@Service('myBean')</span> κλπ.
+                Το id attribute μας επιτρέπει, να δηλώσουμε ένα μόνο id. Τα ονόματα μπορούν, να περιέχουν απλούς χαρακτήρες ('myBean'), αλλά και ειδικούς χαρακτήρες.
+                Στην περιπτώση των annotations, δηλώνουμε το αναγνωριστικό στην παράμετρο, που παίρνουν :  <span class="code">@Component('myBean')</span>, 
+                <span class="code">@Bean('myBean')</span>, <span class="code">@Service('myBean')</span> κλπ.
             </p>
 
             <p>Η δήλωση αναγνωριστικού για το bean <span class="bold">δεν είναι υποχρεωτική</span>. Εάν δηλώσουμε ρητά το id ή το name, το container παράγει ένα μοναδικό όνομα για το bean.
@@ -123,19 +123,19 @@
             <h5 class="mt-4">Κανόνας ονοματοσίας των beans</h5>
 
             <p>Ο κανόνας ονομασίας των beans είναι αυτός, οποίος χρησιμοποιεί και η Java για τα πεδία των κλάσεων. Τα ονόματα των beans ξεκινάνε με μικρό γράμμα και
-                είναι camel-cased απο κεί και πέρα. Για παράδειγμα, <span class="highlight">accountService</span>, <span class="highlight">loginController</span>.
+                είναι camel-cased απο κεί και πέρα. Για παράδειγμα, <span class="bold">accountService</span>, <span class="bold">loginController</span>.
             </p>
         </section>
 
         <section class="scope">
             <h5>Bean Scopes</h5>
 
-            <p>Όταν δημιουργούμε ένα bean definition, δημιουργούμε μια συνταγή για τη δημιουργία πραγματικών στιγμιοτύπων της κλάσης, η οποία
+            <p>Όταν δημιουργούμε ένα bean definition,  <span class="bold">δημιουργούμε μια συνταγή για τη δημιουργία πραγματικών στιγμιοτύπων</span> της κλάσης, η οποία
                 ορίζεται στο bean definition. Η ιδέα ότι ένα bean definition είναι μια συνταγή, είναι σημαντική επειδή σημαίνει πως όπως και με την κλαση,
                 μπορούμε να δημιουργήσουμε πολλά στιγμιότυπα από την ίδια συνταγή.
             </p>
-,
-            <p>Μπορούμε να ρυθμίσουμε τις διάφορες εξαρτήσεις και τις τιμές των ρυθμίσεων, οι οποίες θα εισαχθούν σε ένα αντικείμενο, που
+
+            <p>Μπορούμε να <span class="bold">ρυθμίσουμε τις διάφορες εξαρτήσεις και τις τιμές των ρυθμίσεων</span>, οι οποίες θα εισαχθούν σε ένα αντικείμενο, που
                 θα δημιουργηθεί από μια συγκεκριμένη συνταγή και το scope του αντικένου αυτόυ. To Spring υποστηρίζει διάφορα είδη scope
             </p>
 
