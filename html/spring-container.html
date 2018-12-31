@@ -92,13 +92,13 @@
                <span class="bold">να ελέγχει το αντικείμενο-bean την αρχικοποίηση ή την τοποθεσία των εξαρτήσεων του</span> , χρησιμοποιώντας απευθείας κατασκευή των κλάσεων.
            </p>
 
-           <p>Τα πακέτα <span class="bold">org.springframework.beans</span> και <span class="bold">org.springframework.context</span> είναι η βάση του Spring IoC container. Η διεπαφή
+           <p>Τα πακέτα <span class="code">org.springframework.beans</span> και <span class="code">org.springframework.context</span> είναι η βάση του Spring IoC container. Η διεπαφή
                BeanFactory παρέχει έναν προχωρημένο μηχανισμό ρύθμισεων, ο οποίος είναι ικανός, να διαχειρίζεται οποιοδήποτε τύπο
                αντικειμένου. Το πακέτο ApplicationContext είναι sub-interface του BeanFactory. To πακέτο BeanFactory παρέχει το configuration
                framework και τη βασική λειτουργικότητα, ενώ το ApplicationContext περισσότερο enterprise λειτουργικότητα.
            </p>
 
-           <p>Το interface <span class="bold">org.springframework.context.ApplicationContext</span> αντιπροσωπεύει <span class="bold">το Spring IoC container</span> και είναι υπεύθυνο,
+           <p>Το interface <span class="code">org.springframework.context.ApplicationContext</span> αντιπροσωπεύει <span class="bold">το Spring IoC container</span> και είναι υπεύθυνο,
               για την <span class="bold">αρχικοποίηση</span>, <span class="bold">ρύθμιση</span> και <span class="bold">συναρμολόγηση των αντικειμένων</span>. Το container παίρνει τις οδηγίες, ως προς ποια αντικείμενα
               να αρχικοποιήσει, να ρυθμίσει και να συναρμολογήσει, διαβάζοντας τα configuration metadata. Τα configuration metadata αναπαρίστανται
               με <span class="bold">XML</span>, <span class="bold">Java annotations</span> ή με <span class="bold">κώδικα Java</span>.
@@ -124,7 +124,7 @@
 
            <h5 class="mt-5">Δημιουργία Beans με XML configuration</h5>
 
-           <p>Μπορούμε να δηλώσουμε ένα bean με ένα XML configuration file. Χρησιμοποιούμε το element &#60;bean&#62;&#60;/bean&#62;. Παρακάτω,
+           <p>Μπορούμε να δηλώσουμε ένα bean με ένα XML configuration file. Χρησιμοποιούμε το element <span class="bold">&#60;bean&#62;&#60;/bean&#62;</span>. Παρακάτω,
                δηλώνουμε ότι θέλουμε το Spring IoC container, να δημιουργήσει ένα bean με id demoBean από την κλάση Demo.
            </p>
 
@@ -159,7 +159,7 @@
         <section class="java-configuration">
             <h5 class="mt-5">Δημιουργία Beans με Java configuration</h5>
 
-           <p>Χρησιμοποιούμε το annotation @Configuration και δημιουργούμε μια Java configuration κλάση DemoConfig, η οποία θα περιέχει beans. Η μέθοδος demo επιστρέφει ένα αντικείμενο-bean της κλάσης
+           <p>Χρησιμοποιούμε το annotation <span class="code">@Configuration</span> και δημιουργούμε μια Java configuration κλάση DemoConfig, η οποία θα περιέχει beans. Η μέθοδος demo επιστρέφει ένα αντικείμενο-bean της κλάσης
                Demo με id demoBean.
            </p>
 
@@ -195,8 +195,8 @@
         <section class="annotation-configuration">
             <h5 class="mt-5">Δημιουργία Beans με Java annotations</h5>
 
-            <p>Δημιουργούμε μια Java configuration κλάση DemoConfig, με το annotation @Configuration. Μετά, ενεργοποιούμε το μηχανισμό
-                αναζήτησης components του Spring με το annotation @ComponentScan, δηλώνοντας και το πακέτο, που είναι τα components. </p>
+            <p>Δημιουργούμε μια Java configuration κλάση DemoConfig, με το annotation <span class="code">@Configuration</span>. Μετά, ενεργοποιούμε το μηχανισμό
+                αναζήτησης components του Spring με το annotation <span class="code">@ComponentScan</span>, δηλώνοντας και το πακέτο, που είναι τα components. </p>
 
             <pre>
              <code>
@@ -208,7 +208,7 @@
              </code>
             </pre>
 
-            <p>Δηλώνουμε ότι η κλάση θα είναι ένα Spring component Με το annotation @Component. Το Spring θα δημιουργήσει ένα αντικείμενο-bean
+            <p>Δηλώνουμε ότι η κλάση θα είναι ένα Spring component με το annotation <span class="code">@Component</span>. Το Spring θα δημιουργήσει ένα αντικείμενο-bean
                 της κλάσης με id demoBean και θα το εισάγει στο Spring IoC container.
             </p>
 
