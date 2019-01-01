@@ -388,7 +388,7 @@
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="annotation">@GetMapping(</span><span class="string">"/accounts/{id}"</span>)
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ResponseEntity&#60;?&#62 getAccount (){
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> ResponseEntity&#60;?&#62; getAccount (){
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Account account = ...; 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Account&#62;( account, HttpStatus.BAD_REQUEST);
                     &emsp;&emsp;&emsp;&emsp;} 

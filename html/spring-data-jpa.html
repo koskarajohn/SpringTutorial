@@ -241,6 +241,123 @@
             </pre>
         </section>
 
+        <section class="spring-data-jpa">
+
+            <h5>Spring Data Jpa</h5>
+
+            <p>Το Spring Data JPA δεν είναι ένας JPA provider, αλλά ένα specification. Είναι ένα framework, το οποίο παρέχει ένα επιπλέον
+                επίπεδο αφαίρεσης πάνω από τον JPA provider. Ο στόχος της αφαίρεσης Spring Data repository είναι, να μειώσει σημαντικά
+                τον boilerplate κώδικα, που απαιτείται για να δημιουργήσουμε το επίπεδο data access.
+            </p>
+
+            <p>Το βασικό repository, που παρέχει το Spring Data είναι το CrudRepository. Αυτό παρέχει τις βασικές λειτουργίες CRUD(Create, Read, Update, Delete).</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CrudRepository&#60;T, ID <span class="keyword">extends</span> Serializable&#62; <span class="keyword">extends</span> Repository&#60;T, ID&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Αποθηκεύει το συγκεκριμένο entity.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&#60;S <span class="keyword">extends</span> T&#62; S save(S entity); 
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Επιστρέφει το entity, με αυτό το ID.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">Optional</span>&#60;T&#62; findById(ID primaryKey);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Επιστρέφει όλα τα entities.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">Iterable</span>&#60;T&#62; findAll(); 
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Επιστρέφει τον αριθμό των entities.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">long</span> count(); 
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Διαγράφει το συγκεκριμένο entity.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">void</span> delete(T entity);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">// Επιστρέφει αν το entity, με το ID αυτό υπάρχει.</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">boolean</span> existsById(ID primaryKey);
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Το Spring Data JPA παρέχει τις υλοποιήσεις των μεθόδων για εμάς.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductRepository  extends CrudRepository&#60;Product, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Εάν θέλουμε να βρούμε ένα προιόν, ο κώδικας δίνεται παρακάτω:</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> ProductRepository  productRepository;
+
+                    &emsp;&emsp;&emsp;&emsp;Product product = productRepository.findById(4);
+                </code>
+            </pre>
+
+            <p>Για να αποθηκεύσουμε ένα προιόν, ο κώδικας δίνεται παρακάτω:</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;Product product = <span class="keyword">new</span> Product();
+                    &emsp;&emsp;&emsp;&emsp;product.setName(<span class="string">"name"</span>);
+                    &emsp;&emsp;&emsp;&emsp;product.setPrice(25);
+                    &emsp;&emsp;&emsp;&emsp;productRepository.save(product);
+                </code>
+            </pre>
+        </section>
+
+        <section class="jpa-repositories">
+
+            <h5>JPA Repositories</h5>
+
+            <p>Τα Spring Data JPA repositories είναι default Spring beans. Είναι singletons και αρχικοποιούνται γρήγορα. Κάνουν extend τα
+                CrudRepository&#60;T, ID&#62; και PagingAndSortingRepository&#60;T, ID&#62;, οπότε κληρονομούν την λειτουργικότητα τους. </p>
+
+            <p>Για να μπορέσουμε, να χρησιμοποιήσουμε JPA Repositories, χρειάζεται XML ή Java Configuration. Παρακάτω, δίνεται το Java configuration.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Configuration</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@EnableJpaRepositories</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@EnableTransactionManagement</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ApplicationConfig {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> DataSource dataSource(){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;EmbeddedDatabaseBuilder builder = <span class="keyword">new </span>EmbeddedDatabaseBuilder();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> builder.setType(EmbeddedDatabaseType.HSQL).build();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> DataSource dataSource(){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;HibernateJpaVendorAdapter vendorAdapter = <span class="keyword">new </span>HibernateJpaVendorAdapter();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;vendorAdapter.setGenerateDdl(true);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;LocalContainerEntityManagerFactoryBean factory  = <span class="keyword">new </span>LocalContainerEntityManagerFactoryBean();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factory.setJpaVendorAdapter(vendorAdapter);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factory.setPackagesToScan(<span class="string">"com.acme.repositories"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factory.setDataSource(dataSource());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> factory;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;JpaTransactionManager txManager = <span class="keyword">new </span>JpaTransactionManager();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;txManager.setEntityManagerFactory(entityManagerFactory);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> txManager;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
