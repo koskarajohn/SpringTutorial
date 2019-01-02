@@ -356,6 +356,166 @@
                 </code>
             </pre>
 
+            <p>Το παραπάνω configuration ρυθμίζει μια embedded HSQL βάση δεδομένων, χρησιμοποιώντας το EmbeddedDatabaseBuilder API του spring-jdbc. 
+                Το Spring Data δημιουργεί ένα EntityManagerFactory και χρησιμοποιεί το Hibernate ως persistence provider. Το 3ο bean που δημιουργείται, 
+                είναι το JpaTransactionManager. Τέλος, τα Spring Data JPA repositories ενεργοποιούνται, χρησιμοποιώντας το annotation @EnableJpaRepositories.
+            </p>
+
+        </section>
+
+        <section class="queries">
+
+            <h5>Δημιουργία ερωτημάτων</h5>
+
+            <p>Μπορούμε, να ορίσουμε ένα ερώτημα ως String ή μέσω του ονόματος της μεθόδου.</p>
+
+            <h5>Δημιουργία ερωτημάτων μέσω του ονόματος της μεθόδου</h5>
+
+            <pre>
+                <code>  
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface </span> UserRepository <span class="keyword">extends</span> JpaRepository&#60;User, Long&#62;{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;User&#62; findByEmailAddressAndLastname(String emailAddress, String lastname)
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <table class="jpa-keywords">
+                <tr>
+                    <th>Keyword</th>
+                    <th>Sample</th>
+                    <th>JPQL snippet</th>
+                </tr>
+                <tr>
+                    <td>And</span></td>
+                    <td>findByLastnameAndFirstname</td>
+                    <td>… where x.lastname = ?1 and x.firstname = ?2</td>
+                </tr>
+                <tr>
+                    <td>Or</td>
+                    <td>findByLastnameOrFirstname</td>
+                    <td>… where x.lastname = ?1 or x.firstname = ?2</td>
+                </tr>
+                <tr>
+                    <td>Is,Equals</td>
+                    <td>findByFirstname,findByFirstnameIs,findByFirstnameEquals</td>
+                    <td>… where x.firstname = ?1</td>
+                </tr>
+                <tr>
+                    <td>Between</td>
+                    <td>findByStartDateBetween</td>
+                    <td>… where x.startDate between ?1 and ?2</td>
+                </tr>
+                <tr>
+                    <td>LessThan</td>
+                    <td>findByAgeLessThan</td>
+                    <td>… where x.age &#60; ?1</td>
+                </tr>
+                <tr>
+                    <td>LessThanEqual</td>
+                    <td>findByAgeLessThanEqual</td>
+                    <td>… where x.age &#60;= ?1</td>
+                </tr>
+                <tr>
+                    <td>GreaterThan</td>
+                    <td>findByAgeGreaterThan</td>
+                    <td>… where x.age &#62; ?1</td>
+                </tr>
+                <tr>
+                    <td>GreaterThanEqual</td>
+                    <td>findByAgeGreaterThanEqual</td>
+                    <td>… where x.age &#62;= ?1</td>
+                </tr>
+                <tr>
+                    <td>IsNull</td>
+                    <td>findByAgeIsNull</td>
+                    <td>… where x.age is null</td>
+                </tr>
+                <tr>
+                    <td>IsNotNull,NotNull</td>
+                    <td>findByAge(Is)NotNull</td>
+                    <td>… where x.age not null</td>
+                </tr>
+                <tr>
+                    <td>Like</td>
+                    <td>findByFirstnameLike</td>
+                    <td>… where x.firstname like ?1</td>
+                </tr>
+                <tr>
+                    <td>OrderBy</td>
+                    <td>findByAgeOrderByLastnameDesc</td>
+                    <td>… where x.age = ?1 order by x.lastname desc</td>
+                </tr>
+                <tr>
+                    <td>In</td>
+                    <td>findByAgeIn(Collection&#60;Age&#62; ages)</td>
+                    <td>… where x.age in ?1</td>
+                </tr>
+                <tr>
+                    <td>True</td>
+                    <td>findByActiveTrue()</td>
+                    <td>… where x.active = true</td>
+                </tr>
+                <tr>
+                    <td>False</td>
+                    <td>findByActiveFalse()</td>
+                    <td>… where x.active = false</td>
+                </tr>
+            </table>
+
+            <p>Δημιουργούμε ένα ερώτημα, χρησιμοποιώντας το JPA criteria API και αύτο μεταφράζεται στο εξής ερώτημα : select u from User 
+                where u.emailAddress = ?1 and u.lastname = ?2. Το JPA ελέγχει και διασχίζει τα properties.</p>
+
+            <h5>Δημιουργία ερωτημάτων με το annotation @Query</h5>
+
+            <p>Μπορούμε, να χρησιμοποιήσουμε το annotation @Query στην αντίστοιχη μέθοδο, δηλώνοντας το ερώτημα, που θέλουμε να εκτελεστεί.</p>
+
+            <pre>
+                <code>  
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface </span> UserRepository <span class="keyword">extends</span> JpaRepository&#60;User, Long&#62;{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select u from User u where u.emailAddress = ?1"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User findByEmailAddress(String emailAddress);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Εάν το ερώτημα ενημερώνει ή προσθέτει γραμμές σε κάποιο πίνακα της βάσης, τότε χρησιμοποιούμε το annotation @Modifying.</p>
+
+            <pre>
+                <code>  
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"update User u set u.firstname = ?1 where u.lastname = ?2"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int setFixedFirstnameFor(String firstname, String lastname);
+                </code>
+            </pre>
+
+            <p>Επίσης, μπορούμε να χρησιμοποιήσουμε το annotation @Param, για να δώσουμε όνομα σε μια παράμετρο μεθόδου και να κάνουμε bind το όνομα
+                στο ερώτημα
+            </p>
+
+            <pre>
+                <code>  
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface </span> UserRepository <span class="keyword">extends</span> JpaRepository&#60;User, Long&#62;{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select u from User u where u.firstname = :firstname or u.lastname = :lastname""</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User findByEmailAddress(<span class="annotation">@Param</span>(<span class="string">"lastname"</span>) String lastname,<span class="annotation">@Param</span>(<span class="string">"firstname"</span>) String firstname);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Το annotation @Query μας δίνει τη δυνατότητα, να πραγματοποιήσουμε και native ερωτήματα, θέτοντας τη σημαία nativeQuery σε true.</p>
+
+            <pre>
+                <code>  
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface </span> UserRepository <span class="keyword">extends</span> JpaRepository&#60;User, Long&#62;{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>( value = <span class="string">"SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1"</span>, nativeQuery = true)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User findByEmailAddress(String emailAddress);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
         </section>
 
         <section class="references">
