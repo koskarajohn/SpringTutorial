@@ -380,6 +380,9 @@
                 </code>
             </pre>
 
+            <p>Δημιουργούμε ένα ερώτημα, χρησιμοποιώντας το JPA criteria API και αύτο μεταφράζεται στο εξής ερώτημα : select u from User 
+                where u.emailAddress = ?1 and u.lastname = ?2. Το JPA ελέγχει και διασχίζει τα properties.</p>
+
             <table class="jpa-keywords">
                 <tr>
                     <th>Keyword</th>
@@ -462,9 +465,6 @@
                     <td>… where x.active = false</td>
                 </tr>
             </table>
-
-            <p>Δημιουργούμε ένα ερώτημα, χρησιμοποιώντας το JPA criteria API και αύτο μεταφράζεται στο εξής ερώτημα : select u from User 
-                where u.emailAddress = ?1 and u.lastname = ?2. Το JPA ελέγχει και διασχίζει τα properties.</p>
 
             <h5>Δημιουργία ερωτημάτων με το annotation @Query</h5>
 
