@@ -316,8 +316,8 @@
 
             <h5>JPA Repositories</h5>
 
-            <p>Τα Spring Data JPA repositories είναι default Spring beans. Είναι singletons και αρχικοποιούνται γρήγορα. Κάνουν extend τα
-                CrudRepository&#60;T, ID&#62; και PagingAndSortingRepository&#60;T, ID&#62;, οπότε κληρονομούν την λειτουργικότητα τους. </p>
+            <p>Τα Spring Data JPA repositories είναι default Spring beans. Είναι <span class="bold">singletons</span> και αρχικοποιούνται γρήγορα. Κάνουν extend τα
+                <span class="code">CrudRepository&#60;T, ID&#62;</span> και <span class="code">PagingAndSortingRepository&#60;T, ID&#62;</span>, οπότε κληρονομούν την λειτουργικότητα τους. </p>
 
             <p>Για να μπορέσουμε, να χρησιμοποιήσουμε JPA Repositories, χρειάζεται XML ή Java Configuration. Παρακάτω, δίνεται το Java configuration.</p>
 
@@ -356,9 +356,9 @@
                 </code>
             </pre>
 
-            <p>Το παραπάνω configuration ρυθμίζει μια embedded HSQL βάση δεδομένων, χρησιμοποιώντας το EmbeddedDatabaseBuilder API του spring-jdbc. 
-                Το Spring Data δημιουργεί ένα EntityManagerFactory και χρησιμοποιεί το Hibernate ως persistence provider. Το 3ο bean που δημιουργείται, 
-                είναι το JpaTransactionManager. Τέλος, τα Spring Data JPA repositories ενεργοποιούνται, χρησιμοποιώντας το annotation @EnableJpaRepositories.
+            <p>Το παραπάνω configuration ρυθμίζει μια embedded <span class="bold">HSQL βάση δεδομένων</span>, χρησιμοποιώντας το EmbeddedDatabaseBuilder API του spring-jdbc. 
+                Το Spring Data δημιουργεί ένα <span class="bold">EntityManagerFactory</span> και χρησιμοποιεί το <span class="bold"></span>Hibernate ως <span class="bold">persistence provider</span>. Το 3ο bean που δημιουργείται, 
+                είναι το <span class="bold">JpaTransactionManager</span>. Τέλος, τα Spring Data JPA repositories ενεργοποιούνται, χρησιμοποιώντας το annotation <span class="code">@EnableJpaRepositories</span>.
             </p>
 
         </section>
@@ -380,8 +380,8 @@
                 </code>
             </pre>
 
-            <p>Δημιουργούμε ένα ερώτημα, χρησιμοποιώντας το JPA criteria API και αύτο μεταφράζεται στο εξής ερώτημα : select u from User 
-                where u.emailAddress = ?1 and u.lastname = ?2. Το JPA ελέγχει και διασχίζει τα properties.</p>
+            <p>Δημιουργούμε ένα ερώτημα, χρησιμοποιώντας το JPA criteria API και αύτο μεταφράζεται στο εξής ερώτημα : <span class="code">select u from User 
+                where u.emailAddress = ?1 and u.lastname = ?2</span>. Το JPA ελέγχει και διασχίζει τα properties.</p>
 
             <table class="jpa-keywords">
                 <tr>
@@ -468,7 +468,7 @@
 
             <h5>Δημιουργία ερωτημάτων με το annotation @Query</h5>
 
-            <p>Μπορούμε, να χρησιμοποιήσουμε το annotation @Query στην αντίστοιχη μέθοδο, δηλώνοντας το ερώτημα, που θέλουμε να εκτελεστεί.</p>
+            <p>Μπορούμε, να χρησιμοποιήσουμε το annotation <span class="code">@Query</span> στην αντίστοιχη μέθοδο, δηλώνοντας το ερώτημα, που θέλουμε να εκτελεστεί.</p>
 
             <pre>
                 <code>  
@@ -480,7 +480,7 @@
                 </code>
             </pre>
 
-            <p>Εάν το ερώτημα ενημερώνει ή προσθέτει γραμμές σε κάποιο πίνακα της βάσης, τότε χρησιμοποιούμε το annotation @Modifying.</p>
+            <p>Εάν το ερώτημα ενημερώνει ή προσθέτει γραμμές σε κάποιο πίνακα της βάσης, τότε χρησιμοποιούμε το annotation  <span class="code">@Modifying</span>.</p>
 
             <pre>
                 <code>  
@@ -490,7 +490,7 @@
                 </code>
             </pre>
 
-            <p>Επίσης, μπορούμε να χρησιμοποιήσουμε το annotation @Param, για να δώσουμε όνομα σε μια παράμετρο μεθόδου και να κάνουμε bind το όνομα
+            <p>Επίσης, μπορούμε να χρησιμοποιήσουμε το annotation  <span class="code">@Param</span>, για να δώσουμε όνομα σε μια παράμετρο μεθόδου και να κάνουμε bind το όνομα
                 στο ερώτημα
             </p>
 
@@ -504,7 +504,7 @@
                 </code>
             </pre>
 
-            <p>Το annotation @Query μας δίνει τη δυνατότητα, να πραγματοποιήσουμε και native ερωτήματα, θέτοντας τη σημαία nativeQuery σε true.</p>
+            <p>Το annotation  <span class="code">@Query</span> μας δίνει τη δυνατότητα, να πραγματοποιήσουμε και native ερωτήματα, θέτοντας τη σημαία nativeQuery σε true.</p>
 
             <pre>
                 <code>  
