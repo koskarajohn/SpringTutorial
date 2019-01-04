@@ -361,6 +361,84 @@
             </pre>
         </section>
 
+        <section class="jpql">
+
+            <h5>JPQL</h5>
+
+            <p>Η Java Persistence query language ορίζεται στο JPA specification και μας επιτρέπει να ορίσουμε ερωτήματα πάνω σε entities, τα οποία είναι αποθηκευμένα στη
+                βάση δεδομένων.
+            </p>
+
+            <h5>Σύνταξη</h5>
+
+            <p>Η σύνταξη της γλώσσας είναι παρόμοια με αυτή της SQL. Η SQL δουλεύει άμεσα με τη βάση δεδομένων και τις εγγραφές, ενώ η JPQL 
+                δουλεύει με τις κλάσεις Entities και τα στιγμιότυπα τους. Παρακάτω δίνεται η σύνταξη ενός SELECT ερωτήματος, για να ανακτήσουμε ένα entity.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> ...
+                    &emsp;&emsp;&emsp;&emsp;[<span class="keyword">WHERE</span> ...]
+                    &emsp;&emsp;&emsp;&emsp;[<span class="keyword">GROUP BY</span> ... [<span class="keyword">HAVING </span> ...]]
+                    &emsp;&emsp;&emsp;&emsp;[<span class="keyword">ORDER BY</span> ...]
+                </code>
+            </pre>
+
+            <p>Η σύνταξη των ερωτημάτων DELETE και UPDATE ερωτήματος δίνεται παρακάτω.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">DELETE FROM</span> ... [<span class="keyword">WHERE  </span> ...]
+                    
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">UPDATE</span> ... <span class="keyword">SET</span> ... [<span class="keyword">WHERE  </span> ...]
+                </code>
+            </pre>
+
+            <p>Μπορούμε, να πραγματοποιήσουμε ερωτήματα χρησιμοποιώντας τη μέθοδο EntityManager.createQuery του EntityManager και την Query.executeUpdate.
+                Παρακάτω δίνονται παραδείγματα SELECT, UPDATE και DELETE ερωτημάτων για την κλάση Entity Category. 
+            </p>
+
+            <pre>
+                <code>
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public Category</span>  findCategoryWithName(String name)  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> em.createQuery(
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="string">"SELECT c FROM Category c WHERE c.name = :name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.setParameter(<span class="string">"name"</span>, <span class="string">"Vitamins"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.getResultList();
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span>  updateCategory(String name)  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Query query = em.createQuery(<span class="string">"UPDATE Category c SET c.name = :newName WHERE c.name = :oldName"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;query.setParameter(<span class="string">"newName"</span>, <span class="string">"Basket"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;query.setParameter(<span class="string">"oldName"</span>, <span class="string">"Football"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int rowsUpdated = query.executeUpdate();
+                    &emsp;&emsp;&emsp;&emsp;} 
+                    
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public void</span>  deleteCategory(String name)  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Query query = em.createQuery(<span class="string">"DELETE FROM Category c WHERE c.name = :name"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;query.setParameter(<span class="string">"name"</span>, <span class="string">"Basket"</span>);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int rowsDeleted = query.executeUpdate();
+                    &emsp;&emsp;&emsp;&emsp;} 
+                    
+                </code>
+            </pre>
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
@@ -370,6 +448,8 @@
                 <li><a href="https://javaee.github.io/tutorial/persistence-intro004.html#BNBQY">Java EE 8 - Managing Entities</a></li>
                 <li><a href="https://en.wikibooks.org/wiki/Java_Persistence/What_is_JPA%3F">Wikibooks : Java Persistence/What is JPA?</a></li>
                 <li><a href="http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html">Voggela : Java persistence API - Tutorial</a></li>
+                <li><a href="https://www.tutorialspoint.com/jpa/jpa_jpql.htm">tutorialspoint : JPA - JPQL</a></li>
+                <li><a href="https://javaee.github.io/tutorial/persistence-querylanguage.html">Java EE 8 - 42 The Java Persistence Query Language</a></li>
             </ul>
         </section>
         
