@@ -365,14 +365,14 @@
 
             <h5>JPQL</h5>
 
-            <p>Η Java Persistence query language ορίζεται στο JPA specification και μας επιτρέπει να ορίσουμε ερωτήματα πάνω σε entities, τα οποία είναι αποθηκευμένα στη
+            <p class="mt-4">Η <span class="bold">Java Persistence query language</span> ορίζεται στο <span class="bold">JPA specification</span> και μας επιτρέπει να <span class="bold">ορίσουμε ερωτήματα πάνω σε entities</span>, τα οποία είναι αποθηκευμένα στη
                 βάση δεδομένων.
             </p>
 
-            <h5>Σύνταξη</h5>
+            <p class="font-weight-bold">Σύνταξη</p>
 
-            <p>Η σύνταξη της γλώσσας είναι παρόμοια με αυτή της SQL. Η SQL δουλεύει άμεσα με τη βάση δεδομένων και τις εγγραφές, ενώ η JPQL 
-                δουλεύει με τις κλάσεις Entities και τα στιγμιότυπα τους. Παρακάτω δίνεται η σύνταξη ενός SELECT ερωτήματος, για να ανακτήσουμε ένα entity.
+            <p>Η <span class="bold">σύνταξη</span> της γλώσσας είναι <span class="bold">παρόμοια με</span>  αυτή της <span class="bold">SQL</span>. Η SQL δουλεύει άμεσα με τη <span class="bold">βάση δεδομένων</span> και τις εγγραφές, ενώ η JPQL 
+                δουλεύει με τις <span class="bold">κλάσεις Entities</span> και τα στιγμιότυπα τους. Παρακάτω δίνεται η σύνταξη ενός <span class="bold">SELECT</span> ερωτήματος, για να ανακτήσουμε ένα entity.
             </p>
 
             <pre>
@@ -384,7 +384,7 @@
                 </code>
             </pre>
 
-            <p>Η σύνταξη των ερωτημάτων DELETE και UPDATE ερωτήματος δίνεται παρακάτω.</p>
+            <p>Η σύνταξη των ερωτημάτων <span class="bold">DELETE</span> και <span class="bold">UPDATE</span> ερωτήματος δίνεται παρακάτω.</p>
 
             <pre>
                 <code>
@@ -394,8 +394,8 @@
                 </code>
             </pre>
 
-            <p>Μπορούμε, να πραγματοποιήσουμε ερωτήματα χρησιμοποιώντας τη μέθοδο EntityManager.createQuery του EntityManager και την Query.executeUpdate.
-                Παρακάτω δίνονται παραδείγματα SELECT, UPDATE και DELETE ερωτημάτων για την κλάση Entity Category. 
+            <p>Μπορούμε, να πραγματοποιήσουμε ερωτήματα χρησιμοποιώντας τη μέθοδο <span class="code">EntityManager.createQuery</span> του EntityManager και την <span class="code">Query.executeUpdate</span>.
+                Παρακάτω δίνονται παραδείγματα <span class="bold">SELECT</span>, <span class="bold">UPDATE</span> και <span class="bold">DELETE</span> ερωτημάτων για την κλάση Entity <span class="bold">Category</span>. 
             </p>
 
             <pre>
@@ -439,6 +439,155 @@
             </pre>
         </section>
 
+        <section class="criteria-api">
+
+            <h5>Criteria API</h5>
+
+            <p class="mt-4">Το JPA <span class="bold">Criteria API</span> παρέχει έναν εναλλακτικό τρόπο, για να εκτελούμε <span class="bold">δυναμικά JPA ερωτήματα</span>, των οποίων η δομή είναι γνωστή, 
+                μόνα κατά την διάρκεια εκτέλεσης της εφαρμογής. Για παράδειγμα, μπορούμε να πραγματοποιήσουμε ένα δυναμικό ερώτημα, βασιζόμενοι στα φίλτρα αναζήτησης,
+                τα οποία έχει επιλέξει ένας χρήστης.</p>
+
+            <p>Το <span class="code">CriteriaBuilder</span> είναι η κύρια διεπαφή του Criteria API. Μπορούμε, να δημιουργήσουμε ένα στιγμιότυπο του <span class="code">CriteriaBuilder</span> από τον <span class="bold">EntityManager</span>,
+                χρησιμοποιώντας τη μέθοδο <span class="code">getCriteriaBuilder</span>. Το <span class="code">CriteriaBuilder</span> χρησιμοποιείται, για να δημιουργήσουμε <span class="code">CriteriaQuery</span> αντικείμενα. Τα
+                αντικείμενα <span class="code">CriteriaQuery</span> ορίζουν ένα συγκεκριμένο ερώτημα, με το οποίο θα διασχίσουμε ένα ή περισσότερα entities.
+            </p>
+
+            <p>Παρακάτω δίνεται ένα απλό ερώτημα σε JPQL </p>    
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">SELECT</span> c <span class="keyword">FROM</span> Category c 
+                </code>
+            </pre>
+
+            <p>Μπορούμε, να πραγματοποιήσουμε το ίδιο ερώτημα με το JPA Criteria API</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaBuilder cb = em.getCriteriaBuilder();
+
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Category&#62; q = cb.createQuery(Category.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Category&#62; c = q.from(Category.class);
+                    &emsp;&emsp;&emsp;&emsp;q.select(c);
+                    &emsp;&emsp;&emsp;&emsp;List&#60;Category&#62; categories = entityManager.createQuery(q).getResultList();
+                </code>
+            </pre>
+
+            <p class="font-weight-bold mt-4">Query Root</p>
+
+            <p>Για κάθε <span class="code">CriteriaQuery</span> αντικείμενο, το entity ρίζα του ερωτήματος, από το οποίο ξεκινάμε, να διασχίζουμε, λέγεται <span class="bold">query root</span>.
+                Είναι αντίστοιχο με το <span class="bold">FROM</span> ενός JPQL ερωτήματος.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Category&#62; q = cb.createQuery(Category.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Category&#62; c = q.from(Category.class);
+                </code>
+            </pre>
+
+            <p>Μπορούμε, να δημιουργήσουμε συνθήκες χρησιμοποιώντας τη μέθοδο <span class="code">CriteriaQuery.where</span>, η οποία περιορίζει τα αποτελέσματα ενός ερωτήματος
+                στο αντικείμενο <span class="code">CriteriaQuery</span>. Η μέθοδος <span class="code">where</span> αντιστοιχεί με το <span class="bold">WHERE</span> ενός JPQL ερωτήματος.
+            </p>
+
+            <p>Η μέθοδος <span class="code">where</span> αποτιμά στιγμιότυπα της διεπαφής <span class="code">Expression</span>, ώστε να περιορίσει τα αποτελέσματα, ανάλογα με τις συνθήκες των expressions. Το
+                ακόλουθο ερώτημα χρησιμοποιεί τη μέθοδο <span class="code">Expression.isNull</span>, για να βρει όλα τα προιόντα, στα οποία το πεδίο description είναι <span class="code">NULL</span>.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; cq = cb.createQuery(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; product = cq.from(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;cq.where(product.get(<span class="string">"description</span>).isNull());
+                </code>
+            </pre>   
+
+            <p>Η διεπαφή <span class="code">CriteriaBuilder</span> παρέχει επιπλέον μεθόδους, για τη δημιουργία expressions.</p>
+
+            <table class="expressions">
+                    <tr>
+                        <th>Keyword</th>
+                        <th>Sample</th>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">equal</span></td>
+                        <td>Ελέγχει, εάν δύο expressions είναι ίσα</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">notEqual</span></td>
+                        <td>Ελέγχει, εάν δύο expressions δεν είναι ίσα</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">gt</span></td>
+                        <td>Ελέγχει, εάν το πρώτο αριθμητικό expression είναι μεγαλύτερο του δεύτερου αριθμητικού expression</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">ge</span></td>
+                        <td>Ελέγχει, εάν το πρώτο αριθμητικό expression είναι μεγαλύτερο ή ίσο, σε σχέση με το δεύτερο αριθμητικού expression</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">lt</span></td>
+                        <td>Ελέγχει, εάν το πρώτο αριθμητικό expression είναι μικρότερο του δεύτερου αριθμητικού expression</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">le</span></td>
+                        <td>Ελέγχει, εάν το πρώτο αριθμητικό expression είναι μικρότερο ή ίσο, σε σχέση με το δεύτερο αριθμητικού expression</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">between</span></td>
+                        <td>Ελέγχει, εάν η τιμή του πρώτου expression, βρίσκεται ανάμεσα στη τιμή ένος δεύτερου και τρίτου expression</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">like</span></td>
+                        <td>Ελέγχει, εάν το expression ικανοποιεί ένα συγκεκριμένο pattern</td>
+                    </tr>
+
+            </table>
+
+            <p class="mt-5">Το παρακάτω ερώτημα επιστρέφει το προιον με όνομα Iphone-4.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; cq = cb.createQuery(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; product = cq.from(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;cq.where(cb.equal(product.get( <span class="string">"name</span>), <span class="string">"Iphone-4"</span>));
+                </code>
+            </pre>
+
+            <p>Επίσης, η διεπαφή <span class="code">CriteriaBuilder</span> παρέχει τις μεθόδους <span class="code">and</span>, <span class="code">or</span> και <span class="code">not</span>, 
+                οι οποίες αντιστιχούν στους τελεστές <span class="bold">AND</span>, <span class="bold">OR</span> και <span class="bold">NOT</span>.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; cq = cb.createQuery(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; product = cq.from(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;cq.where(cb.equal(product.get(<span class="string">"id"</span>), 3).or(cb.equal(product.get(<span class="string">"name"</span>), <span class="string">"Iphone-4"</span>)));
+                </code>
+            </pre>
+
+            <p>Τέλος, μπορούμε να κατατάξουμε τα αποτελέσματα, χρησιμοποιώντας <span class="code">CriteriaQuery.orderBy</span> και δίνοντας ως παράμετρο ένα αντικείμενο <span class="code">Order</span>.
+                Παρακάτω δίνεται ένα παράδειγμα.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; cq = cb.createQuery(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; product = cq.from(Product.class);
+                    &emsp;&emsp;&emsp;&emsp;cq.select(product);
+                    &emsp;&emsp;&emsp;&emsp;cq.orderBy(cb.asc(product.get(<span class="string">"price</span>)));
+                </code>
+            </pre>
+
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
@@ -450,6 +599,9 @@
                 <li><a href="http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html">Voggela : Java persistence API - Tutorial</a></li>
                 <li><a href="https://www.tutorialspoint.com/jpa/jpa_jpql.htm">tutorialspoint : JPA - JPQL</a></li>
                 <li><a href="https://javaee.github.io/tutorial/persistence-querylanguage.html">Java EE 8 - 42 The Java Persistence Query Language</a></li>
+                <li><a href="https://en.wikibooks.org/wiki/Java_Persistence/Criteria">Wikibooks : Java Persistence/Criteria</a></li>
+                <li><a href="https://www.objectdb.com/java/jpa/query/criteria">ObjectDB - JPA Criteria API Queries</a></li>
+                <li><a href="https://javaee.github.io/tutorial/persistence-criteria.html">Java EE 8 - 43 Using the Criteria API to Create Queries</a></li>
             </ul>
         </section>
         

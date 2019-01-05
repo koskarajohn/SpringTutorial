@@ -84,14 +84,14 @@ pre code span.this{
     color : #DAA520;
 }
 
-table.scope, table.resources, table.verbs, table.codes, table.multiplicity-annotations,  table.jpa-keywords{
+table.scope, table.resources, table.verbs, table.codes, table.multiplicity-annotations,  table.jpa-keywords, table.expressions{
     width: 100%;
     border-collapse: collapse;
 }
 
 table.scope td, table.scope th, table.resources td, table.resources th, 
 table.verbs td, table.verbs th, table.codes td, table.codes th, table.multiplicity-annotations td, table.multiplicity-annotations th
-, table.jpa-keywords td, table.jpa-keywords th{
+, table.jpa-keywords td, table.jpa-keywords th, table.expressions td, table.expressions th{
     border: 1px solid black;
     padding:8px;
 }
