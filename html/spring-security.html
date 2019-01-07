@@ -86,12 +86,12 @@
         <h1 class="text-center">Spring Security</h1>
 
         <section class="intro">
-            <p>Το Spring Security είναι ένα Java / Java EE framework, το οποίο παρέχει τη δυνατότητα αυθεντικοποίησης (authentication), 
-                εξουσιοδότησης (authorization) και άλλες λειτουργίες ασφάλειας για enterprise εφαρμογές. Το project ξεκίνησε το 2003 ως Acegi Security
+            <p>Το Spring Security είναι ένα <span class="bold">Java / Java EE framework</span>, το οποίο παρέχει τη δυνατότητα <span class="bold">αυθεντικοποίησης</span> (authentication), 
+                <span class="bold">εξουσιοδότησης</span> (authorization) και άλλες λειτουργίες ασφάλειας για enterprise εφαρμογές. Το project ξεκίνησε το 2003 ως Acegi Security
                και ύστερα ενσωματώθηκε στο Spring portfolio , ως επίσημο Spring sub-project.</p>
 
-            <p>Για να ενεργοποιήσουμε το Spring Security, μπορούμε να χρησιμοποιήσουμε Java Configuration. Το configuration δημιουργεί ένα Servlet Filter, γνωστό
-                ως springSecurityFilterChain, το οποίο είναι υπεύθυνο για την προστασία της εφαρμογής (προστασία των URLs, validation του ονόματος χρήστη
+            <p>Για να ενεργοποιήσουμε το Spring Security, μπορούμε να χρησιμοποιήσουμε Java Configuration. Το configuration δημιουργεί ένα <span class="bold">Servlet Filter</span>, γνωστό
+                ως <span class="code">springSecurityFilterChain</span>, το οποίο είναι <span class="bold">υπεύθυνο για την προστασία της εφαρμογής</span> (προστασία των URLs, validation του ονόματος χρήστη
                 και του κωδικού, κ.α.). Το πιο απλό παράδειγμα configuration δίνεται παρακάτω.
             </p>
 
@@ -113,17 +113,17 @@
             <p>Ο παραπάνω κώδικας είναι μικρός, αλλά κάνει πολλά.</p>
 
             <ul>
-                <li>Απαιτεί αυθεντικοποίηση σε κάθε URL της εφαρμογής</li>
-                <li>Δημιουργεί μια φόρμα login</li>
-                <li>Επιτρέπει στο χρήστη με το όνομα user και κωδικό password, να αυθεντικοποιηθεί μέσω της φόρμας</li>
-                <li>Επιτρέπει στο χρήστη , να αποσυνδεθεί</li>
-                <li>Αποτρέπει CSRF επιθέσεις</li>
-                <li>Προστατεύει από Session Fixation</li>
+                <li>Απαιτεί <span class="bold">αυθεντικοποίηση σε κάθε URL</span> της εφαρμογής</li>
+                <li>Δημιουργεί μια <span class="bold">φόρμα login</span></li>
+                <li>Επιτρέπει στο χρήστη με το <span class="bold">όνομα</span> user και <span class="bold">κωδικό</span> password, να αυθεντικοποιηθεί μέσω της φόρμας</li>
+                <li>Επιτρέπει στο χρήστη , να <span class="bold">αποσυνδεθεί</span></li>
+                <li>Αποτρέπει <span class="bold">CSRF</span> επιθέσεις</li>
+                <li>Προστατεύει από <span class="bold">Session Fixation</span></li>
             </ul>
 
             <p class="font-weight-bold mt-5">HttpSecurity</p>
 
-            <p>Η κλάση WebSecurityConfigurerAdapter παρέχει τη μέθοδο configure(HttpSecurity http). Σε αυτήν ορίζουμε πια urls της εφαρμογής πρέπει,
+            <p>Η κλάση <span class="code">WebSecurityConfigurerAdapter</span> παρέχει τη μέθοδο <span class="code">configure(HttpSecurity http)</span>. Σε αυτήν ορίζουμε πια urls της εφαρμογής πρέπει,
                 να είναι ασφαλή, αν οι χρήστες πρέπει, να αυθεντικοποιηθούν, για να έχουν πρόσβαση σε αυτά κ.α.
             </p>
 
@@ -148,9 +148,9 @@
             <p>Το παραπάνω default configuration :</p>
 
             <ul>
-                <li>Διασφαλίζει ότι οποιοδήποτε αίτημα στην εφαρμογή, πρέπει να προέρχεται από αυθεντικοποιμένο χρήστη</li>
+                <li>Διασφαλίζει ότι οποιοδήποτε αίτημα στην εφαρμογή, πρέπει να προέρχεται από <span class="bold">αυθεντικοποιημένο</span> χρήστη</li>
                 <li>Επιτρέπει στους χρήστες, να αυθεντικοποιούνται με μια φόρμα</li>
-                <li>Ενεργοποιεί το HTTP Basic authentication</li>
+                <li>Ενεργοποιεί το <span class="bold">HTTP Basic</span> authentication</li>
             </ul>
             
             <p class="font-weight-bold mt-5">Login φόρμα</p>
@@ -173,13 +173,13 @@
                 </code>
             </pre>
 
-            <p>Παραπάνω, ορίζουμε ότι η login φόρμα μας βρίσκεται στο URL /login και επιτρέπουμε σε όλους τους χρήστες(και σε αυτούς, που δεν έχουν
+            <p>Παραπάνω, ορίζουμε ότι η login φόρμα μας βρίσκεται στο URL <span class="bold">/login</span> και επιτρέπουμε σε όλους τους χρήστες(και σε αυτούς, που δεν έχουν
                 αυθεντικοποιηθεί) την πρόσβαση.</p>
 
 
             <p class="font-weight-bold mt-5">Εξουσιοδότηση αιτημάτων</p>
 
-            <p>Μπορούμε, να ορίσουμε σε ποια URLS επιτρέπεται, να έχουν πρόσβαση οι χρήστες και τους τύπους των χρηστών.</p>
+            <p>Μπορούμε, να ορίσουμε σε <span class="bold">ποια URLS επιτρέπεται</span>, να έχουν <span class="bold">πρόσβαση</span> οι χρήστες και τους <span class="bold">τύπους</span> των χρηστών.</p>
 
             <pre>
                 <code>
@@ -194,15 +194,15 @@
             </pre>
 
             <ul>
-                <li>Επιτρέπεται η πρόσβαση σε όλους χρήστες, στα URLs που ξεκινούν με "/resources/**", "/signup" και "/about". </li>
-                <li>Επιτρέπεται η πρόσβαση στους χρήστες με ρόλο ADMIN, στα URLs που ξεκινούν με "/admin/**". </li>
-                <li>Στα υπόλοιπα URLs, επιτρέπεται η πρόσβαση μόνο σε αυθεντικοποιημένους χρήστες.</li>
+                <li>Επιτρέπεται η πρόσβαση σε <span class="bold">όλους τους χρήστες</span>, στα URLs που ξεκινούν με <span class="bold">"/resources/**"</span>, <span class="bold">"/signup"</span> και <span class="bold">"/about"</span>. </li>
+                <li>Επιτρέπεται η πρόσβαση στους χρήστες με <span class="bold">ρόλο ADMIN</span>, στα URLs που ξεκινούν με <span class="bold">"/admin/**"</span>. </li>
+                <li>Στα <span class="bold">υπόλοιπα URLs</span>, επιτρέπεται η πρόσβαση μόνο σε αυθεντικοποιημένους χρήστες.</li>
             </ul>
 
             <p class="font-weight-bold mt-5">Διαχείριση αποσύνδεσης</p>
 
-            <p>Όταν χρησιμοποιούμε το WebSecurityConfigurerAdapter, η δυνατότητα αποσύνδεσης παρέχεται αυτόματα. Το default URL για να
-                αποσυνδεθεί ο χρήστης, είναι το /logout. Μπορούμε, να προσαρμόσουμε το configuration, ανάλογα  με τις ανάγκες μας:
+            <p>Όταν χρησιμοποιούμε το <span class="code">WebSecurityConfigurerAdapter</span>, η δυνατότητα αποσύνδεσης παρέχεται αυτόματα. Το default URL για να
+                αποσυνδεθεί ο χρήστης, είναι το <span class="bold">/logout</span>. Μπορούμε, να προσαρμόσουμε το configuration, ανάλογα  με τις ανάγκες μας:
             </p>
 
             <pre>
@@ -222,11 +222,11 @@
             </pre>
 
             <ul>
-                <li>Ορίζουμε ότι ο χρήστης, μπορεί να αποσυνδεθεί στο URL "/my/logout"</li>
-                <li>Αφού γίνει η αποσυνδεθεί ο χρήστης, θα ανακατευθυνθεί στο "/my/index"</li>
+                <li>Ορίζουμε ότι ο χρήστης, μπορεί να <span class="bold">αποσυνδεθεί</span> στο URL <span class="bold">"/my/logout"</span></li>
+                <li>Αφού γίνει η αποσυνδεθεί ο χρήστης, θα <span class="bold">ανακατευθυνθεί</span> στο URL <span class="bold">"/my/index"</span></li>
                 <li>Ορίζουμε ένα προσαρμοσμένο LogoutSuccessHandler</li>
-                <li>Ακυρώνεται το HTTP session</li>
-                <li>Ορίζουμε ποια cookies, θέλουμε να διαγραφούν</li>
+                <li><span class="bold">Ακυρώνεται</span> το <span class="bold">HTTP session</span></li>
+                <li>Ορίζουμε ποια <span class="bold">cookies</span>, θέλουμε να <span class="bold">διαγραφούν</span></li>
             </ul>
 
         </section>
@@ -237,7 +237,7 @@
 
             <p class="font-weight-bold">In-Memory Αυθεντικοποίηση</p>
 
-            <p>Μπορούμε να επιλέξουμε, οι χρήστες να αποθηκεύονται στην μνήμη</p>
+            <p>Μπορούμε να επιλέξουμε, οι χρήστες να <span class="bold">αποθηκεύονται στην μνήμη</span></p>
 
             <pre>
                 <code>
@@ -256,11 +256,12 @@
                 </code>
             </pre>
 
-            <p>Δημιουργούμε δύο χρήστες : τον χρήστη user με κωδικό password και ρόλο USER και τον χρήστη user με κωδικό password και ρόλους USER, ADMIN.</p>
+            <p>Δημιουργούμε <span class="bold"></span>δύο χρήστες : τον χρήστη <span class="bold">user</span> με κωδικό <span class="bold">password</span> και ρόλο <span class="bold">USER</span> 
+                και τον χρήστη <span class="bold">user</span> με κωδικό <span class="bold">password</span> και ρόλους <span class="bold">USER</span>, <span class="bold">ADMIN</span>.</p>
 
             <p class="font-weight-bold">JDBC Αυθεντικοποίηση</p>
 
-            <p>Μπορούμε να αποθηκεύσουμε τους χρήστες στη βάση δεδομένων, αρκεί να έχουμε ορίσει ένα Datasource στην εφαρμογή.</p>
+            <p>Μπορούμε να αποθηκεύσουμε τους χρήστες <span class="bold">στη βάση δεδομένων</span>, αρκεί να έχουμε ορίσει ένα <span class="code">Datasource</span> στην εφαρμογή.</p>
 
             <pre>
                 <code>
@@ -289,9 +290,9 @@
             </pre>
 
             <ul>
-                <li>Ενεργοποιούμε την JDBC Αυθεντικοποίηση</li>
-                <li>Χρησιμοποιούμε το BCryptPasswordEncoder, για την κρυπτογράφηση των κωδικών</li>
-                <li>Ορίζουμε τα SQL ερωτήματα, τα οποία επιστρέφουν τα ονόματα των χρηστών και το authority τους</li>
+                <li>Ενεργοποιούμε την <span class="bold">JDBC αυθεντικοποίηση</span></li>
+                <li>Χρησιμοποιούμε το <span class="bold">BCryptPasswordEncoder</span>, για την <span class="bold">κρυπτογράφηση των κωδικών</span></li>
+                <li>Ορίζουμε τα <span class="bold">SQL ερωτήματα</span>, τα οποία επιστρέφουν τα <span class="bold">ονόματα</span> των χρηστών και το <span class="bold">authority</span> τους</li>
             </ul>
 
         </section>
