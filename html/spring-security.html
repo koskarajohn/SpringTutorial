@@ -86,10 +86,229 @@
         <h1 class="text-center">Spring Security</h1>
 
         <section class="intro">
+            <p>Το Spring Security είναι ένα Java / Java EE framework, το οποίο παρέχει τη δυνατότητα αυθεντικοποίησης (authentication), 
+                εξουσιοδότησης (authorization) και άλλες λειτουργίες ασφάλειας για enterprise εφαρμογές. Το project ξεκίνησε το 2003 ως Acegi Security
+               και ύστερα ενσωματώθηκε στο Spring portfolio , ως επίσημο Spring sub-project.</p>
 
-            <p></p>
+            <p>Για να ενεργοποιήσουμε το Spring Security, μπορούμε να χρησιμοποιήσουμε Java Configuration. Το configuration δημιουργεί ένα Servlet Filter, γνωστό
+                ως springSecurityFilterChain, το οποίο είναι υπεύθυνο για την προστασία της εφαρμογής (προστασία των URLs, validation του ονόματος χρήστη
+                και του κωδικού, κ.α.). Το πιο απλό παράδειγμα configuration δίνεται παρακάτω.
+            </p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@EnableWebSecurity</span>
+                        <span class="keyword">public class</span> WebSecurityConfig <span class="keyword">implements </span> WebMvcConfigurer {
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> UserDetailsService userDetailsService() <span class="keyowrd">throws</span> Exception{ 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;InMemoryUserDetailsManager manager = <span class="keyword">new </span> InMemoryUserDetailsManager();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;manager.createUser(User.withDefaultPasswordEncoder().username(<span class="string">"user"</span>).password(<span class="string">"password"</span>).roles(<span class="string">"USER"</span>).build());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return </span> manager;
+                        &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Ο παραπάνω κώδικας είναι μικρός, αλλά κάνει πολλά.</p>
+
+            <ul>
+                <li>Απαιτεί αυθεντικοποίηση σε κάθε URL της εφαρμογής</li>
+                <li>Δημιουργεί μια φόρμα login</li>
+                <li>Επιτρέπει στο χρήστη με το όνομα user και κωδικό password, να αυθεντικοποιηθεί μέσω της φόρμας</li>
+                <li>Επιτρέπει στο χρήστη , να αποσυνδεθεί</li>
+                <li>Αποτρέπει CSRF επιθέσεις</li>
+                <li>Προστατεύει από Session Fixation</li>
+            </ul>
+
+            <p class="font-weight-bold mt-5">HttpSecurity</p>
+
+            <p>Η κλάση WebSecurityConfigurerAdapter παρέχει τη μέθοδο configure(HttpSecurity http). Σε αυτήν ορίζουμε πια urls της εφαρμογής πρέπει,
+                να είναι ασφαλή, αν οι χρήστες πρέπει, να αυθεντικοποιηθούν, για να έχουν πρόσβαση σε αυτά κ.α.
+            </p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@EnableWebSecurity</span>
+                        <span class="keyword">public class</span> WebSecurityConfig <span class="keyword">extends </span>WebSecurityConfigurerAdapter {
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> configure(HttpSecurity http) <span class="keyowrd">throws</span> Exception{ 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;http
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.authorizeRequests()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.anyRequest().authenticated()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.formLogin()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.httpBasic();
+                        &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Το παραπάνω default configuration :</p>
+
+            <ul>
+                <li>Διασφαλίζει ότι οποιοδήποτε αίτημα στην εφαρμογή, πρέπει να προέρχεται από αυθεντικοποιμένο χρήστη</li>
+                <li>Επιτρέπει στους χρήστες, να αυθεντικοποιούνται με μια φόρμα</li>
+                <li>Ενεργοποιεί το HTTP Basic authentication</li>
+            </ul>
+            
+            <p class="font-weight-bold mt-5">Login φόρμα</p>
+
+            <p>Το default configuration δεν ορίζει ρήτα ένα URL, για τη φόρμα και δημιουργεί μια αυτόματα. Εάν θέλουμε, να παρέχουμε τη δικιά μας φόρμα,
+                χρειάζεται το ακόλουθο configuration :
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> configure(HttpSecurity http) <span class="keyword">throws</span> Exception{ 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;http
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.authorizeRequests()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.anyRequest().authenticated()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.formLogin()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.loginPage(<span class="string">"/login"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.permitAll(); 
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Παραπάνω, ορίζουμε ότι η login φόρμα μας βρίσκεται στο URL /login και επιτρέπουμε σε όλους τους χρήστες(και σε αυτούς, που δεν έχουν
+                αυθεντικοποιηθεί) την πρόσβαση.</p>
+
+
+            <p class="font-weight-bold mt-5">Εξουσιοδότηση αιτημάτων</p>
+
+            <p>Μπορούμε, να ορίσουμε σε ποια URLS επιτρέπεται, να έχουν πρόσβαση οι χρήστες και τους τύπους των χρηστών.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> configure(HttpSecurity http) <span class="keyword">throws</span> Exception{ 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;http 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.antMatchers(<span class="string">"/resources/**"</span>, <span class="string">"/signup"</span>, <span class="string">"/about"</span>).permitAll()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.antMatchers(<span class="string">"/admin/**"</span>).hasRole(<span class="string">"ADMIN"</span>)     
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.formLogin(); 
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <ul>
+                <li>Επιτρέπεται η πρόσβαση σε όλους χρήστες, στα URLs που ξεκινούν με "/resources/**", "/signup" και "/about". </li>
+                <li>Επιτρέπεται η πρόσβαση στους χρήστες με ρόλο ADMIN, στα URLs που ξεκινούν με "/admin/**". </li>
+                <li>Στα υπόλοιπα URLs, επιτρέπεται η πρόσβαση μόνο σε αυθεντικοποιημένους χρήστες.</li>
+            </ul>
+
+            <p class="font-weight-bold mt-5">Διαχείριση αποσύνδεσης</p>
+
+            <p>Όταν χρησιμοποιούμε το WebSecurityConfigurerAdapter, η δυνατότητα αποσύνδεσης παρέχεται αυτόματα. Το default URL για να
+                αποσυνδεθεί ο χρήστης, είναι το /logout. Μπορούμε, να προσαρμόσουμε το configuration, ανάλογα  με τις ανάγκες μας:
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> configure(HttpSecurity http) <span class="keyword">throws</span> Exception{ 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;http 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.logout() 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.logoutUrl(<span class="string">"/my/logout"</span>)     
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.logoutSuccessUrl(<span class="string">"/my/index"</span>) 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.logoutSuccessHandler(logoutSuccessHandler)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.invalidateHttpSession(true) 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.deleteCookies(cookieNamesToClear) 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <ul>
+                <li>Ορίζουμε ότι ο χρήστης, μπορεί να αποσυνδεθεί στο URL "/my/logout"</li>
+                <li>Αφού γίνει η αποσυνδεθεί ο χρήστης, θα ανακατευθυνθεί στο "/my/index"</li>
+                <li>Ορίζουμε ένα προσαρμοσμένο LogoutSuccessHandler</li>
+                <li>Ακυρώνεται το HTTP session</li>
+                <li>Ορίζουμε ποια cookies, θέλουμε να διαγραφούν</li>
+            </ul>
+
         </section>
-   
+
+        <section class="authentication">
+
+            <h5>Αυθεντικοποίηση</h5>
+
+            <p class="font-weight-bold">In-Memory Αυθεντικοποίηση</p>
+
+            <p>Μπορούμε να επιλέξουμε, οι χρήστες να αποθηκεύονται στην μνήμη</p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@EnableWebSecurity</span>
+                        <span class="keyword">public class</span> WebSecurityConfig <span class="keyword">extends </span> WebSecurityConfigurerAdapter  {
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">protected void</span> configure(AuthenticationManagerBuilder auth) <span class="keyword">throws</span> Exception{ 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;auth
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.inMemoryAuthentication()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withUser(<span class="string">"user"</span>).password(<span class="string">"password")</span>.roles(<span class="string">"USER"</span>).and()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withUser(<span class="string">"admin"</span>).password(<span class="string">"password"</span>).roles(<span class="string">"USER"</span>, <span class="string">"ADMIN"</span>);
+                        &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε δύο χρήστες : τον χρήστη user με κωδικό password και ρόλο USER και τον χρήστη user με κωδικό password και ρόλους USER, ADMIN.</p>
+
+            <p class="font-weight-bold">JDBC Αυθεντικοποίηση</p>
+
+            <p>Μπορούμε να αποθηκεύσουμε τους χρήστες στη βάση δεδομένων, αρκεί να έχουμε ορίσει ένα Datasource στην εφαρμογή.</p>
+
+            <pre>
+                <code>
+                        <span class="annotation">@EnableWebSecurity</span>
+                        <span class="keyword">public class</span> WebSecurityConfig <span class="keyword">extends </span> WebSecurityConfigurerAdapter  {
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> DataSource dataSource;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">protected void</span> configure(AuthenticationManagerBuilder auth) <span class="keyword">throws</span> Exception{ 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;auth
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.jdbcAuthentication()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.passwordEncoder(passwordEncoder())
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.usersByUsernameQuery(<span class="string">"select username, password, is_active from users where username=?"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.authoritiesByUsernameQuery(<span class="string">"select username, role from authorities where username=?"</span>);
+                        &emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(name = <span class="string">"passwordEncoder"</span>)</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> BCryptPasswordEncoder passwordEncoder() { 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyoword">return new</span> BCryptPasswordEncoder();
+                        &emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <ul>
+                <li>Ενεργοποιούμε την JDBC Αυθεντικοποίηση</li>
+                <li>Χρησιμοποιούμε το BCryptPasswordEncoder, για την κρυπτογράφηση των κωδικών</li>
+                <li>Ορίζουμε τα SQL ερωτήματα, τα οποία επιστρέφουν τα ονόματα των χρηστών και το authority τους</li>
+            </ul>
+
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Spring_Security">Wikipedia : Spring Security</a></li>
+                <li><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#hello-web-security-java-configuration">Spring Security Reference - 6.1 Hello Web Security Java Configuration</a></li>
+                <li><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-httpsecurity">Spring Security Reference - 6.2 HttpSecurity</a></li>
+                <li><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-form">Spring Security Reference - 6.3 Java Configuration and Form Login</a></li>
+                <li><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-authorize-requests">Spring Security Reference - 6.4 Authorize Requests</a></li>
+                <li><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-logout">Spring Security Reference - 6.5 Handling Logouts</a></li>
+            </ul>
+        </section>
     </div>
 
   </body>
