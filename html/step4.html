@@ -93,8 +93,12 @@
                 <li>Κάνουμε <a href="https://id.heroku.com/login">στο λογαριασμό μας στο Heroku</a>.</li>
                 <li>Επιλέγουμε την εφαρμογή <strong>springeshop</strong> από την λίστα των εφαρμογών</li>
                 <li>Πατάμε στην καρτέλα <strong>Resources</strong></li>
-                <li>Κάτω από το <strong>Add-ons</strong>, πληκτρολογούμε <strong>Heroku Postgres</strong> στο πεδίο αναζήτησης και κάνουμε κλικ</li>
-                <li>Στο Popup παράθυρο που εμφανίζεται, πατάμε <strong>Provision</strong></li>
+                <li>Κάτω από το <strong>Add-ons</strong>, πληκτρολογούμε <strong>Heroku Postgres</strong> στο πεδίο αναζήτησης και κάνουμε κλικ
+                    <img class="img-fluid mx-auto my-3 w-100" src="../img/install_postgres_cropped.png" alt="Heroku Postgres 1">
+                </li>
+                <li>Στο Popup παράθυρο που εμφανίζεται, πατάμε <strong>Provision</strong>
+                    <img class="img-fluid mx-auto my-3 w-100" src="../img/install_postgres2_cropped.png" alt="Heroku Postgres 2">
+                </li>
             </ol>
         </section>
 
@@ -102,8 +106,8 @@
             <h5 class="mt-4">PostgreSQL</h5>
 
             <ol>
-                <li>Πρέπει, να καταβέσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL</a></li>
-                <li>Επιλέγουμε την έκδοση <strong>PostgreSQL 10.4</strong>, το λειτουργικό σύστημα και πάταμε <strong>Download Now</strong>.</li>
+                <li>Πρέπει, να κατεβάσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL τοπικά</a></li>
+                <li>Επιλέγουμε την έκδοση <strong>PostgreSQL 10.4</strong>, το λειτουργικό σύστημα και πάταμε <strong>Download Now</strong></li>
                 <li>Αφού κατεβεί, κάνουμε διπλό κλικ στο αρχείο <strong>postgresql-10.4-1-windows-x64.exe</strong></li>
                 <li>Στη καρτέλα <strong>Select Components</strong>, το <strong>pgAdmin 4</strong> πρέπει να είναι επιλεγμένο</li>
                 <li>Στη καρτέλα <strong>Password</strong>, ζητάει κωδικό για την βάση στο localhost και όχι στο Heroku</li>
@@ -123,22 +127,28 @@
                     <li>Συγκεκριμένα έχει το <strong>όνομα του Host</strong>, το <strong>όνομα της βάσης</strong>, το <strong>username</strong> , 
                         το <strong>password</strong>  και το <strong>port</strong></li>
 
-                    <li>Ανοίγουμε το  directory <strong>C:\Program Files\PostgreSQL\10\pgAdmin 4\bin</strong> και κάνουμε διπλό κλικ στο <strong>pgAdmin4.exe</strong> </li>
-                    <li>Ανοίγει μια καρτέλα στο browser στο <strong>http://127.0.0.1:49814/browser/</strong></li>
-                    <li>Στη στήλη <strong>Browser</strong>, κάνουμε δεξί κλικ στο <strong>Servers -> Create -> Server..</strong></li>
-                    <li>Στη καρτέλα <strong>General</strong>, δίνουμε όνομα <strong>heroku_server</strong> </li>
+                    <li>Ανοίγουμε το  directory <strong>C:\Program Files\PostgreSQL\10\pgAdmin 4\bin</strong> και κάνουμε διπλό κλικ στο <strong>pgAdmin4.exe</strong>,
+                        οπότε ανοίγει μια καρτέλα στο browser στο <strong>http://127.0.0.1:49814/browser/</strong>
+                     </li>
+                    <li>Στη στήλη <strong>Browser</strong>, κάνουμε δεξί κλικ στο <strong>Servers -> Create -> Server..</strong>
+                        <img class="img-fluid mx-auto my-3 w-100" src="../img/pgadmin_remote1_cropped.png" alt="PgAdmin Remote 1">
+                    </li>
+                    <li>Στη καρτέλα <strong>General</strong>, δίνουμε όνομα <strong>heroku_server</strong> 
+                        <img class="img-fluid mx-auto my-3 w-100" src="../img/pgadmin_remote2_cropped.png" alt="PgAdmin Remote 2">
+                    </li>
                     <li>Στη καρτέλα <strong>Connection</strong>, συμπληρώνουμε το <strong>Host name/address</strong>, 
                         <strong>Port</strong>, <strong>Maintenance database</strong>, <strong>Username</strong> και 
                         <strong>Password</strong>, από τα στοιχεία της βάσης στο Heroku
+                        <img class="img-fluid mx-auto my-3 w-100" src="../img/pgadmin_remote3_cropped.png" alt="PgAdmin Remote 3">
                     </li>
                     <li>Αφού τα συμπληρώσουμε, κάνουμε κλικ στο <strong>Password</strong> και πατάμε <strong>Save</strong></li>
-                    <li>Άμα κάνουμε κλικ στο server, βλέπουμε ότι έχει πόλλες βάσεις, εκτός από τη δική μας</li>
-                    <li>Για να φαίνεται μόνο η δική μας βάση, αρχικά <strong>αποσυνδεόμαστε</strong> από το Server, εάν είμαστε συνδεδεμένοι,
+                    <li>Άμα κάνουμε κλικ στο server, βλέπουμε ότι έχει πόλλες βάσεις, εκτός από τη δική μας. Για να φαίνεται μόνο η δική μας βάση, αρχικά <strong>αποσυνδεόμαστε</strong> από το Server, εάν είμαστε συνδεδεμένοι,
                         κάνοντας δεξί κλικ στο <strong>heroku_server -> Disconnect Server</strong>
                     </li>
                     <li>Μετά κάνουμε πάλι δεξί κλικ στο <strong>heroku_server -> Properties</strong></li>
                     <li>Στη καρτέλα <strong>Advanced</strong> , πληκτρολογούμε το <strong>όνομα της βάσης</strong> στο πεδίο <strong>DB restriction</strong> και πατάμε <strong>Save</strong>. Τώρα
                         θα πρέπει, εμφανίζεται μόνο η δικιά μας βάση.
+                        <img class="img-fluid mx-auto my-3 w-100" src="../img/pgadmin_remote4_cropped.png" alt="PgAdmin Remote 4">
                     </li>
                 </ol>
 
