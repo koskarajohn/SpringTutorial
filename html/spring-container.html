@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
     
@@ -16,72 +14,56 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" id="sideNav">
+    <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
 
-        <a class="navbar-brand" href="../index.html">
-            <span>Learn Spring</span>
-        </a>
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="spring.html">Spring</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-container.html">Spring IoC Container</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-beans.html">Spring Beans</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="dependency-injection.html">Dependency Injection</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="annotations.html">Annotations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-boot.html">Spring Boot</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-mvc.html">Spring MVC</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="rest-api.html">REST API</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="jpa.html">JPA</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-data-jpa.html">Spring Data JPA</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="spring-security.html">Spring Security</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="step2.html">Βημα 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="step3.html">Βημα 3</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="step4.html">Βημα 4</a>
-                </li>    
-                <li class="nav-item">
-                    <a class="nav-link" href="step5.html">Βημα 5</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="step6.html">Βημα 6</a>
-                </li>  
-
+        <div class="collapse navbar-collapse text-uppercase" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="html/rest-api.html">Rest API</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="step2.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="step3.html">Heroku</a>
+                              <a class="dropdown-item" href="step4.html">Postgres</a>
+                            </div>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Δημιουργια εφαρμογης</a>
+                      </li>
             </ul>
         </div>
+      </div>
+   
     </nav>
 
-    <div class="container-fluid content">
+    <div class="container">
 
         <h1 class="text-center">Spring Inversion Of Control Container</h1>
 
