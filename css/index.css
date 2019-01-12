@@ -1,33 +1,64 @@
 body{
-    font-family: 'Open Sans', serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-.bg-primary {
-    background-color: #BD5D38 !important;
+body > div.container{
+    margin-top: 9rem;
 }
-h1{
-  font-family: 'Saira Extra Condensed', serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #343a40;
+
+section{
+    margin-top:64px;
+    padding-left:48px;
+    padding-right:48px;
 }
 
 h5{
     font-weight: bold;
 }
 
-a {
-    color: #BD5D38;
-}
-  
-a:hover, a:focus, a:active {
-    color: #824027;
-}
-
 h6{
     font-size:18px;
     font-weight: bold;
 }
+
+/* --- Main Nav --- */
+
+#mainNav{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    background:#33cc33;
+    font-weight: 700;
+    color:white;
+}
+
+#mainNav a.navbar-brand{
+    color:white;
+    font-size: 2em;
+}
+
+#mainNav ul.navbar-nav li.nav-item a.nav-link{
+    color:white;
+    font-size: 1.2em;
+}
+
+/* --- Dropdown --- */
+
+#mainNav ul.navbar-nav li.dropdown div.dropdown-menu{
+    background:#33cc33;
+    color:white;
+}
+
+#mainNav ul.navbar-nav li.dropdown div.dropdown-menu a.dropdown-item{
+    color:white;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+#mainNav ul.navbar-nav li.dropdown div.dropdown-menu a.dropdown-item:hover, #mainNav ul.navbar-nav li.dropdown div.dropdown-menu a.dropdown-item:focus{
+    background-color: transparent;
+}
+
+/* --- Text Styling --- */
 
 span.highlight{
     font-size: 16px;
@@ -43,12 +74,6 @@ span.code{
     letter-spacing: 0.25px;
     color: #212529;
     background-color: #F0F0F0;
-}
-
-section{
-    margin-top:64px;
-    padding-left:48px;
-    padding-right:48px;
 }
 
 pre {
@@ -94,65 +119,4 @@ table.verbs td, table.verbs th, table.codes td, table.codes th, table.multiplici
 , table.jpa-keywords td, table.jpa-keywords th, table.expressions td, table.expressions th{
     border: 1px solid black;
     padding:8px;
-}
-
-/* --- Side Nav --- */
-
-#sideNav .navbar-nav .nav-item .nav-link {
-    font-weight: 600;
-}
-
-
-@media (min-width: 768px) /* --- Larger Screens --- */{
-
-    body {
-        padding-left: 13rem;
-    }
-
-    #sideNav{
-        text-align: center;
-        position:fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-        width: 13rem;
-        height: 100vh;
-    }
-
-    #sideNav .navbar-brand {
-        display: block;
-        margin : 24px auto 16px auto;
-        font-size: 26px;
-    }
-
-    #sideNav .navbar-collapse{
-        display: flex;
-        align-items: flex-start;
-        flex-grow:0;
-        width: 100%;
-        margin-bottom: auto;
-    }
-
-    #sideNav .navbar-collapse .navbar-nav {
-        flex-direction: column;
-        width: 100%;
-      }
-
-    #sideNav .navbar-collapse .navbar-nav .nav-item, #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
-        display: block;
-    }
-}
-
-/* --- Main Content --- */
-
-div.content{
-    margin-top: 5rem;
-}
-
-@media (min-width: 768px) /* --- Larger Screens --- */{
-
-    div.content{
-        margin-top: 2.5rem;
-    }
 }
