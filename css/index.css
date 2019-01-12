@@ -6,6 +6,14 @@ body > div.container{
     margin-top: 9rem;
 }
 
+a {
+    color: #BD5D38;
+}
+
+a:hover, a:focus, a:active {
+    color: #824027;
+}
+
 section{
     margin-top:64px;
     padding-left:48px;
@@ -41,6 +49,10 @@ h6{
     font-size: 1.2em;
 }
 
+#mainNav ul.navbar-nav li.nav-item a.nav-link:hover, #mainNav ul.navbar-nav li.nav-item a.nav-link:focus{
+    color: red;
+}
+
 /* --- Dropdown --- */
 
 #mainNav ul.navbar-nav li.dropdown div.dropdown-menu{
@@ -56,6 +68,7 @@ h6{
 
 #mainNav ul.navbar-nav li.dropdown div.dropdown-menu a.dropdown-item:hover, #mainNav ul.navbar-nav li.dropdown div.dropdown-menu a.dropdown-item:focus{
     background-color: transparent;
+    color: red;
 }
 
 /* --- Text Styling --- */
