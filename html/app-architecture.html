@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Spring Tool Suite</title>
+    <title>Αρχιτεκτονική εφαρμογής</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
     
@@ -69,39 +69,44 @@
 
     <div class="container">
 
-        <h1 class="text-center">Βημα 2 : Εγκατασταση του Spring Tool Suite</h1>
+        <h1 class="text-center">Αρχιτεκτονική εφαρμογής</h1>
 
-        <section class="installation">
-                <p>Το Spring Tool Suite είναι ένα περιβάλλον development, βασισμένο στο Eclipse, το οποίο είναι προσαρμοσμένο για την ανάπτυξη
-                εφαρμογών Spring. Παρέχει ένα έτοιμο περιβάλλον, για την δημιουργία, αποσφαλμάτωση, εκτέλεση και deploy Spring εφαρμογών
-                και integrations για Pivotal tc Server, Git, Maven, AspectJ.
-                </p>
+        <section class="intro">
 
-                <p>Για να λειτουργήσει το Spring Tool Suite, χρειάζειτα το Java Development Kit 1.8 ή νεότερη έκδοση του. Εάν το έχετε
-                    εγκαταστήσει ήδη στον υπολογιστή σας, μπορείτε να περάσετε στο 2ο βήμα.
-                </p>
+            <p class="font-weight-bold">Αρχιτεκτονική Client-Server</p>
 
-                <h5 class="mt-4">Εγκατάσταση JDK (Τα βήματα της εγκατάστασης είναι πιο αναλυτικά 
-                    <a href="https://www.guru99.com/install-java.html">εδώ</a>)</h5>
+            <p>Η αρχιτεκτονική client-server χωρίζει την εφαρμογή σε δύο κομμάτια, τον client και τον server. Μια τέτοια εφαρμογή δημιουργείται
+                σε ένα δίκτυο υπολογιστών, το οποίο συνδέει τον client με τον server. O server παρέχει την κεντρική λειτουργικότητα : πολλοί clients
+                μπορούν να συνδεθούν ταυτόχρονα με τον server και να του ζητήσουν, να πραγματοποιήσει μια λειτουργία. O server παίρνει τα αιτήματα του client,
+                πραγματοποιεί τη λειτουργία και επιστρέφει τα αποτελέσματα στον client.
+            </p>
 
-                <ol>
-                    <li>Πηγαίνετε στην ιστοσελίδα της <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle</a>
-                        , για να κατεβάσετε το JDK 8. Επιλέγετε την κατάλληλη έκδοση, ανάλογα με το λειτουργικό σύστημα του υπολογιστή σας,
-                        πατάτε Accept License Agreement και κατεβάζετε το αρχείο .exe .
+            <p class="font-weight-bold">Single-page application</p>
 
-                    </li>
-                    <li>Μόλις κατεβεί το αρχείο, το εκτελείτε και ακολουθείτε τον οδηγό, για να εγκαταστήσετε το JDK.</li>
-                </ol>
+            <p>To single-page application είναι μια web εφαρμογή, η οποία αλληλεπιδρά με το χρήστη, ενημερώνοντας την τρέχουσα σελίδα, αντί 
+                να κατεβάζει ολόκληρες, καινούριες σελίδες από τον server. Η προσέγγιση αυτή αποφεύγει την διακοπή του user experience με τα διαδοχικά 
+                φορτώματα των σελίδων, κάνοντας την εφαρμογή να συμπεριφέρεται περισσότερο σαν desktop application. Όλος ο απαραίτητος κώδικας 
+                (HTML, JavaScript και CSS) ανακτάται με μια μοναδική φόρτωση της σελίδας.</p>
 
-                <h5 class="mt-4">Εγκατάσταση Spring Tool Suite </h5>
+            <p>Η Spring Boot εφαρμογή, η οποία τρέχει στον απομακρυσμένο server στο Heroku αποτελεί το κομμάτι του server. Δημιουργούμε ένα REST API, το οποίο
+                παρέχει τα δεδόμενα της βάσης δεδομένων στον client. Η Angular εφαρμογή, η οποία τρέχει στον browser του χρήστη αποτελεί το κομμάτι του client. Ο κώδικας
+                φορτώνεται στην αρχή και ύστερα ο client πραγματοποιεί HTTP αιτήματα στον server, καταναλώνοντας το API, για να πάρει τα δεδομένα και να ανανεώσει την σελίδα.
+            </p>
 
-                <ol>
-                     <li>Κατεβάζετε την <a href="https://spring.io/tools/sts/all">τελευταία έκδοση του Spring Tool Suite</a>
-                    </li>
-                    <li>Μόλις κατεβεί το αρχείο, το κάνετε unzip.</li>
-                 </ol>
-                
-            </section>
+            <img class="img-fluid mx-auto mt-3 w-100" src="../img/app_architecture.png" alt="App Archicture"> 
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://www.open.edu/openlearn/science-maths-technology/introduction-web-applications-architecture/content-section-1.1#">OpenLearn - 1.1 Client–server architecture</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Single-page_application">Wikipedia - Single-page application</a></li>
+                <li><a href="https://grokonez.com/spring-framework/use-spring-jpa-postgresql-spring-boot">grokonez - How to use Spring JPA with PostgreSQL | Spring Boots</a></li>
+            </ul>
+        </section>
+        
     </div>
 
   </body>
