@@ -69,9 +69,69 @@
 
     <div class="container">
 
-        <h1 class="text-center">Αρχιτεκτονική εφαρμογής</h1>
+        <h1 class="text-center">Angular</h1>
 
         <section class="intro">
+
+            <p>Η Angular είναι μια πλατφόρμα, framework για τη δημιουργία client εφαρμογών, χρησιμοποιώντας HTML και TypeScript. Είναι γραμμένη
+                σε TypeScript. Παρέχει τις βασικές και προαιρετικές λειτουργίες, ως ένα σύνολο από βιβλιοθήκες TypeScript, τις οποίες μπορούμε
+                να εισάγουμε στις εφαρμογές.
+            </p>
+
+            <p class="font-weight-bold">Modules</p>
+
+            <p>Μια Angular εφαρμογή αποτελείται από NgModules. Ένα module είναι ένα συνεκτικό τμήμα κώδικα, το οποίο παρέχει ένα compilation
+                context για τα components και πραγματοποιεί μια συγκεκριμένη λειτουργία. Κάθε εφαρμογή έχει ένα root module, που λέγεται
+                AppModule, το οποίο παρέχει το μηχανισμό εκκίνησης της εφαρμογής.
+            </p>
+
+            <p>Όπως και με τα Javascript modules, μπορούμε να κάνουμε import λειτουργικότητα από άλλα NgModules. Για παράδειγμα, για χρησιμοποιήσουμε
+                την υπηρεσία router στην εφαρμογή, πρέπει να κάνουμε import το router NgModule. Παρακάτω, δίνεται ο κώδικας : 
+
+                <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { NgModule }      from '@angular/core';
+                    &emsp;&emsp;&emsp;&emsp;import { BrowserModule } from '@angular/platform-browser';
+                    &emsp;&emsp;&emsp;&emsp;import { AppRoutingModule } from './app-routing.module';
+
+                    &emsp;&emsp;&emsp;&emsp;@NgModule({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;imports:      [ BrowserModule, AppRoutingModule ],
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;providers:    [ Logger ],
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;declarations: [ AppComponent ],
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;bootstrap:    [ AppComponent ]
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppModule { }
+                </code>
+            </pre>
+            </p>
+
+            <p class="font-weight-bold">Components</p>
+
+            <p>Component είναι μια κλάση με το decorator @Component και ελέγχει ένα κομμάτι της οθόνης, το οποίο λέγεται view. Η κλάση περιέχει
+                τα δεδομένα, λογική της εφαρμογής και είναι συσχετισμένη με ένα HTML template.
+            </p>
+
+            <p>Κάθε Angular εφαρμογή έχει τουλάχιστον ένα component, το οποίο λέγεται root component. Αυτό μπορεί, να περιέχει και άλλα components, 
+                τα οποία λέγονται child components.
+
+                <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Component } from '@angular/core';
+
+                    &emsp;&emsp;&emsp;&emsp;@Component({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;selector: 'app-root',
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;h1&#62;Hello {{title}}&#60;/h1&#62;'
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppComponent { 
+
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+               </pre>
+
+               Τo property template ορίζει την HTML, η οποία θα πρέπει, να γίνεται render, όταν χρησιμοποιείται το component και το property selector
+               λέει στην Angular, που ακριβώς στο DOM, πρέπει να κάνει render το component.
+            </p>
+
 
         </section>
 
@@ -80,7 +140,7 @@
             <h5>Πηγές</h5>
 
             <ul>
-                <li><a href="https://www.open.edu/openlearn/science-maths-technology/introduction-web-applications-architecture/content-section-1.1#">OpenLearn - 1.1 Client–server architecture</a></li>
+                <li><a href="https://angular.io/guide/architecture">Angular - Architecture overview </a></li>
                 <li><a href="https://en.wikipedia.org/wiki/Single-page_application">Wikipedia - Single-page application</a></li>
                 <li><a href="https://grokonez.com/spring-framework/use-spring-jpa-postgresql-spring-boot">grokonez - How to use Spring JPA with PostgreSQL | Spring Boots</a></li>
             </ul>
