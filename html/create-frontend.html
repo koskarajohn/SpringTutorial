@@ -141,6 +141,41 @@
 
         </section>
 
+        <section class="libraries">
+
+            <p class="font-weight-bold">Εγκατάσταση βιβλιοθηκών</p>
+
+            <p>Θα εγκαταστήσουμε τις βιβλιοθήκες jQuery, popper.js και Bootstrap, με τις ακόλουθες εντολές :</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;npm install popper.js --save
+                        &emsp;&emsp;npm install jquery --save
+                        &emsp;&emsp;npm install bootstrap --save
+                        &emsp;&emsp;npm install @fortawesome/fontawesome-free --save
+                </code>
+               </pre>
+
+            <p>Για να μπορέσουμε, να τις χρησιμοποιήσουμε, πρέπει να αλλάξουμε το αρχείο angular.json .  Πρέπει να αλλάξουμε τα properties styles και
+                scripts, όπως δίνεται παρακάτω :
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;"styles": [
+                        &emsp;&emsp;&emsp;&emsp;"node_modules/bootstrap/dist/css/bootstrap.min.css",
+                        &emsp;&emsp;&emsp;&emsp;"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                        &emsp;&emsp;&emsp;&emsp;"src/styles.css"
+                        &emsp;&emsp;],
+                        &emsp;&emsp;"scripts": [
+                        &emsp;&emsp;&emsp;&emsp;"node_modules/jquery/dist/jquery.min.js",
+                        &emsp;&emsp;&emsp;&emsp;"node_modules/popper.js/dist/umd/popper.min.js",
+                        &emsp;&emsp;&emsp;&emsp;"node_modules/bootstrap/dist/js/bootstrap.min.js"
+                        &emsp;&emsp;]
+                </code>
+               </pre>
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
