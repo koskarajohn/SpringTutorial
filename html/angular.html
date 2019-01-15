@@ -135,7 +135,7 @@
 
                Τo property template ορίζει την HTML, η οποία θα πρέπει, να γίνεται render, όταν χρησιμοποιείται το component και το property selector
                λέει στην Angular, που ακριβώς στο DOM, πρέπει να κάνει render το component. Παραπάνω, όταν γίνει render το AppComponent, θα εμφανίσει στην
-               οθόνη ένα element h1, με κείμενο Hello World.
+               οθόνη ένα element &#60;h1&#62;, με κείμενο Hello World.
             </p>
         </section>
 
@@ -187,6 +187,106 @@
             </p>
         </section>
 
+        <section class="data-binding">
+            
+            <p class="font-weight-bold">Data binding</p>
+
+            <p>To binding markup συνδέει τα δεδομένα της εφαρμογής με το DOM. Το παρακάτω διάγραμμα δείχνει τις τέσσερις μορφές data binding markup.
+                Κάθε μορφή έχει μια κατεύθυνση: προς το DOM, από το DOM ή και τα δύο.
+            </p>
+
+            <img class="img-fluid mx-auto mt-3 my-5 w-25" src="../img/data-binding.png" alt="Data Binding"> 
+
+            <p>To παρακάτω template του AppComponent χρησιμοποιεί τρεις απο τις μορφές αυτές.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&#60;h1&#62;{{title}}&#60;/h1&#62;
+                    &emsp;&emsp;&emsp;&emsp;&#60;component1 [title] = "title"&#62;&#60;/component1&#62;
+                    &emsp;&emsp;&emsp;&emsp;&#60;button (click) = "submit()"&#62;&#60;/button&#62;
+                </code>
+            </pre>
+
+            <ul>
+                <li>Το interpolation {{title}} εμφανίζει την τιμή του property title του AppComponent, μέσα στο element &#60;h1&#62;.</li>
+                <li>Το property binding [title] περνάει την τιμή του title από το parent AppComponent, στο property title του child Component1Component.</li>
+                <li>Το event binding (click) καλεί τη μέθοδο submit του AppComponent, όταν ο χρήστης κάνει κλικ στο element &#60;button&#62;. 
+            </ul>
+        </section>
+
+        <section class="directives">
+
+            <p class="font-weight-bold">Directives</p>
+
+            <p>Τα directives είναι υπεύθυνα για το HTML layout. Αλλάζουν την δομή του DOM, προσθέτοντας, αφαιρώντας ή τροποποιώντας elements. Έχουν ένα
+                αστερίσκο πριν το όνομα και εφαρμόνται σε ένα host element. Παρακάτω, το element &#60;div&#62; εμφανίζεται στην οθόνη, μόνο
+                όταν η τιμή η του property isUserLoggedIn είναι true. Λειτουργεί δηλαδή σαν ένα λογικό If.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&#60;div *ngIf="isUserLoggedIn" &#62;Hello {{user}}&#60;/div&#62;
+                </code>
+            </pre>
+        </section>
+
+        <section class="services">
+
+            <p class="font-weight-bold">Services</p>
+
+            <p>Service είναι μια κλάση με το decorator @Injectable. Όταν δεδομένα ή λογική, δεν είναι συσχετισμένα με ένα συγκεκριμένο view,
+                αλλά μοιράζονται σε πολλά components, τότε πρέπει, να δημιουργήσουμε μια κλάση Service. Γενικά, τα components πρέπει, να αναθέτουν
+                λειτουργίες, όπως η ανάκτηση δεδομένων από το server στα services.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Injectable } from '@angular/core';
+
+                    &emsp;&emsp;&emsp;&emsp;@Injectable({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;providedIn: 'root',
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class TestService {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;message : string = 'Hello world';
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;getMessage() : string{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return this.message;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+               </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Component, OnInit } from '@angular/core';
+                    &emsp;&emsp;&emsp;&emsp;import { TestService } from 'src/app/services/test.service';
+
+                    &emsp;&emsp;&emsp;&emsp;@Component({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;selector: 'app-root',
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;h1&#62;Hello {{title}}&#60;/h1&#62;';
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppComponent implements OnInit{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;title : string ;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;constructor(private testService : TestService) { }
+                    
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ngOnInit() {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;this.title = testService.getMessage();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+               </pre>
+
+            <p>Όταν η Angular βλέπει ότι ένα component, χρειάζεται ένα service, τότε ελέγχει εάν υπάρχει ένα στιγμιότυπο του service ήδη. Εάν
+                δεν υπάρχει, τότε δημιουργεί ένα και το κάνει inject με dependency-injection.
+            </p>
+            
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
@@ -194,6 +294,7 @@
             <ul>
                 <li><a href="https://angular.io/guide/architecture">Angular - Architecture overview </a></li>
                 <li><a href="https://angular.io/guide/architecture-components">Angular - Introduction to components</a></li>
+                <li><a href="https://angular.io/guide/architecture-services">Angular - Introduction to services and dependency injection</a></li>
                 <li><a href="https://programmingwithmosh.com/angular/angular-2-tutorial/">programmingwithmosh - Angular 2 Tutorial: Angular 2.0 in 20 minutes</a></li>
             </ul>
         </section>
