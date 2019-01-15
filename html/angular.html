@@ -78,6 +78,9 @@
                 να εισάγουμε στις εφαρμογές.
             </p>
 
+        </section>
+
+        <section class="modules">
             <p class="font-weight-bold">Modules</p>
 
             <p>Μια Angular εφαρμογή αποτελείται από NgModules. Ένα module είναι ένα συνεκτικό τμήμα κώδικα, το οποίο παρέχει ένα compilation
@@ -104,7 +107,9 @@
                 </code>
             </pre>
             </p>
+        </section>
 
+        <section class="components">
             <p class="font-weight-bold">Components</p>
 
             <p>Component είναι μια κλάση με το decorator @Component και ελέγχει ένα κομμάτι της οθόνης, το οποίο λέγεται view. Η κλάση περιέχει
@@ -123,16 +128,63 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;h1&#62;Hello {{title}}&#60;/h1&#62;'
                     &emsp;&emsp;&emsp;&emsp;})
                     &emsp;&emsp;&emsp;&emsp;export class AppComponent { 
-
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;title = "World";
                     &emsp;&emsp;&emsp;&emsp;}
                 </code>
                </pre>
 
                Τo property template ορίζει την HTML, η οποία θα πρέπει, να γίνεται render, όταν χρησιμοποιείται το component και το property selector
-               λέει στην Angular, που ακριβώς στο DOM, πρέπει να κάνει render το component.
+               λέει στην Angular, που ακριβώς στο DOM, πρέπει να κάνει render το component. Παραπάνω, όταν γίνει render το AppComponent, θα εμφανίσει στην
+               οθόνη ένα element h1, με κείμενο Hello World.
             </p>
+        </section>
 
+        <section class="templates">
+            <p class="font-weight-bold">Templates</p>
 
+            <p>Ένα template είναι μια μορφή HTML, η οποία λέει στην Angular, πως να κάνει render το component. Μοιάζει με HTMl, αλλά περιέχει
+                και Angular template σύνταξη, η οποία μεταβάλλει την HTML, βασισμένη στη λογική και την κατάσταση της εφαρμογής. Παρακάτω, το AppComponent
+                περιέχει δύο child compopnents, to Component1Component και το Component2Component. Δίνεται το αποτέλεσμα της εκτέλεσης στην εικόνα.
+
+                <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Component } from '@angular/core';
+
+                    &emsp;&emsp;&emsp;&emsp;@Component({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;selector: 'component1',
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;h1&#62;I am component 1&#60;/h1&#62;'
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class Component1Component {}
+                </code>
+               </pre>
+
+               <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Component } from '@angular/core';
+
+                    &emsp;&emsp;&emsp;&emsp;@Component({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;selector: 'component2',
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;h1&#62;I am component 2&#60;/h1&#62;'
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class Component2Component {}
+                </code>
+               </pre>
+
+                <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { Component } from '@angular/core';
+
+                    &emsp;&emsp;&emsp;&emsp;@Component({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;selector: 'app-root',
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;template: '&#60;component1&#62;&#60;/component1&#62;'+'
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;'&#60;component2&#62;&#60;/component2&#62;'
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppComponent {}
+                </code>
+               </pre>
+
+               <img class="img-fluid mx-auto mt-3 w-100" src="../img/angular-example.png" alt="Angular Example"> 
+            </p>
         </section>
 
         <section class="references">
@@ -141,8 +193,8 @@
 
             <ul>
                 <li><a href="https://angular.io/guide/architecture">Angular - Architecture overview </a></li>
-                <li><a href="https://en.wikipedia.org/wiki/Single-page_application">Wikipedia - Single-page application</a></li>
-                <li><a href="https://grokonez.com/spring-framework/use-spring-jpa-postgresql-spring-boot">grokonez - How to use Spring JPA with PostgreSQL | Spring Boots</a></li>
+                <li><a href="https://angular.io/guide/architecture-components">Angular - Introduction to components</a></li>
+                <li><a href="https://programmingwithmosh.com/angular/angular-2-tutorial/">programmingwithmosh - Angular 2 Tutorial: Angular 2.0 in 20 minutes</a></li>
             </ul>
         </section>
         
