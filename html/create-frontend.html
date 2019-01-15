@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Δημιουργία Frontend</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="html/rest-api.html">Rest API</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Δημιουργία εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                            <a class="dropdown-item" href="angular.html">Angular</a>
+                            <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                          </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Δημιουργία Frontend</h1>
+
+        <section class="intro">
+
+            <p class="font-weight-bold">Προαπαιτούμενα</p>
+
+            <p>Για να δημιουργήσουμε την Angular εφαρμογή, χρειαζόμαστε το Node.js και τον npm package manager. Η Angular χρειάζεται τις εκδόσεις
+                8.x ή 10.Χ. Εάν δεν έχετε εγκατεστημένο το Node.js,
+                μπορείτε να το κατεβάσετε <a href="https://nodejs.org/en/">εδώ</a>.
+            </p>
+
+            <ul>
+                <li>Για να ελέγξουμε την έκδοση του Node.js, τρέχουμε την εντολή node -v σε ένα terminal window.</li>
+                <li>Για να ελέγξουμε την έκδοση του npm, τρέχουμε την εντολή npm -v σε ένα terminal window.</li>
+            </ul>
+
+            <p class="font-weight-bold">Εγκατάσταση του Angular CLI</p>
+
+            <p>Με το Angular CLI μπορούμε, να δημιουργήσουμε projects και να παράγουμε αυτόματα κώδικα της εφαρμογής όπως compoments. Για να το εγκαταστήσουμε,
+                πληκτρολογούμε την ακόλουθη εντολή στο terminal window.
+
+                <pre>
+                <code>
+                        &emsp;&emsp;npm install -g @angular/cli
+                </code>
+               </pre>
+                
+            </p>
+
+            <p class="font-weight-bold">Δημιουργία workspace και αρχικής εφαρμογής</p>
+
+            <p>Για να δημιουργήσουμε την εφαρμογή , πηγαίνουμε στο φάκελο, τον οποίο επιθυμούμε με την εντολή cd και
+                 πληκτρολογούμε την ακόλουθη εντολή στο terminal window.
+                <pre>
+                <code>
+                        &emsp;&emsp;ng new frontend
+                </code>
+               </pre>
+            </p>
+
+            <p>Τo Angular CLI εγκαθιστά τα απαραίτητα npm packages και dependencies. Δημιουργεί επίσης τα ακόλουθα workspace και starter project αρχεία :</p>
+
+            <ul>
+                <li>Ένα καινούριο workspace, με ένα root φάκελο frontend.</li>
+                <li>Τον σκελετό ενός app project, που λέγεται επίσης frontend (στον υποφάκελο src).</li>
+                <li>Ένα end-to-end test project(στον υποφάκελο e2e)</li>
+                <li>Τα σχετικά configuration files.</li>
+            </ul>
+
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/create-angular.png" alt="Angular CLI"> 
+
+            <p class="font-weight-bold">Εκκίνηση εφαρμογής</p>
+
+            <p>Η Angular συμπεριλαμβάνει και ένα server, οπότε μπορούμε να τρέξουμε την εφαρμογή τοπικά.</p>
+
+            <ol>
+                <li>Πηγαίνουμε στον φάκελο-workspace frontend</li>
+                <li>Εκκινούμε τον server, με την εντολή ng serve --open</li>
+
+                <pre>
+                <code>
+                        &emsp;&emsp;cd frontend
+                        &emsp;&emsp;ng serve --open
+                </code>
+               </pre>
+            </ol>
+
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/create-angular3.png" alt="Run App"> 
+
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://angular.io/guide/quickstart">Angular - Getting started</a></li>
+            </ul>
+        </section>
+        
+    </div>
+
+  </body>
+</html>
