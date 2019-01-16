@@ -90,15 +90,15 @@
                 Προσθέτουμε στο αρχείο pom.xml, τα ακόλουθα dependencies.
                 <pre>
                     <code>
-                        <span class="annotation">&#60;dependency&#62;</span>
-                        <span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
-                        <span class="annotation">&emsp;&emsp;&#60;artifactId&#60;</span> spring-boot-starter-data-jpa <span class="annotation">&#60;/artifactId&#62;</span>
-                        <span class="annotation">&#60;/dependency&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;dependency&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;artifactId&#60;</span> spring-boot-starter-data-jpa <span class="annotation">&#60;/artifactId&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;/dependency&#62;</span>
 
-                        <span class="annotation">&#60;dependency&#62;</span>
-                        <span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.postgresql <span class="annotation">&#60;/groupId&#62;</span>
-                        <span class="annotation">&emsp;&emsp;&#60;artifactId&#62;</span> postgresql <span class="annotation">&#60;/artifactId&#62;</span>
-                        <span class="annotation">&#60;/dependency&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;dependency&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.postgresql <span class="annotation">&#60;/groupId&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;artifactId&#62;</span> postgresql <span class="annotation">&#60;/artifactId&#62;</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;/dependency&#62;</span>
                     </code>
                 </pre>
             </p>
@@ -142,40 +142,58 @@
             </pre>
         </section>
         <section class="configuration">
-            <h5 class="mt-4">JPA Configuration</h5>
+            <h5 class="mt-4">Δημιουργία κλάσης JpaConfiguration</h5>
 
             <p>
-                Θα δημιουργήσουμε μια κλάση JpaConfiguration.java, η οποία θα περιέχει διάφορες ρυθμίσεις για το JPA. Χρησιμοποιούμε τα
-                annotations @Configuration, @EnableJpaRepositories και @EnableTransactionManagement.
-                <pre>
+                Θα δημιουργήσουμε μια κλάση <span class="code">JpaConfiguration.java</span>, η οποία θα περιέχει διάφορες ρυθμίσεις για το JPA. Πρώτα, θα κάνουμε ένα καινούριο
+                package <span class="code">springeshop.configuration</span> στο project μας. Στο Spring Tool Suite, πατάμε <span class="bold">SpringEshop</span> -> 
+                <span class="bold">src/main/java</span>, κάνουμε <span class="bold">δεξί κλικ</span> -> <span class="bold">New</span>
+                -> <span class="bold">Package</span> και δίνουμε το όνομα <span class="code">springeshop.configuration</span> . Στο πακέτο αυτό κάνουμε 
+                <span class="bold">δεξί κλικ</span> -> <span class="bold">New</span> -> <span class="bold">Class</span>, δίνουμε το όνομα
+                <span class="bold">JpaConfiguration</span> και πατάμε <span class="bold">finish</span>.
+                
+            </p>
+
+            <p>Προσθέτουμε τα ακόλουθα annotations :</p>
+
+            <p><span class="code">@Configuration</span> : Η κλάση περιέχει bean definitions, δηλαδή beans με το annotation <span class="code">@Bean</span><br>
+                <span class="code">@EnableJpaRepositories</span> : Είναι annotation, για να ενεργοποιηθούν τα JpaRepositories.<br>
+                <span class="code">@EnableTransactionManagement</span> : Είναι annotation, για να ενεργοποιηθεί το transaction management.
+            </p>
+            
+
+            <pre>
                     <code>
-                        <span class="annotation">@Configuration</span>
-                        <span class="annotation">@EnableJpaRepositories</span>(basePackages = <span class="string">"springeshop.repositories"</span>,
-                                               entityManagerFactoryRef = <span class="string">"entityManagerFactory"</span>,
-                                               transactionManagerRef = <span class="string">"transactionManager"</span>)
-                        <span class="annotation">@EnableTransactionManagement</span>
-                        <span class="keyword"> public class</span> <span class="classname"> JpaConfiguration</span> {
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Configuration</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@EnableJpaRepositories</span>(basePackages = <span class="string">"springeshop.repositories"</span>,
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;entityManagerFactoryRef = <span class="string">"entityManagerFactory"</span>,
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;transactionManagerRef = <span class="string">"transactionManager"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@EnableTransactionManagement</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> <span class="classname"> JpaConfiguration</span> {
                     </code>
                 </pre>
-                @Configuration : Η κλάση περιέχει bean definitions, δηλαδή beans με το annotation @Bean<br>
-                @EnableJpaRepositories : Είναι annotation, για να ενεργοποιηθούν τα JpaRepositories.
-                @EnableTransactionManagement : Είναι annotation, για να ενεργοποιηθεί το transaction management.
-            </p>
 
             <h5 class="mt-4">Datasource Bean</h5>
 
             <p>
                 Το Datasource Bean είναι ένα εργοστάσιο για τη δημιουργία συνδέσεων με το φυσικό datasource, το οποίο αυτό
                 Datasource αντικειμένο αναπαριστά, δηλαδή την βάση δεδομένων PostgreSQL. Χρειάζεται, να δώσουμε τιμές σε παραμέτρους, 
-                όπως το url της βάσης, το username, password και το Jdbc Driver.
+                όπως το url της βάσης, το username, password και το Jdbc Driver, τις οποίες παίρνουμε από το αρχείο application.properties .
                 <pre>
                     <code>
-                        DriverManagerDataSource dataSource = <span class="keyword">new</span> DriverManagerDataSource();
-		                dataSource.setDriverClassName(<span class="string">"org.postgresql.Driver"</span>);
-		                dataSource.setUrl(<span class="string">"jdbc:postgresql://localhost:5432/postgres"</span>);
-		                dataSource.setUsername(<span class="string">"root"</span>);
-	                    dataSource.setPassword(<span class="string">"root"</span>);	
-		                <span class="keyword">return</span> dataSource;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">private </span>Environment environment(){
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>(name = <span class="string">"dataSource"</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">public </span>DataSource dataSource(){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;DriverManagerDataSource dataSource = <span class="keyword">new</span> DriverManagerDataSource();
+		                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;dataSource.setDriverClassName(environment.getProperty(<span class="string">"spring.datasource.driver-class-name"</span>));
+		                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;dataSource.setUrl(environment.getProperty(<span class="string">"spring.datasource.url"</span>));
+		                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;dataSource.setUsername(environment.getProperty(<span class="string">"spring.datasource.username"</span>));
+	                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;dataSource.setPassword(environment.getProperty(<span class="string">"spring.datasource.password"</span>));	
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> dataSource;
+                        &emsp;&emsp;&emsp;&emsp;}
                     </code>
                 </pre>
                 
@@ -188,13 +206,13 @@
                 του Spring. Θα χρησιμοποιήσουμε την κλάση JpaTransactionManager, ως τον transaction manager της εφαρμογής.
                 <pre>
                     <code>
-                        <span class="annotation">@Bean</span>
-                        <span class="annotation">@Autowired</span>
-	                    <span class="keyword">public</span> PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-		                JpaTransactionManager txManager = <span class="keyword">new</span> JpaTransactionManager();
-		                txManager.setEntityManagerFactory(emf);
-		                <span class="keyword">return</span> txManager;
-	                    }
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+	                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;JpaTransactionManager txManager = <span class="keyword">new</span> JpaTransactionManager();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;txManager.setEntityManagerFactory(emf);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> txManager;
+                        &emsp;&emsp;&emsp;&emsp;}
                     </code>
                 </pre>
                 
@@ -206,11 +224,11 @@
                 Δηλώνουμε ότι θα χρησιμοποιήσουμε το Hibernate ως persistence provider
                 <pre>
                     <code>
-                        <span class="annotation">@Bean</span>
-	                    <span class="keyword">public</span> JpaVendorAdapter jpaVendorAdapter(){
-		                HibernateJpaVendorAdapter hibernateJpaVendorAdapter = <span class="keyword">new</span> HibernateJpaVendorAdapter();
-		                <span class="keyword">return</span> hibernateJpaVendorAdapter;
-	                    }
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> JpaVendorAdapter jpaVendorAdapter(){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;HibernateJpaVendorAdapter hibernateJpaVendorAdapter = <span class="keyword">new</span> HibernateJpaVendorAdapter();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> hibernateJpaVendorAdapter;
+                        &emsp;&emsp;&emsp;&emsp;}
                     </code>
                 </pre>
                 
@@ -222,14 +240,14 @@
                 Δηλώνουμε κάποια συγκεκριμένα properties για το Hibernate.
                 <pre>
                     <code>
-                        <span class="keyword">private</span> Properties jpaProperties(){
-                        Properties properties = <span class="keyword">new</span> Properties();	
-                        properties.put(<span class="string">"hibernate.hbm2ddl.method"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.hbm2ddl.method"</span>));
-                        properties.put(<span class="string">"hibernate.show_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.show_sql"</span>));
-                        properties.put(<span class="string">"hibernate.format_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.format_sql"</span>));
-                        properties.put(<span class="string">"hibernate.dialect"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.dialect"</span>));
-                        properties.put(<span class="string">"hibernate.jdbc.lob.non_contextual_creation"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"</span>));
-                        <span class="keyword">return</span> properties;
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Properties jpaProperties(){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Properties properties = <span class="keyword">new</span> Properties();	
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;properties.put(<span class="string">"hibernate.hbm2ddl.method"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.hbm2ddl.method"</span>));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;properties.put(<span class="string">"hibernate.show_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.show_sql"</span>));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;properties.put(<span class="string">"hibernate.format_sql"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.format_sql"</span>));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;properties.put(<span class="string">"hibernate.dialect"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.dialect"</span>));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;properties.put(<span class="string">"hibernate.jdbc.lob.non_contextual_creation"</span>, environment.getRequiredProperty(<span class="string">"spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"</span>));
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> properties;
                         }
                     </code>
                 </pre>
@@ -243,12 +261,14 @@
                 όπως η εύρεση και η αποθήκευση αντικειμένων.
                 <pre>
                     <code>
-                        LocalContainerEntityManagerFactoryBean factoryBean = <span class="keyword">new</span> LocalContainerEntityManagerFactoryBean();
-                        factoryBean.setDataSource(dataSource());
-                        factoryBean.setPackagesToScan(<span class="keyword">new</span> String[] { <span class="string">"springeshop.model"</span> });
-                        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-                        factoryBean.setJpaProperties(jpaProperties());
-                        <span class="keyword">return</span> factoryBean;
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;LocalContainerEntityManagerFactoryBean factoryBean = <span class="keyword">new</span> LocalContainerEntityManagerFactoryBean();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factoryBean.setDataSource(dataSource());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factoryBean.setPackagesToScan(<span class="keyword">new</span> String[] { <span class="string">"springeshop.model"</span> });
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;factoryBean.setJpaProperties(jpaProperties());
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> factoryBean;
                     </code>
                 </pre>
                 
