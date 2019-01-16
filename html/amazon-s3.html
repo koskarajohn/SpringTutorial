@@ -152,6 +152,36 @@
                 </ol>
             </section>
 
+            <section class="bucket-policy">
+                    <h5>Bucket policy</h5>
+    
+                    <p>Για να εμφανίζει η εφαρμογή τις εικόνες, χρειάζεται να δώσουμε read access στο bucket.</p>
+
+                    <ol>
+                        <li>Στο S3 Management Console, πατάμε στο bucket springeshop-bucket</li>
+                        <li>Πατάμε στην καρτέλα Permissions</li>
+                        <li>Πατάμε στην καρτέλα Bucket Policy, προσθέτουμε την ακόλουθη πολιτική και πατάμε Save<br>
+                                {<br>
+                                    &emsp;&emsp;"Version": "2012-10-17",<br>
+                                    &emsp;&emsp;"Statement": [<br>
+                                    &emsp;&emsp;&emsp;&emsp;{<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"Sid": "PublicReadGetObject",<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"Effect": "Allow",<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"Principal": "*",<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"Action": "s3:GetObject",<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"Resource": "arn:aws:s3:::springeshop-bucket/*"<br>
+                                    &emsp;&emsp;&emsp;&emsp;}<br>
+                                    &emsp;&emsp;]<br>
+                                }
+
+                                <img class="img-fluid d-block mx-auto my-5" src="../img/public-access-bucket.png" alt="Public Access"> 
+                        </li>
+
+
+                    </ol>
+                    
+                </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
