@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Spring Tool Suite</title>
+    <title>Application Properties</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
     
@@ -60,6 +60,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
                             <a class="dropdown-item" href="angular.html">Angular</a>
+                            <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
                           </div>
                       </li>
             </ul>
@@ -70,39 +71,48 @@
 
     <div class="container">
 
-        <h1 class="text-center">Βημα 2 : Εγκατασταση του Spring Tool Suite</h1>
+        <h1 class="text-center">Application Properties</h1>
 
-        <section class="installation">
-                <p>Το Spring Tool Suite είναι ένα περιβάλλον development, βασισμένο στο Eclipse, το οποίο είναι προσαρμοσμένο για την ανάπτυξη
-                εφαρμογών Spring. Παρέχει ένα έτοιμο περιβάλλον, για την δημιουργία, αποσφαλμάτωση, εκτέλεση και deploy Spring εφαρμογών
-                και integrations για Pivotal tc Server, Git, Maven, AspectJ.
-                </p>
+        <section class="intro">
 
-                <p>Για να λειτουργήσει το Spring Tool Suite, χρειάζειτα το Java Development Kit 1.8 ή νεότερη έκδοση του. Εάν το έχετε
-                    εγκαταστήσει ήδη στον υπολογιστή σας, μπορείτε να περάσετε στο 2ο βήμα.
-                </p>
+            <p>Το Spring Boot μας επιτρέπει, να εξωτερικεύσουμε το configuration, ώστε να μπορούμε, να δουλέψουμε με τον ίδιο κώδικα εφαρμογής
+                σε διαφορετικά περιβάλλοντα. Μπορούμε να κάνουμε inject απευθείας τιμές από properties σε beans, χρησιμοποιώντας το annotation
+                @Value.
+            </p>
 
-                <h5 class="mt-4">Εγκατάσταση JDK (Τα βήματα της εγκατάστασης είναι πιο αναλυτικά 
-                    <a href="https://www.guru99.com/install-java.html">εδώ</a>)</h5>
+            <p>Το αρχείο application.properties βρίσκεται στο φάκελο src/main/resources. Παρακάτω η μεταβλητή String awsRegion παίρνει την τιμή
+                    eu-central-1, από το property aws.region του αρχείου application.properties.</p>
 
-                <ol>
-                    <li>Πηγαίνετε στην ιστοσελίδα της <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle</a>
-                        , για να κατεβάσετε το JDK 8. Επιλέγετε την κατάλληλη έκδοση, ανάλογα με το λειτουργικό σύστημα του υπολογιστή σας,
-                        πατάτε Accept License Agreement και κατεβάζετε το αρχείο .exe .
+            <pre>
+                    <code>
+                        &emsp;&emsp;&emsp;&emsp;aws.region = eu-central-1
+                        &emsp;&emsp;&emsp;&emsp;aws.s3.audio.bucket = springeshop-bucket
+                    </code>
+                </pre>
 
-                    </li>
-                    <li>Μόλις κατεβεί το αρχείο, το εκτελείτε και ακολουθείτε τον οδηγό, για να εγκαταστήσετε το JDK.</li>
-                </ol>
+                <pre>
+                    <code>
+                     <span class="annotation">@Configuration</span>
+                     <span class="keyword">public class</span> AmazonS3Configuration {
 
-                <h5 class="mt-4">Εγκατάσταση Spring Tool Suite </h5>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Value(<span class="string">"${aws.region}"</span>)</span>
+                        &emsp;&emsp;&emsp;&emsp;private String awsRegion;
+     
+                     }
+                    </code>
+                </pre>
 
-                <ol>
-                     <li>Κατεβάζετε την <a href="https://spring.io/tools/sts/all">τελευταία έκδοση του Spring Tool Suite</a>
-                    </li>
-                    <li>Μόλις κατεβεί το αρχείο, το κάνετε unzip.</li>
-                 </ol>
-                
-            </section>
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html">Spring Boot Documentation - 24. Externalized Configuration</a></li>
+            </ul>
+        </section>
+        
     </div>
 
   </body>
