@@ -89,7 +89,7 @@
         </section>
 
         <section class="postgres">
-            <h5 class="mt-4">PostgreSQL</h5>
+            <h5 class="mt-4">Εγκατάσταση PostgreSQL και pgAdmin4</h5>
 
             <ol>
                 <li>Πρέπει, να κατεβάσουμε την <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL τοπικά</a></li>
@@ -97,6 +97,10 @@
                 <li>Αφού κατεβεί, κάνουμε διπλό κλικ στο αρχείο <strong>postgresql-10.4-1-windows-x64.exe</strong></li>
                 <li>Στη καρτέλα <strong>Select Components</strong>, το <strong>pgAdmin 4</strong> πρέπει να είναι επιλεγμένο</li>
                 <li>Στη καρτέλα <strong>Password</strong>, ζητάει κωδικό για την βάση στο localhost και όχι στο Heroku</li>
+                <li>Επίσης, με την εγκατάσταση, η PostgreSQL έχει δημιουργήσει μια βάση δεδομένων <span class="bold">τοπικά</span> με όνομα <span class="bold">postgres</span>, στο server
+                    PostgreSQL. Το <span class="bold">URL</span> της βάσης είναι <span class="bold">localhost:5432/postgres</span> 
+                    και μπορούμε, να συνδεθούμε με <span class="bold">username</span> postgres και <span class="bold">κωδικό</span> password.
+                </li>
             </ol>
         </section>
         

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JPA Configuration</title>
+    <title>Ρύθμιση βάσης δεδομένων και JPA</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -52,6 +52,7 @@
                               <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
                               <a class="dropdown-item" href="heroku.html">Heroku</a>
                               <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
                             </div>
                       </li>
                       <li class="nav-item dropdown">
@@ -69,77 +70,77 @@
 
     <div class="container">
 
-        <h1 class="text-center">Βημα 5 : JPA Configuration</h1>
+        <h1 class="text-center">Ρύθμιση βάσης δεδομένων και JPA</h1>
 
         <section class="intro ">
 
             <h5>PostgreSQL</h5>
 
-            <p>
-                Η εφαρμογή μας θα χρειαστεί μια βάση δεδομένων, για να αποθηκεύσουμε δεδομένα όπως προιόντα. Το Heroku παρέχει
-                τη βάση δεδομένων PostgreSQL, οπότε θα χρησιμοποιήσουμε αυτή.
+            <p>Το Heroku παρέχει τη βάση δεδομένων PostgreSQL. Δημιουργήσαμε μια βάση δεδομένων στο Heroku <a href="postgresql.html">εδώ</a>. Θα δημιουργήσουμε τους πίνακες
+                στη τοπική βάση δεδομένων. Μετά, μπορούμε να κάνουμε export τη βάση και να την κανουμε import στον απομακρυσμένο server στο Heroku.
             </p>
 
-            <h5 class="mt-4">ORM</h5>
-
-            <p>
-                Υπάρχει ασυμβατότητα μεταξύ του μοντέλου αντικειμένου και της  σχεσιακής βάσης δεδομένων.
-                 Η βάση δεδομένων αναπαριστά τα δεδομένα σε μορφή πίνακα, ενώ οι αντικειμενοστραφείς γλώσσες όπως η Java και η C#, 
-                 τα αναπαριστούν ως έναν διασυνδεδεμένο γράφο αντικειμένων.
-            </p>
-
-            <h5 class="mt-4">JPA</h5>
-
-            <p>
-                Το Java Persistence API(JPA) είναι ένα Java specification για την πρόσβαση, αποθήκευση και διαχείριση δεδομένων μεταξύ των
-                κλάσεων της Java και της βάσης δεδομένων. Θεωρείται η standard προσέγγιση για Object To Relational Mapping(ORM) στη βιομηχανία
-                της Java.
-            </p>
-
-            <p>
-                Είναι ένα specification, όχι προιόν. Είναι ένα σύνολο από interfaces και απαιτεί εφαρμογή. To JPA επιτρέπει 
-                στα Plain Old Java Objects(POJOs), να αποθηκεύονται εύκολα στη βάση, χωρίς να χρειάζεται αυτές οι κλάσεις,
-                να εφαρμόσουν κάποιο interface ή μέθοδο.
-            </p>
-
-            <h5 class="mt-4">Hibernate</h5>
-
-            <p>
-                Είναι ένα object-relational mapping (ORM) framework για τη Java και εφαρμογή του JPA specification. Αντιστοιχίζει κλάσεις της Java σε πίνακες βάσης δεδομένων
-                και τύπους δεδομένων Java σε τύπους SQL
-
-            </p>
-
-            <h5 class="mt-4">Spring Data JPA</h5>
-
-            <p>
-                Το Spring Data JPA δεν είναι ένας πάροχος JPA. Είναι ένα framework, το οποίο παρέχει ένα επιπλέον επίπεδο αφαίρεσης, πάνω από
-                τον JPA provider. Παρέχει υποστήριξη, για τη δημιουργία JPA repositories, κάνοντας extend τα repository interfaces του Spring Data.
+            <p>Για να μπορέσουμε, να χρησιμοποιήσουμε τις βάσεις, χρειάζεται να προσθέσουμε κάποια dependencies στο pom.xml, να προσθέσουμε κάποια properties
+                στο αρχείο application.properties και να δημιουργήσουμε μια κλάση configuration, για να ρυθμίσουμε το JPA.
             </p>
 
             <h5 class="mt-4">Dependencies</h5>
 
             <p>
-                Για να χρησιμοποιήσουμε το JPA, χρείαζεται να προσθέσουμε στο αρχείο pom.xml, τα ακόλουθα dependencies
+                Προσθέτουμε στο αρχείο pom.xml, τα ακόλουθα dependencies.
                 <pre>
                     <code>
                         <span class="annotation">&#60;dependency&#62;</span>
-                        <span class="annotation">&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
-                        <span class="annotation">&#60;artifactId&#60;</span> spring-boot-starter-data-jpa <span class="annotation">&#60;/artifactId&#62;</span>
+                        <span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.springframework.boot <span class="annotation">&#60;/groupId&#62;</span>
+                        <span class="annotation">&emsp;&emsp;&#60;artifactId&#60;</span> spring-boot-starter-data-jpa <span class="annotation">&#60;/artifactId&#62;</span>
                         <span class="annotation">&#60;/dependency&#62;</span>
 
                         <span class="annotation">&#60;dependency&#62;</span>
-                        <span class="annotation">&#60;groupId&#62;</span> org.postgresql <span class="annotation">&#60;/groupId&#62;</span>
-                        <span class="annotation">&#60;artifactId&#62;</span> postgresql <span class="annotation">&#60;/artifactId&#62;</span>
-                        <span class="annotation">&#60;scope&#62;</span> runtime <span class="annotation">&#60;/scope&#62;</span>
+                        <span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.postgresql <span class="annotation">&#60;/groupId&#62;</span>
+                        <span class="annotation">&emsp;&emsp;&#60;artifactId&#62;</span> postgresql <span class="annotation">&#60;/artifactId&#62;</span>
                         <span class="annotation">&#60;/dependency&#62;</span>
                     </code>
                 </pre>
-                Ο προεπιλεγμένος persistence provider είναι το Hibernate. Επειδή το Spring Data JPA βρίσκεται στο classpath, το Spring Data JPA
-                αυτόματα θα παράξει τα repository implementations, από τα repository interfaces.
             </p>
         </section>
 
+        <section class="application-properties">
+
+            <h5>Application Properties</h5>
+
+            <p>Προσθέτουμε τα ακόλουθα properties στο αρχείο application.properties. Τα πρώτα 8 περιέχουν ρυθμίσεις για την τοπική και 
+                απομακρυσμένη βάση δεδομένων, όπως URL, username και password. Όταν θέλουμε, να τρέξουμε την εφαρμογή τοπικά, πρέπει να κάνουμε comment out
+                τα properties για το Heroku. Αντίστοιχα όταν θέλουμε, να κάνουμε push τις αλλαγές μας στο Heroku, πρέπει να κάνουμε comment out τα properties για το local.
+               Επίσης, παρέχουμε κάποια properties που χρειάζεται το Hibernate και το HikariCP.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;#local
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.driver-class-name = org.postgresql.Driver
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.url = jdbc:postgresql://localhost:5432/postgres
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.username = postgres
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.password = root 
+
+                        &emsp;&emsp;&emsp;&emsp;#Heroku
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.driver-class-name = org.postgresql.Driver
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.url = ${JDBC_DATABASE_URL}
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.username = ${JDBC_DATABASE_USERNAME}
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.password = ${JDBC_DATABASE_PASSWORD}
+
+                        &emsp;&emsp;&emsp;&emsp;spring.jpa.properties.hibernate.hbm2ddl.method = update
+                        &emsp;&emsp;&emsp;&emsp;spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+                        &emsp;&emsp;&emsp;&emsp;spring.jpa.properties.hibernate.show_sql = true
+                        &emsp;&emsp;&emsp;&emsp;spring.jpa.properties.hibernate.format_sql = true
+                        &emsp;&emsp;&emsp;&emsp;spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.hikari.minimumIdle=2
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.hikari.maximumPoolSize=10
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.hikari.idleTimeout=300000
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.hikari.maxLifetime=1200000
+                        &emsp;&emsp;&emsp;&emsp;spring.datasource.hikari.connectionTimeout=20000
+                </code>
+            </pre>
+        </section>
         <section class="configuration">
             <h5 class="mt-4">JPA Configuration</h5>
 
