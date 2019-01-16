@@ -36,7 +36,7 @@
                               <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
                               <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
                               <a class="dropdown-item" href="spring-security.html">Spring Security</a>
-                              <a class="dropdown-item" href="html/rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
                             </div>
                       </li>
                       <li class="nav-item dropdown">
@@ -52,6 +52,7 @@
                               <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
                               <a class="dropdown-item" href="heroku.html">Heroku</a>
                               <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
                             </div>
                       </li>
                       <li class="nav-item dropdown">
@@ -69,19 +70,95 @@
 
     <div class="container">
 
-        <h1 class="text-center">Βημα 5 : Δημιουργία Amazon S3 account</h1>
+        <h1 class="text-center">Amazon S3</h1>
 
         <section class="create-account">
 
-            <h5 class="mt-4">Δημιουργία λογαριαμού</h5>
+            <p>Οποιεσδήποτε αλλαγές στο file system, διαρκούν στο dyno μέχρι να τερματιστεί ή να επανεκκινηθεί. Κάθε dyno εκκινεί
+                με ένα καθαρό αντίγραφο του file system, από το πιο πρόσφατο deploy.
+            </p>
 
-            <ol class="mt-4">
-                <li>Πηγαίνουμε στην <a href="https://aws.amazon.com/free/">ιστοσελίδα του Amazon Web Services</a> και πατάμε Create a Free Account.</li>
-                <li></li>
-            </ol>
+            <p>Η εφαρμογη θα χρειαστεί, να αποθηκεύσει κάπου φωτογραφίες. Για αυτό το λόγο, θα χρησιμοποίησουμε την υπηρεσία Amazon S3.
+                Η υπηρεσία είνα δωρεάν για 1 χρόνο.
+            </p>
+
         </section>
 
         
+
+        <section class="create-account">
+
+            <h5>Δημιουργία λογαριασμού</h5>
+
+            <ol>
+                <li>Πηγαίνουμε στην <a href="https://aws.amazon.com/free/">ιστοσελίδα του Amazon Web Services</a> και πατάμε Create a Free Account</li>
+                <li>Πληκτρολογούμε διεύθυνση email, κωδικό και το όνομα του λογαριασμού
+                    <img class="img-fluid d-block mx-auto my-5" src="../img/create-account-aws.png" alt="Create S3 account">
+                </li>
+                <li>Συμπληρώνουμε κάποιες πληροφορορίες επικοινωνίας όπως όνομα, τηλέφωνο, πόλη κ.α.</li>
+                <li>Χρειάζετει, να δώσετε πιστωτική κάρτα. Δεν θα χρεωθείτε, εκτός αν ξεπεράσετε τα όρια του επιπέδου Free Tier</li>
+                <li>Επιβεβαιώνουμε τον αριθμό τηλεφώνου</li>
+                <li>Επιλέγουμε το Basic Plan, το οποίο είναι δωρεάν
+                    <img class="img-fluid d-block mx-auto my-5" src="../img/create-account-support-plan.png" alt="Support Plan">
+                </li>
+                <li>Συμπληρώνουμε κάποια πεδία ακόμα, για την εφατομίκευση της εμπειρίας μας</li>
+            </ol>
+        </section>
+
+        <section class="create-bucket">
+            <h5>Δημιουργια bucket</h5>
+
+            <ol>
+                <li>Κάνουμε login στο λογαριασμό μας <a href="https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin">εδώ</a></li>
+                <li>Πάνω αριστερά, πατάμε στην καρτέλα Services και επιλέγουμε το S3 κάτω από το Storage
+                    <img class="img-fluid d-block mx-auto my-5" src="../img/amazon-services-s3.png" alt="Amazon S3">
+                </li>
+                <li>Πατάμε Create Bucket, δίνουμε όνομα springeshop-bucket και επιλέγουμε Region EU(Frankfurt)
+                    <img class="img-fluid d-block mx-auto my-5" src="../img/bucket_name.png" alt="Bucket Name">
+                </li>
+                <li>Στην καρτέλα Configure options, πατάμε Next</li>
+                <li>Στην καρτέλα Set Permission, πατάμε Next
+                        <img class="img-fluid d-block mx-auto my-5" src="../img/bucket_security.png" alt="Bucket Permission">
+                </li>
+                <li>Στην καρτέλα Review, πατάμε Create bucket.</li>
+            </ol>
+        </section>
+
+        <section class="create-user">
+                <h5>Δημιουργια IAM χρήστη</h5>
+
+                <p>Για να έχουμε πρόσβαση στο bucket και να προσθέτουμε και να ανακτούμε φωτογραφίες προγραμματιστικά, χειάζεται να δημιουργήσουμε
+                    ένα IAM χρήστη.
+                </p>
+    
+                <ol>
+                    <li>Πάνω αριστερά, πατάμε στην καρτέλα Services και επιλέγουμε το IAM κάτω από το Security, Identity, & Compliance
+                    </li>
+                    <li>Στην αριστερή στήλη πατάμε Users
+                        <img class="img-fluid d-block mx-auto my-5" src="../img/create-user.png" alt="IAM Dashbord">
+                    </li>
+                    <li>Πάνω αριστερά πατάμε Add user</li>
+                    <li>Πληκτρολογούμε User name springeshop-user, επιλέγουμε την επιλογή Programmatic access και πατάμε Next
+                        <img class="img-fluid d-block mx-auto my-5" src="../img/create-user3.png" alt="Add User">
+                    </li>
+                    <li>Πατάμε Attach existing policies directly, πληκτρολογούμε s3 στο filter policies, επιλέγουμε το AmazonS3FullAccess
+                        και πατάμε Next
+                        <img class="img-fluid d-block mx-auto my-5" src="../img/create-user-4.png" alt="Add User"> 
+                    </li>
+                    <li>Πατάμε Create user, για να δημιουργηθεί ο χρήστης. Μετά θα εμφανιστούν το password και το access, τα οποία θα χρειαστούεμε στην εφαρμογή</li>
+                </ol>
+            </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem">Heroku - Dynos and the Dyno Manager - Ephemeral filesystem</a></li>
+                <li><a href="https://aws.amazon.com/s3/">aws - Amazon S3</a></li>
+                <li><a href="https://medium.com/oril/uploading-files-to-aws-s3-bucket-using-spring-boot-483fcb6f8646">Medium - Uploading files to AWS S3 Bucket using Spring Boot</a></li>
+            </ul>
+        </section>
     </div>
 
   </body>
