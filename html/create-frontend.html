@@ -176,12 +176,91 @@
                </pre>
         </section>
 
+        <section class="spring-integration">
+            <p class="font-weight-bold">Ενσωμάτωση με το Spring</p>
+
+            <p>Αυτή τη στιγμή, η Spring Boot εφαρμογή τρέχει στο localhost:8080, ενώ η Angular εφαρμογή τρέχει στο localhost:4200. Θα ήταν πιο βολικό,
+                να τις ενώσουμε σε μία εφαρμογή.
+            </p>
+
+            <p>Αρχικά, θα δημιουργήσουμε ένα αρχείο proxy-conf.json  στο φάκελο frontend, ώστε να μπορεί η Angular να κάνει επικοινωνεί με το API του Spring Boot
+                στο http://localhost:8080/api, αντί για το http://localhost:4200/api/. 
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;{
+                        &emsp;&emsp;&emsp;&emsp;"/api": {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"target": "http://localhost:8080",
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"secure": false
+                        &emsp;&emsp;&emsp;&emsp;}
+                        &emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Θα τροποποιήσουμε το αρχείο package.json αντίστοιχα:</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;"scripts":{
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"start": "ng serve --proxy-config proxy-conf.json",
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Μετά, θα χρειαστεί, να εγκαταστήσουμε κάποια πακέτα ακόμα:</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;npm install --save-dev rimraf
+                        &emsp;&emsp;npm install --save-dev mkdirp
+                        &emsp;&emsp;npm install --save-dev copyfiles
+                </code>
+            </pre>
+
+            <p>Θέλουμε όταν κάνουμε build την Angular εφαρμογή, το Webpack να κάνει bundle τα assets και να τα τοποθετεί στο φάκελο
+                /resources/static της Spring Boot εφαρμογής. Για να γίνει αυτό, τροποποιούμε το package.json, προσθέτοντας τα ακόλουθα μετά το
+                scripts.build:
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;"postbuild": "npm run deploy",
+                        &emsp;&emsp;"predeploy": "rimraf ../resources/static/ && mkdirp ../resources/static",
+                        &emsp;&emsp;"deploy": "copyfiles -f dist/** ../resources/static",
+                </code>
+            </pre>
+
+            <p>Η εντολή rimraf ψάχνει τον φάκελο ../resources/static/ και δημιουργεί έναν καινούριο(ουσιαστικά τον καθαρίζει), ενώ
+                η εντολή copyfiles αντιγράφει τα αρχεία από τον distribution φάκελο της Angular στον static φάκελο. Για να λειτουργήσει όλο αυτό,
+                πρέπει να τοποθετήσουμε το φάκελο-workspace της Angular στο φάκελο src/main της Spring Boot εφαρμογής. Στο συγκεκριμένο παράδειγμα, ο 
+                φάκελος βρίσκεται στο C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE\SpringEshop\src\main .
+
+                <img class="img-fluid mx-auto my-5 w-100" src="../img/merge_apps.png" alt="Merge Apps">
+            </p>
+
+            <p>Όταν θέλουμε, να κάνουμε κάποια αλλαγή στην Angular, τρέχουμε την εντολή npm run build, η οποία τρέχει τις προηγούμενες εντολές και το τελικό
+                αποτέλεσμα είναι η packaged εφαρμογή στον φάκελο /resources/static. Έτσι, όταν τρέχουμε την Spring Boot εφαρμογή στην πόρτα 8080, μπορούμε 
+                να χρησιμοποιήσουμε την Angular εφαρμογή.
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;cd C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE\SpringEshop\src\main\frontend
+                            &emsp;&emsp;npm run build
+                    </code>
+                </pre>
+            </p>
+        </section>
+
         <section class="references">
 
             <h5>Πηγές</h5>
 
             <ul>
                 <li><a href="https://angular.io/guide/quickstart">Angular - Getting started</a></li>
+                <li><a href="https://www.baeldung.com/spring-angular-ecommerce">Baeldung - A Simple E-Commerce Implementation with Spring</a></li>
             </ul>
         </section>
         
