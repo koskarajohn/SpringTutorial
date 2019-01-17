@@ -158,6 +158,73 @@
                     &emsp;&emsp;&emsp;&emsp;}
                 </code>
             </pre>
+
+            <p>Η κλάση AmazonS3ClientServiceImpl θα υλοποιεί την AmazonS3ClientService. Η μέθοδος uploadImage θα κάνει το upload της εικόνας. Πρώτα μετατρέπει
+                την εικόνα σε αρχείο File, κάνει upload την εικόνα στο κατάλληλο path και διαγράφει το αρχείο μετά. Επιστρέφει true, αν το upload ήταν επιτυχές.
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Component</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class </span> AmazonS3ClientServiceImpl implements AmazonS3ClientService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String </span> awsS3AudioBucket
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private AmazonS3 </span> AmazonS3 amazonS3;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> AmazonS3ClientServiceImpl(Region awsRegion, AWSCredentialsProvider awsCredentialsProvider, String awsS3AudioBucket){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;this.amazonS3 = AmazonS3ClientBuilder.standard()
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withCredentials(awsCredentialsProvider)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withRegion(awsRegion.getName()).build();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;this.awsS3AudioBucket = awsS3AudioBucket;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Async</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> CompletableFuture&#60;Boolean&#62; uploadImage(MultipartFile image, String category, ImageType imageType){
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isImageUploadSuccess = true;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try{
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;File imageFile = convertImageToFile(image);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;uploadImageToS3Bucket(image.getOriginalFilename(), imageFile, category, imageType);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;imageFile.delete();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}catch (IOException | AmazonServiceException ex) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("error [" + ex.getMessage() + "] occurred while uploading [" + image.getOriginalFilename() + "] ");
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isImageUploadSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> CompletableFuture.completedFuture(isImageUploadSuccess);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> File convertImageToFile(MultipartFile image) throws IOException{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;File convertedFile = new File(image.getOriginalFilename());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;FileOutputStream fileOutputStream = new FileOutputStream(convertedFile);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;fileOutputStream.write(image.getBytes());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;fileOutputStream.close();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> convertedFile;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private void</span> uploadImageToS3Bucket(String imageName, File imageFile, String category, ImageType imageType){
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(imageType == ImageType.SMALL){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;amazonS3.putObject(new PutObjectRequest(awsS3AudioBucket, Constants.SMALL_PRODUCTS_PATH + category + "/" + imageName, imageFile)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withCannedAcl(CannedAccessControlList.PublicRead));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(imageType == ImageType.LARGE){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;amazonS3.putObject(new PutObjectRequest(awsS3AudioBucket, Constants.LARGE_PRODUCTS_PATH + category + "/" + imageName, imageFile)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withCannedAcl(CannedAccessControlList.PublicRead));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(imageType == ImageType.VERY_SMALL){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;amazonS3.putObject(new PutObjectRequest(awsS3AudioBucket, Constants.VERY_SMALL_PRODUCTS_PATH + category + "/" + imageName, imageFile)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.withCannedAcl(CannedAccessControlList.PublicRead));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
         </section>
 
     </div>
