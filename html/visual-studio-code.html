@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visual Studio Code</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                              <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Δημιουργία εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                            <a class="dropdown-item" href="angular.html">Angular</a>
+                            <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                          </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Visual Studio Code</h1>
+
+        <section class="intro">
+            <p>Για την ανάπτυξη του frontend της εφαρμογής, θα χρησιμοποιήσουμε το περιβάλλον Visual Studio Code. Εναλλακτικά, μπορούν να χρησιμοποιηθούν
+                άλλα περιβάλλοντα, όπως Atom, Brackets, Sublime κ.ά.
+            </p>
+        </section>
+
+        <section class="installation">
+            <h5>Εγκατάσταση Visual Studio Code</h5>
+
+            <ol>
+                <li>Κατεβάζουμε το Visual Studio Code <a href="https://code.visualstudio.com/download">εδώ</a></li>
+                <li>Εκτελούμε το αρχείο VSCodeUserSetup-x64-1.30.2(ανάλογα με τον υπολογιστή και το λειτουργικό σύστημα) 
+                    και ακολουθούμε τα βήματα του οδηγού, για να το εγκαταστήσουμε.
+                </li>
+            </ol>
+        </section>
+
+        <section class="project">
+            <h5>Άνοιγμα frontend στο Visual Studio Code</h5>
+
+            <ol>
+                <li>Ανοίγουμε το Visua Studio Code</a></li>
+                <li>Πατάμε File -> Open Folder... και επιλέγουμε το φάκελο frontend. Σε αυτό το παράδειγμα είναι στην τοποθεσία
+                        C:\Users\Kostas\Documents\workspace-sts-3.8.4.RELEASE\SpringEshop\src\main.
+                    <img class="img-fluid d-block mx-auto my-5" src="../img/visual-studio-code.png" alt="Visual Studio Code"> 
+                </li>
+            </ol>
+        </section>
+
+        <section class="terminal">
+            <h5>Terminal</h5>
+
+            <p>Θα χρησιμοποίησουμε εντολές του Angular CLI, ώστε να δημιουργήσουμε components, services αυτόματα. Αυτό μπορεί, να γίνει
+                μέσω του παραθύρου Terminal του Visual Studio Code. Εάν δεν είναι ήδη ανοιχτό, πατάμε Terminal -> New Terminal.
+            </p>
+
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://code.visualstudio.com/download">Download Visual Studio Code</a></li>
+            </ul>
+        </section>
+    </div>
+
+  </body>
+</html>
