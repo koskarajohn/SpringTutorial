@@ -131,7 +131,7 @@
 
                 <h5>Προσθήκη Application Properties</h5>
     
-                <p>Προσθέτουμε τα ακόλουθα properties στο αρχείο application.properties. </p>
+                <p>Προσθέτουμε τα ακόλουθα properties στο αρχείο application.properties. Τα properties αφορο</p>
     
                 <pre>
                     <code> 
@@ -140,9 +140,64 @@
                             &emsp;&emsp;&emsp;&emsp;aws.access.key.secret =  ${AWS_ACCESS_KEY_SECRET}
                             &emsp;&emsp;&emsp;&emsp;aws.region = eu-central-1
                             &emsp;&emsp;&emsp;&emsp;aws.s3.audio.bucket = springeshop-bucket
-    
                     </code>
                 </pre>
+        </section>
+
+        <section class="configuration-class">
+
+            <h5>Δημιουργία κλάσης AmazonS3Configuration</h5>
+
+            <p>Στην κλάση αυτή δημιουργούμε κάποια beanς, που θα χρειαστούμε, για να δημιουργήσουμε ένα αντικείμενο AmazonS3ClientServiceImpl,
+                με το οποίο θα προσθέτουμε φωτογραφίες στο AmazonS3 bucket μας. Θα δημιουργηθεί στο πακέτο springeshop.configuration .
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Configuration</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> AmazonS3Configuration {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Value(</span><span class="string">"${aws.access.key.id}"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String </span> awsKeyId;
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Value(</span><span class="string">"${aws.access.key.secret}"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String </span> awsKeySecret;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Value(</span><span class="string">"${aws.region}"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String </span> awsRegion;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Value(</span><span class="string">"${aws.s3.audio.bucket}"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String </span> awsS3AudioBucket;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(</span>name =<span class="string">"awsKeyId"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public String</span> getAWSKeyId() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> awsKeyId;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(</span>name =<span class="string">"awsKeySecret"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public String</span> getAWSKeySecret() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> awsKeySecret;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(</span>name =<span class="string">"awsRegion"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span>Region getAWSPollyRegion() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> Region.getRegion(Regions.fromName(awsRegion));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(</span>name =<span class="string">"awsCredentialsProvider"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public </span> AWSCredentialsProvider getAWSCredentials() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;BasicAWSCredentials awsCredentials = new BasicAWSCredentials(this.awsKeyId, this.awsKeySecret);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> AWSStaticCredentialsProvider(awsCredentials);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Bean(</span>name =<span class="string">"awsS3AudioBucket"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public String</span> getAWSS3AudioBucket() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> awsS3AudioBucket;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
         </section>
 
         <section class="references">
