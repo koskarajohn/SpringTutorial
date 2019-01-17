@@ -116,9 +116,48 @@
 
         </section>
 
-        <section class="create-folders">
-            
-            
+        <section class="upload-code">
+
+            <h5>Κώδικας Spring για upload φωτογραφιών</h5>
+
+            <p>Αρχικά, θα δημιουργήσουμε ένα package springeshop.util, το οποίο θα έχει βοηθητικές κλάσεις. Μέσα σε αυτό θα δημιουργήσουμε
+                το enum ImageType.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public enum</span> ImageType {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SMALL, LARGE, VERY_SMALL
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Στο ίδιο πακέτο θα δημιουργήσουμε μια κλάση Constants , η οποία θα περιέχει σταθερές</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public final class</span> Constants {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final String </span> AMAZON_S3_URL = <span class="string">"https://s3.eu-central-1.amazonaws.com/springeshop-bucket/"</span>;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final String </span> SMALL_PRODUCTS_PATH = <span class="string">"products/small/"</span>;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final String </span> LARGE_PRODUCTS_PATH = <span class="string">"products/large/"</span>;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final String </span> VERY_SMALL_PRODUCTS_PATH = <span class="string">"products/very-small/"</span>;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> Constants(){}
+
+                        }
+                </code>
+            </pre>
+
+            <p>Θα δημιουργήσουμε μια διεπαφή AmazonS3ClientService, η οποία περιέχει μια μέθοδο για το upload φωτογραφιών</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> AmazonS3ClientService {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CompletableFuture&#60;Boolean&#62; uploadImage(MultipartFile image, String category, ImageType imageType);
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
         </section>
 
     </div>
