@@ -127,6 +127,8 @@
 
             <pre>
                 <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.util;
+
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">public enum</span> ImageType {
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SMALL, LARGE, VERY_SMALL
                     &emsp;&emsp;&emsp;&emsp;}
@@ -137,6 +139,8 @@
 
             <pre>
                 <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.util;
+
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">public final class</span> Constants {
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final String </span> AMAZON_S3_URL = <span class="string">"https://s3.eu-central-1.amazonaws.com/springeshop-bucket/"</span>;
@@ -154,6 +158,8 @@
 
             <pre>
                 <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> AmazonS3ClientService {
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CompletableFuture&#60;Boolean&#62; uploadImage(MultipartFile image, String category, ImageType imageType);
                     &emsp;&emsp;&emsp;&emsp;}
@@ -166,6 +172,9 @@
 
             <pre>
                 <code>
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+                    
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Component</span>
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class </span> AmazonS3ClientServiceImpl implements AmazonS3ClientService{
 
