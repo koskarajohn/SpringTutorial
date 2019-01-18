@@ -238,6 +238,67 @@
             </pre>
         </section>
 
+        <section class="inventory-components">
+
+            <h5>Inventory Components</h5>
+
+            <p>Δημιουργούμε ένα repository InventoryRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> InventoryRepository  extends JpaRepository&#60;Inventory, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select invent.quantity from Inventory invent where invent.product.id = :productid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findProductQuantity(@Param(<span class="string">"productid"</span>) int productid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το interface InventoryService στο springeshop.service.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> InventoryService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findProductQuantity(int productid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveProductQuantity(Inventory productInventory);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε την υλοποίηση του, InventoryServiceImpl</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"inventoryService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> InventoryServiceImpl <span class="keyword">implements</span> InventoryService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> InventoryRepository inventoryRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findProductQuantity(int productid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> inventoryRepository.findProductQuantity(productid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveProductQuantity(Inventory productInventory) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;inventoryRepository.save(productInventory);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+        </section>
+
     </div>
 
   </body>
