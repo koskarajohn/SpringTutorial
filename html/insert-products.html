@@ -164,10 +164,109 @@
                         }
                 </code>
             </pre>
-        </section>
+        </section>  
 
-        
-        
+        <section class="controller">
+
+            <h5>Δημιουργία controller</h5>
+
+            <p>Θα δημιουργήσουμε έναν controller ProductApiController στο πακέτο springeshop.controller . Όταν ο client πραγματοποιεί ένα HTTP POST 
+                αίτημα στο localhost:8080/api/products, στέλνοντας το προιόν και τις 3 εικόνες (μια για κάθε μέγεθος), η μέθοδος createProduct θα 
+                δημιουργεί ένα προιόν στη βάση, αφού πρώτα ανεβάσει τις φωτογραφίες στο AmazonS3. 
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span><span class="string">"/api"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductApiController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static final</span>  Logger logger = LoggerFactory.getLogger(ProductApiController.class);
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductService productService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CategoryService categoryService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> InventoryService inventoryService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductImageService productImageService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> AmazonS3ClientService amazonS3ClientService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/products"</span>, method = RequestMethod.POST, consumes = {<span class="string">"multipart/form-data"</span>})
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; createProduct(<span class="annotation">@Valid @RequestPart(</span>(<span class="string">@value(</span> = "product") Product product, 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestPart(</span> (<span class="string">@value(</span> = "smallImage") MultipartFile smallImage, 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestPart(</span>(<span class="string">@value(</span> = "largeImage") MultipartFile largeImage, 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestPart(</span> (<span class="string">@value(</span> = "verySmallImage") MultipartFile verySmallImage) throws InterruptedException, ExecutionException){
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p class="mt-5">Εάν υπάρχει το προϊόν ήδη, επιστρέφουμε status 409 Conflict. Επίσης, εάν δεν υπάρχει η κατηγορία ή η μάρκα του προϊόντος επιστρέφουμε
+                404 Bad Request.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;if(productService.doesProductExist(product)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage("Unable to create. A  Product with name " + product.getName() + " already exist."), HttpStatus.CONFLICT);
+                    &emsp;&emsp;&emsp;&emsp;} 
+
+                    &emsp;&emsp;&emsp;&emsp;if(!categoryService.doesCategoryExist(product.getCategory()))){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage("Unable to create. Category with name {} does not  exist"), HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;} 
+
+                    &emsp;&emsp;&emsp;&emsp;if(!brandService.doesBrandExist(product.getBrand())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage("Unable to create. Brand with name {} does not  exist"), HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Αποθηκεύουμε το προϊόν στη βάση. Εάν δεν αποθηκευτεί, επιστρέφουμε status 500 Internal Server Error</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;product.getBrand().setId(brandService.findByName(product.getBrand().getName()).getId());
+                    &emsp;&emsp;&emsp;&emsp;product.getCategory().setId(categoryService.findByName(product.getCategory().getName()).getId());
+                    &emsp;&emsp;&emsp;&emsp;productService.saveProduct(product);
+                    &emsp;&emsp;&emsp;&emsp;if(product.getId() == 0) <span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
+                </code>
+            </pre>
+
+            <p class="mt-5">Ανεβάζουμε τις τρεις εικόνες στο AmazonS3 σε διαφορετικά threads. Αν κάποια δεν ανεβεί σωστά, επιστρέφουμ status
+                500 Internal Server Error.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;CompletableFuture&#60;Boolean&#62; smallImageUploadFuture = this.amazonS3ClientService
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.uploadImage(smallImage, getCorrectCategoryName(product.getCategory().getName()), ImageType.SMALL);
+
+                    &emsp;&emsp;&emsp;&emsp;CompletableFuture&#60;Boolean&#62; largeImageUploadFuture = this.amazonS3ClientService
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.uploadImage(largeImage, getCorrectCategoryName(product.getCategory().getName()), ImageType.LARGE);
+
+                    &emsp;&emsp;&emsp;&emsp;CompletableFuture&#60;Boolean&#62; verySmallImageUploadFuture = this.amazonS3ClientService
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.uploadImage(verySmallImage, getCorrectCategoryName(product.getCategory().getName()), ImageType.VERY_SMALL);
+
+                    &emsp;&emsp;&emsp;&emsp;boolean isSmallImageUploadSuccess = smallImageUploadFuture.get().booleanValue();
+                    &emsp;&emsp;&emsp;&emsp;boolean isLargeImageUploadSuccess = largeImageUploadFuture.get().booleanValue();
+                    &emsp;&emsp;&emsp;&emsp;boolean isVerySmallImageUploadSuccess = verySmallImageUploadFuture.get().booleanValue();
+
+                    &emsp;&emsp;&emsp;&emsp;if(!(isSmallImageUploadSuccess && isLargeImageUploadSuccess && isVerySmallImageUploadSuccess)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productService.deleteProductById(product.getId())
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+        </section>
 
     </div>
 
