@@ -110,7 +110,7 @@
 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CategoryService{
 
@@ -128,7 +128,7 @@
 
             <pre>
                 <code>
-                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.configuration;
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"categoryService"</span>)
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
@@ -162,6 +162,77 @@
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;categoryRepository.deleteById(id);
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean doesCategoryExist(Category category) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> findByName(category.getName()) != null;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+        </section>
+
+        <section class="brand-components">
+
+            <h5>Brand Components</h5>
+
+            <p>Δημιουργούμε ένα repository BrandRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BrandRepository  extends JpaRepository&#60;Brand, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Brand findByName(String name);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το interface BrandService στο springeshop.service.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BrandService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Brand findByName(String name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveBrand(Brand brand);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doesBrandExist(Brand brand);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε την υλοποίηση του, BrandServiceImpl</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"brandService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BrandServiceImpl <span class="keyword">implements</span> BrandService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BrandRepository brandRepository;;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Brand findByName(String name) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> brandRepository.findByName(name);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveBrand(Brand brand) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandRepository.save(brand);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean doesBrandExist(Brand brand) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> findByName(brand.getName()) != null;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                         }
                 </code>
             </pre>
