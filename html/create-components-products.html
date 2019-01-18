@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Δημιουργία controller, repositories και services για την εισαγωγή προϊόντων</title>
+    <title>Δημιουργία repositories και services για την εισαγωγή προϊόντων</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -76,7 +76,7 @@
 
     <div class="container">
 
-        <h1 class="text-center">Δημιουργία controller, repositories και services για την εισαγωγή προϊόντων</h1>
+        <h1 class="text-center">Δημιουργία repositories και services για την εισαγωγή προϊόντων</h1>
 
         <section class="intro">
             <p>Θα δημιουργήσουμε τις απαραίτητες κλάσεις-components, για την εισαγωγή προϊόντων.</p>
@@ -293,6 +293,66 @@
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveProductQuantity(Inventory productInventory) {
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;inventoryRepository.save(productInventory);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+        </section>
+
+        <section class="product-image-components">
+
+            <h5>ProductImage Components</h5>
+
+            <p>Δημιουργούμε ένα repository ProductImageRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductImageRepository  extends JpaRepository&#60;ProductImage, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage findByProductId(int id);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το interface ProductImageService στο springeshop.service.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductImageService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage findByProductId(int id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveImage(ProductImage image);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε την υλοποίηση του, ProductImageServiceImpl</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"imageService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductImageServiceImpl <span class="keyword">implements</span> ProductImageService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductImageRepository imageRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveImage(ProductImage image) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;imageRepository.save(image);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override(</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductImage findByProductId(int id) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> imageRepository.findByProductId(id);
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                         }
                 </code>
