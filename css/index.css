@@ -89,6 +89,10 @@ span.code{
     background-color: #F0F0F0;
 }
 
+span.underline{
+    text-decoration: underline;
+}
+
 pre {
     text-align: left;
     white-space: pre-line;

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Δημιουργία πινάκων και entities, για την εισαγωγή προϊόντων</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Δημιουργία πινάκων και entities, για την εισαγωγή προϊόντων</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε τους πίνακες products, categories, brands, product_images, inventory στη βάση δεδομένων, καθώς
+                και τα αντίστοιχα entities τους.
+            </p>
+        </section>
+
+        <section class="pgadmin">
+
+            <h5>pgAdmin4</h5>
+
+            <p>Θα χρησιμοποιήσουμε το pgAdmin4, για την δημιουργία των πινάκων</p>
+
+            <ul>
+                <li>Ανοίγουμε το pgAdmin4</li>
+                <li>Πατάμε Servers -> PostgreSQL10 -> Databases -> postgres -> Schemas -> public</li>
+                <li>Δεξί κλικ στο Tables -> Create -> Table..</li>
+            </ul>
+        </section>
+
+        <section class="categories">
+
+            <h5>Πίνακας categories</h5>
+
+            <p>Ο πίνακας categories( <span class="underline">id</span>, name) περιέχει τις κατηγορίες των προϊόντων. Η εντόλη δημιουργίας του πίνακα
+            δίνεται παρακάτω
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/categories.png" alt="Category Table"></p>
+
+            <p>Θα δημιουργήσουμε ένα package springeshop.model, όπου θα τοποθετούμε τα entities. Μέσα σε αυτό δημιουργούμε
+                το entity Category.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"categories"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide category name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Category() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+         
+        </section>
+
+        <section class="brands">
+
+            <h5>Πίνακας brands</h5>
+
+            <p>Ο πίνακας brands( <span class="underline">id</span>, name) περιέχει τις μάρκες των προϊόντων. Η εντόλη δημιουργίας του πίνακα
+            δίνεται παρακάτω
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/brands.png" alt="Brands Table"></p>
+
+            <p>Δημιουργούμε το entity Brands. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"brands"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Brand{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide brand name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(</span>min = 3, max = 200, message = <span class="string">"Name must be between 3 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Brand() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+         
+        </section>
+
+    </div>
+
+  </body>
+</html>
