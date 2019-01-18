@@ -237,6 +237,96 @@
          
         </section>
 
+        <section class="product-images">
+
+            <h5>Πίνακας product_images</h5>
+
+            <p>Ο πίνακας product_images( <span class="underline">id</span>, product_id, small_image_url, large_image_url, very_small_image_url) περιέχει την εικόνα του κάθε προϊόντος (3 μεγέθη).
+                Κάθε γραμμή του πίνακα product_images αντιστοιχεί σε μια γραμμή του πίνακα products και το αντίστροφο. 
+                Η εντόλη δημιουργίας του πίνακα
+            δίνεται παρακάτω
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/product_images.png" alt="Product Images Table"></p>
+
+            <p>Δημιουργούμε το entity ProductImage. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"product_images</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductImage{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span>(fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn</span>(name = <span class="string">"product_id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private Product</span> product;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"small_image_url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide the small image url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> smallImageurl;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"large_image_url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide the large image url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> largeImageurl;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"very_small_image_url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide the very small image url"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> verySmallImageurl;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductImage() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+         
+        </section>
+
+        <section class="inventory">
+
+            <h5>Πίνακας inventory</h5>
+
+            <p>Ο πίνακας inventory( <span class="underline">id</span>, product_id, quantity) περιέχει το απόθεμα του κάθε προϊόντος).
+                Κάθε γραμμή του πίνακα inventory αντιστοιχεί σε μια γραμμή του πίνακα products και το αντίστροφο. 
+                Η εντόλη δημιουργίας του πίνακα δίνεται παρακάτω :
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/quantity.png" alt="inventory Table"></p>
+
+            <p>Δημιουργούμε το entity Inventory. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"inventory</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Inventory{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span>(fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn</span>(name = <span class="string">"product_id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private Product</span> product;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"quantity"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Min</span>(value = 0)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> quantity;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Inventory() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+         
+        </section>
+
     </div>
 
   </body>
