@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</title>
+    <title>Δημιουργία controller,repository, service για την ανάκτηση προσφορών</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -79,95 +79,118 @@
 
     <div class="container">
 
-        <h1 class="text-center">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</h1>
+        <h1 class="text-center">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</h1>
 
         <section class="intro">
-            <p>Θα δημιουργήσουμε τα components, που χρειάζονται, ώστε να προσθέτουμε προϊόντα στον πίνακα products.
+            <p>Στο component index-page της Angular, θα εμφανίζουμε τις προσφορές. Οπότε, θα δημιουργήσουμε μια μέθοδο στον controller, η οποία θα επιστρέφει
+                τις προσφορές στον client.
             </p>
         </section>
 
-        <section class="product">
+        <section class="deals">
 
-            <p>Δημιουργούμε ένα repository ProductRepository. </p>
+            <p>Δημιουργούμε ένα repository DealRepository. </p>
 
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
 
                     &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductRepository  extends JpaRepository&#60;Product, Integer&#62;  {
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> DealRepository  extends JpaRepository&#60;Deal, Integer&#62;  {
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByid(int id);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByName(String name);
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
 
-            <p>Δημιουργούμε το interface ProductService στο springeshop.service.
+            <p>Δημιουργούμε το interface DealService στο springeshop.service.
             </p>
 
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductService{
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> DealService{
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findById(int id);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByName(String name);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveProduct(Product product);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void updateProduct(Product product);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteProductById(int id);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doesProductExist(Product product);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Deal&#60; findAllDeals();
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
 
-            <p>Δημιουργούμε την υλοποίηση του, ProductServiceImpl</p>
+            <p>Δημιουργούμε την υλοποίηση του, DealServiceImpl</p>
 
             <pre>
                 <code>
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
-                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"productService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"dealService"</span>)
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
-                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductServiceImpl <span class="keyword">implements</span> ProductService{
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> DealServiceImpl <span class="keyword">implements</span> DealService{
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductRepository productRepository;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> DealRepository dealRepository;
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Product findById(int id) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findById(id);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Listt&#60;Deal&#62; findAllDeals() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> dealRepository.findAll();
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Product findByName(String name) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findByName(name);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveProduct(Product product) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productRepository.save(product);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void updateProduct(Product product) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;saveProduct(product);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void deleteProductById(int id) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productRepository.deleteById(id);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean doesProductExist(Product product) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> findByName(product.getName()) != null;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                         }
                 </code>
             </pre>
         </section>  
+
+        <section class="deals-images">
+
+            <p>Δημιουργούμε ένα repository DealImageRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> DealImageRepository  extends JpaRepository&#60;DealImage, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;DealImage findByDeal(Deal deal);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το interface DealImageService στο springeshop.service.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> DealImageService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;DealImage findByDeal(Deal deal);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε την υλοποίηση του, DealImageServiceImpl</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"dealImageService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> DealImageServiceImpl <span class="keyword">implements</span> DealImageServiceImpl{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> DealImageRepository dealImageRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> DealImage findByDeal(Deal deal) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> dealImageRepository.findByDeal(deal);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+        </section>
 
         <section class="controller">
 
