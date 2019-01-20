@@ -87,6 +87,193 @@
             </p>
         </section>
 
+        <section class="index-page">
+            <h5>index-page component</h5>
+
+            <p>Δημιουργούμε το component index-page και το τοποθετούμε στο φάκελο components.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;ng generate component index-page
+                </code>
+            </pre>
+
+
+            <p>shop-services.component.html : Αρχικά, εισάγουμε τα components navigation-bar, shop-services, my-footer στο template.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/index-page-html1.PNG" alt="Index Page Html Initial"> 
+        </section>
+
+        <section class="discount-carousel">
+
+            <h5>discount-carousel component</h5>
+
+            <p>Δημιουργούμε το component discount-carousel, το οποίο θα εμφανίζει τις προσφορές.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;ng generate component discount-carousel
+                </code>
+            </pre>
+
+            <p>Επίσης, θα χρειαστούμε ένα service, το οποίο θα επικοινώνει με το server(Spring Boot). Θα το τοποθετήσουμε στο
+                φάκελο services.
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;ng generate service deal
+                </code>
+            </pre>
+
+            <p>Η μέθοδος getDeals() του DealService πραγματοποιεί ένα HTTP GET στο http://localhost:8080/api/deals και παίρνει τις προσφορές.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/discount-service-ts.PNG" alt="Discount Service"> 
+
+            <p>Το Spring Boot επιστρέφει μια λίστα από Deals. Δημιουργούμε το αντίστοιχο μοντέλο Deal στο φάκελο models</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/deal-model.PNG" alt="Discount Model"> 
+
+            <p>Στην μέθοδο ngOnInit() του component, καλούμε την μέθοδο του service getDeals(), ώστε να πάρει τιμή η μεταβλητή deals</p>
+
+            <p>discount-carousel.component.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/discount-carousel-ts.PNG" alt="Discount Component Ts">
+
+            <p>Χρησιμοποιούμε το directive *ngFor, για να δημιουργήσουμε τα αντικείμενα του Bootstrap Carousel.</p>
+
+            <p>discount-carousel.component.html</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/discount-carousel-html.PNG" alt="Discount Component Html"> 
+
+        </section>
+
+        <section class="products-carousel">
+
+            <h5>product-carousel component</h5>
+
+            <p>Θα δημιουργήσουμε το product-carousel component, το οποίο θα εμφανίζει τα καινούρια και δημοφιλή προϊόντα, ανά τετράδες. Ο client
+                θα πραγματοποιεί ένα HTTP GET αίτημα στο http://localhost:8080/api/products, μαζί με δύο παραμέτρους filter και page. 
+            </p>
+
+            <ul>
+                <li>Για να πάρει την πρώτη τετράδα των αγαπημένων προϊόντων, το αίτημα θα πραγματοποιείται στο http://localhost:8080/api/products?filter=favorite&page=0</li>
+                <li>Για να πάρει την δεύτερη τετράδα των καινούριων προϊόντων, το αίτημα θα πραγματοποιείται στο http://localhost:8080/api/products?filter=new&page=1</li>
+            </ul>
+
+            <p class="font-weight-bold mt-5">Spring Boot</p>
+
+            <p>Πρέπει να δημιουργήσουμε τις κατάλληλες μεθόδους στο Spring Boot</p>
+
+            <p>ProductRepository</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductRepository  extends JpaRepository&#60;Product, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByid(int id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByName(String name);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query("select prod from Product prod where prod.is_favorite = true")
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; findFavoriteProducts(Pageable pageable);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query("select prod from Product prod where prod.is_new = true")
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; findNewProducts(Pageable pageable);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>ProductService</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findById(int id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product findByName(String name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveProduct(Product product);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void updateProduct(Product product);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteProductById(int id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doesProductExist(Product product);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; findFavoriteProducts(Pageable pageable);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; findNewProducts(Pageable pageable);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>ProductServiceImpl</p>
+
+            <p>Προσθέτουμε τις δύο μεθόδους</p>
+
+           <pre>
+            <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Page<Product> findFavoriteProducts(Pageable pageable) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findFavoriteProducts(pageable);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Page<Product> findNewProducts(Pageable pageable) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findNewProducts(pageable);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+            </code>
+           </pre>
+
+           <p>ProductApiController</p>
+
+            <p>Προσθέτουμε τις ακόλουθες μεθόδους. Όταν η παράμετρος filter εχει τιμή "favorite", επιστρέφουμε τα προϊόντα με is_favorite = true,
+                ενώ όταν έχει τιμή "new", επιστρέφομε τα προϊόντα με is_new = true.
+            </p>
+
+            <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/products"</span>, method = RequestMethod.GET)
+                            &emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getProductsByFilter(<span class="annotation">@RequestParam</span>(value = <span class="string">"filter"</span>) String filter, <span class="annotation">@RequestParam</span>(value = <span class="string">"page"</span>) int page){
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;if(filter.equals(<span class="string">"favorite"</span>)){
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; favoriteProducts = productService.findFavoriteProducts(PageRequest.of(page, 4));    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(favoriteProducts.getTotalElements() == 0){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;addImagesAndQuantityToProducts(favoriteProducts);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Page&#60;Product&#62;&#62;(favoriteProducts, HttpStatus.NO_CONTENT);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;else if(filter.equals(<span class="string">"new"</span>)){
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; newProducts = productService.findNewProducts(PageRequest.of(page, 4));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(newProducts.getTotalElements() == 0){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Page&#60;Product&#62;&#62;(HttpStatus.NO_CONTENT);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;addImagesAndQuantityToProducts(newProducts);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Page&#60;Product&#62;&#62;(newProducts, HttpStatus.NO_CONTENT);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+
+                <pre>
+                    <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> void addImagesAndQuantityToProducts(Page&#60;Product&#62; products){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(Product product : products){	
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage productImage = productImageService.findByProductId(product.getId());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;product.setSmallImageUrl(productImage.getSmallImageurl());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;product.setLargeImageUrl(productImage.getLargeImageurl());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;product.setVerySmallImageUrl(productImage.getVerySmallImageurl());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int productQuantity = inventoryService.findProductQuantity(product.getId());
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;product.setQuantity(productQuantity);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+        </section>
+
     </div>
 
   </body>
