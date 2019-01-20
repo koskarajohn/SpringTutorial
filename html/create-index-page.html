@@ -82,14 +82,51 @@
         <h1 class="text-center">Angular - index-page</h1>
 
         <section class="intro">
-            <p>Στο component index-page της Angular, θα εμφανίζουμε τις προσφορές. Οπότε, θα δημιουργήσουμε μια μέθοδο στον controller, η οποία θα επιστρέφει
-                τις προσφορές στον client.
+            <p>Θα δημιουργήσουμε το index-page component, το οποίο είναι η αρχική σελίδα του e-shop. Το index-page component θα αποτελείται
+                από άλλα πέντε components : navigation-bar, discount-carousel, products-carousel, shop-services και my-footer.
             </p>
         </section>
 
-        <section class="deals">
+        <section class="my-footer">
 
-            <p>Δημιουργούμε ένα repository DealRepository. </p>
+            <h5>my-footer component</h5>
+
+            <p>Δημιουργούμε ένα φάκελο components μέσα στο src/app. Στο terminal του Visual Studio Code, πληκτρολογούμε την ακόλουθη εντολή,
+                για να δημιουργήσουμε το component my-footer.
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;ng generate component my-footer
+                </code>
+            </pre>
+
+            <p>Αφού δημιουργηθεί, σέρνουμε τον φάκελο my-footer, στο φάκελο components. Το Angular CLI δημιουργεί τέσσερα αρχεία μέσα στο φάκελο my-footer :</p>
+
+            <ul>
+                <li>my-footer.component.css : είναι το css του component και αφορά μόνο το συγκεκριμένο</li>
+                <li>my-footer.component.html : είναι το template του component, δηλαδή τι HTML πρέπει, να εμφανίσει η Angular, όταν
+                    χρησιμοποιούμε αυτό το component
+                </li>
+                <li>my-footer.component.spec.ts : μας επιτρέπει, να κάνουμε testing στο component</li>
+                <li>my-footer.component.ts : περιέχει τα δεδομένα και τη συμπεριφορά του component</li>
+            </ul>
+
+            <p>Παρακάτω, δίνετι το my-footer.component.ts και τα αρχεία του φακέλου my-footer.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/my-footer-component.png" alt="Footer Component"> 
+
+            <p>my-footer.component.html</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/my-footer-html.png" alt="Footer Html"> 
+
+            <p>Το αρχείο css αφορά μόνο το συγκεκριμένο component. Όταν υπάρχει δηλαδή ένας κανόνας για τα h1{ color : red}, αυτός
+                εφαρμόζεται μόνο στο συγκεκριμένο component και όχι στην υπόλοιπη εφαρμογή.
+            </p>
+
+            <p>my-footer.component.css</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/my-footer-css.png" alt="Footer Css"> 
 
         </section>
 
