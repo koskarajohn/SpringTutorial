@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - Routes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - Routes</h1>
+
+        <section class="intro">
+            <p>Το Angular Router καθιστά δυνατή την πλοήγηση από το ένα view στο άλλο, καθώς ο χρήστης πραγματοποιεί λειτουργίες στην εφαρμογή.
+                Μεταφράζει ένα browser URL ως μια εντολή, για να πλοηγηθεί σε ένα view του client. Για παράδειγμα , όταν ο χρήστης πληκτρολογήσει το 
+                URL localhost:8080/login, μπορούμε να ορίσουμε, να εμφανίζεται το login component.
+            </p>
+        </section>
+
+        <section class="spring">
+
+            <h5>Spring Boot</h5>
+
+            <p>Το Spring Boot "σερβίρει" το στατικό περιεχόμενο από τα resources στο /static. Το index.html θεωρείται welcome page,
+                "σερβίρεται" ως root resource στο http://localhost:8080/ και περιέχει την angular εφαρμογή. </p>
+
+            <p>Θέλουμε όταν ο χρήστης πληκτρολογεί URLs, όπως /login, /register, /product, να τα χειρίζεται η Angular και όχι το Spring Boot. Θα δημιουργήσουμε
+                έναν controller, που θα κάνει forward τα αιτήματα αυτά στο index.html, δηλαδή στην Angular.
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Controller</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> RoutesController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static final</span>  Logger logger = LoggerFactory.getLogger(DealApiController.class);
+    
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(<span class="string">"/deals"</span>, <span class="string">"/login"</span>, <span class="string">"/register"</span> , <span class="string">"/cart/**"</span>, <span class="string">"/product/**"</span>,<span class="string">"/category/**"</span>,<span class="string">"/checkout/**"</span>)
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> String forwardToIndex() {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> <span class="string">"forward:/index.html"</span>;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+        </section>
+
+        <section class="angular">
+
+            <h5>Δημιουργία router</h5>
+
+            <p>Θα δημιουργήσουμε το AppRoutingModule, ώστε να μπορέσουμε να χρησιμοποιήσουμε το Angular Router.</p>
+
+            <p>Στο Terminal του Visual Studio Code, πληκτρολογούμε την εντολή :</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;ng generate module app-routing --flat --module=app
+                </code>
+            </pre>
+
+            <p>Δημιουργεί το app-routing.ts στο φάκελο src/app. Η παράμετρος --module=app , λέει στο CLI, να το εισάγει
+                στο imports array του AppModule.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { NgModule }      from '@angular/core';
+                    &emsp;&emsp;&emsp;&emsp;import { CommonModule } from '@angular/common';
+
+                    &emsp;&emsp;&emsp;&emsp;@NgModule({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;imports:      [ CommonModule ],
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;declarations: [],
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppRoutingModule { }
+                </code>
+            </pre>
+
+            <p>Διαγράφουμε το declarations array και το CommonsModule import. Κάνουμε import τα RouterModule, Routes από τη βιβλιοθήκη
+                @angular/router. Προσθέτουμε ένα exports array με το RouterModule μέσα, ώστε να μπορούμε, να χρησιμοποιήσουμε τα 
+                router directives στα components μας.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;import { NgModule }      from '@angular/core';
+                    &emsp;&emsp;&emsp;&emsp;import { RouterModule, Routes } from '@angular/router';
+
+                    &emsp;&emsp;&emsp;&emsp;@NgModule({
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;exports:      [ RouterModule ]
+                    &emsp;&emsp;&emsp;&emsp;})
+                    &emsp;&emsp;&emsp;&emsp;export class AppRoutingModule { }
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε ένα array appRoutes, το οποίο θα περιέχει τα routes μας. Ένα Angular Route έχει δύο properties :</p>
+
+            <ul>
+                <li>path : ένα string, το οποίο αντιστιχοίζεται με ένα browser URL</li>
+                <li>component : το component, το οποίο πρέπει να εμφανίσει το router, όταν πλοηγούμαστε σε αυτό το route</li>
+            </ul>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;export const appRoutes: Routes = [];
+                </code>
+            </pre>
+
+            <p>Αρχικά, είναι άδειο. Όταν δημιουργήσουμε το πρώτο component IndexPageComponent, θα είναι έτσι :</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;export const appRoutes: Routes = [
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;path : '', component : IndexPageComponent
+                    &emsp;&emsp;&emsp;&emsp;];
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε το RouterModule στο @NgModule.imports array και το ρυθμίζουμε με τα routes μας. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;imports: [ RouterModule.forRoot(appRoutes) ],
+                </code>
+            </pre>
+
+            <p>Τέλος, ανοίγουμε το AppComponent template και τοποθετούμε ένα element &#60;router-outlet&#62; Το element αυτό
+                λέει στο router, που να τοποθετήσει τα routed view.
+            </p>
+
+            <img class="img-fluid mx-auto my-5 w-75" src="../img/app-component-template.png" alt="App Component"> 
+
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://angular.io/guide/router">AngularIo - Routing & Navigation</a></li>
+                <li><a href="https://spring.io/guides/gs/serving-web-content/">Spring - Serving Web Content with Spring MVC</a></li>
+                <li><a href="https://angular.io/tutorial/toh-pt5">AngularIo - Tutorial - Routing</a></li>
+            </ul>
+        </section>
+
+    </div>
+
+  </body>
+</html>
