@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Angular - Components my-footer, shop-services, navigation-bar</title>
+    <title>Angular - Components my-footer, shop-services, navigation-bar, product</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -79,10 +79,10 @@
 
     <div class="container">
 
-        <h1 class="text-center">Angular - Components my-footer, shop-services, navigation-bar</h1>
+        <h1 class="text-center">Angular - Components my-footer, shop-services, navigation-bar, product</h1>
 
         <section class="intro">
-            <p>Θα δημιουργήσουμε τα components my-footer, shop-services και navigation-bar, τα οποία θα χρησιμοποιήσουμε, για τις υπόλοιπες σελίδες
+            <p>Θα δημιουργήσουμε τα components my-footer, shop-services, navigation-bar και product, τα οποία θα χρησιμοποιήσουμε, για τις υπόλοιπες σελίδες
                 εφαρμογής.
             </p>
         </section>
@@ -216,9 +216,20 @@
                 </code>
             </pre>
 
-            <p>Δημιουργούμε μια κλάση Product.ts, η οποία θα αναπαριστά το προϊόν. Περιέχει τα στοιχεία του προϊόντος, καθώς και
-                τα URLs των εικόνων του.
+            <p>Δημιουργούμε μια κλάση Product, η οποία θα αναπαριστά το προϊόν. Προσθέτουμε τα properties, που έχει το entity Product.java. Επίσης,
+                δημιουργούμε τα αντίστοιχα models Category και Brand., που αναπαριστούν την εταιρία και κατηγορία του προϊόντος και περιέχονται
+                στην κλάση Product.ts .
             </p>
+
+            <p>brand.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/brand-model-ts.PNG" alt="Brand Model Ts">
+
+            <p>category.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/category-model-ts.PNG" alt="Category Model Ts">
+
+            <p>product.ts</p>
 
             <img class="img-fluid mx-auto my-5" src="../img/product-model-ts.PNG" alt="Product Model Ts">
 
@@ -226,21 +237,21 @@
 
             <img class="img-fluid mx-auto my-5" src="../img/product-ts.PNG" alt="Product Ts">
 
-            <p>product.component.html part 1</p>
+            <p>product.component.html</p>
 
             <img class="img-fluid mx-auto my-5" src="../img/product-html.PNG" alt="Product Html">
 
-            <p>Το πρώτο element nav περιέχει τον τίτλο του e-shop, ένα search box και links, για login, register.</p>
+            <p>product.component.css</p>
 
             <img class="img-fluid mx-auto my-5" src="../img/product-html.PNG" alt="Product Html"> 
 
-            <p>navigation-bar.component.css</p>
+            <p>product.component.css</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/navigation-bar-css.png" alt="Navigation Bar Css"> 
+            <img class="img-fluid mx-auto my-5" src="../img/product-css.PNG" alt="Product Css">
+            
+            <p>Το component product αποτελεί αυτό το κομμάτι της οθόνης.</p>
 
-            <p>Το component navigation-bar αποτελεί αυτό το κομμάτι της οθόνης.</p>
-
-            <img class="img-fluid mx-auto my-5" src="../img/navigation-bar.png" alt="Navigation Bar"> 
+            <img class="img-fluid mx-auto my-5" src="../img/product-item-image.PNG" alt="Navigation Bar"> 
 
         </section>
 
