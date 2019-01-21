@@ -163,7 +163,23 @@
 
             <p class="font-weight-bold mt-5">Spring Boot</p>
 
-            <p>Πρέπει να δημιουργήσουμε τις κατάλληλες μεθόδους στο Spring Boot</p>
+            <p>Προσθέτουμε τρία fields smallImageUrl, largeImageUrl και verySmallImageUrl στο entity Product.java, που είναι τα URLs των τριών μεγεθών της εικόνας. Χρησιμοποιούμε το annotation @Transient, για να δηλώσουμε ότι δεν θέλουμε, να
+            αποθηκευτούν στη βάση, αλλά θέλουμε να επιστρέφονται στην JSON απάντηση.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> String smallImageUrl;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> String largeImageUrl;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> String verySmallImageUrl;
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε τις κατάλληλες μεθόδους στο Spring Boot</p>
 
             <p>ProductRepository</p>
 

@@ -200,6 +200,18 @@
                 αίτημα στο localhost:8080/api/deals,  η μέθοδος getDeals θα επιστρέφει όλες τις προσφορές σε μορφή JSON. 
             </p>
 
+            <p>Επίσης, θα προσθέσουμε ένα field imageUrl στο entity Deal.java . Αυτό αναπαριστά το URL της εικόνας της προσφοράς
+                και θα παίρνει τιμή, από το DealImage entity. Χρησιμοποιούμε το annotation @Transient, για να δηλώσουμε ότι δεν θέλουμε, να
+            αποθηκευτεί στη βάση, αλλά θέλουμε να επιστρέφεται στην JSON απάντηση.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transient</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> String imageUrl;
+
+                </code>
+            </pre>
+
             <pre>
                 <code>
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
