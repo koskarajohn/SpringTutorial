@@ -272,6 +272,58 @@
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                     </code>
                 </pre>
+
+                <p class="font-weight-bold mt-5">Angular</p>
+
+                <p>Δημιουργούμε πρώτα το products-service, το οποίο περιέχει τις μεθοδους getFavoriteProducts() και getNewProducts(), για να
+                    παίρνουμε τα αγαπημένα και καινούρια προϊόντα.
+                </p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate service products
+                    </code>
+                </pre>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-service.PNG" alt="ProductService"> 
+
+                <p>Δημιουργούμε το products-carousel component</p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component products-carousel
+                    </code>
+                </pre>
+                
+
+                <p>Θα δημιουργήσουμε δύο φορές το product-carousel component: μια για να εμφανίζουμε τα αγαπημένα και μια για να εμφανίζουμε
+                    τα καινούρια. Θα δίνουμε τιμή στο carouselType property από το IndexComponent. Αν το carouselType πάρει τιμη 'favorite', θα
+                    το component θα ζητάει τα αγαπημένα, ενώ αν είναι 'new' θα ζητάει τα καινούρια.
+                </p>
+
+                <p>products-carousel.component.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-carousel-ts.PNG" alt="Products Carousel Ts"> 
+
+                <p>Χρησιμοποιούμε το directive *ngFor, για να δημιουργήσουμε τα αντικείμενα του Bootstrap Carousel.</p>
+
+                <p>products-carousel.component.html</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-carousel-html.PNG" alt="Products Carousel Html">
+
+                <p>products-carousel.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-carousel-css.PNG" alt="Products Carousel Css">
+
+                <h5 class="mt-5">index-page component</h5>
+
+                <p>Τελικό index-page.component.html</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/index-page-html2.PNG" alt="Index Page Html 2">
+
+                <p>Τελικό index-page.component.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/index-page-ts.PNG" alt="Index Page Ts">
         </section>
 
     </div>
