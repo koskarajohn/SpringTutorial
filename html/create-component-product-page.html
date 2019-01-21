@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - product-page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - product-page</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε το product-page component, το οποίο περιέχει επιπλέον στοιχεία του προϊόντος. Όταν ο client θέλει το προιόν με όνομα apivita-shampoo-dry-dandruff-250ml, κάνει ένα <span class="bold">HTTP GET request</span> στο url 
+                <span class="bold">http://localhost:8080/api/products/apivita-shampoo-dry-dandruff-250ml</span> και το Spring Boot θα του επιστρέφει ένα JSON Object Product.
+            </p>
+        </section>
+
+        <section class="spring-boot">
+            <h5>Spring Boot</h5>
+
+            <p>Προσθέτουμε τη μέθοδο getProductByName στον ProductApiController : βρίσκουμε το προϊόν με τη μέθοδο findByName, βρίσκουμε τις εικόνες του απο το ProductImage entity
+                και την ποσότητα του απο το Inventory entity και το επιστρέφουμε με status 200 OK.
+            </p>
+
+            <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/products/{name}"</span>, method = RequestMethod.GET)
+                            &emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getProductByName(<span class="annotation">@PathVariable</span>(value = <span class="string">"name"</span>) String name){
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findByName(name);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(product == null){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product with name "</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage productImage = productImageService.findByProductId(product.getId());
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; product.setSmallImageUrl(productImage.getSmallImageurl());
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; product.setLargeImageUrl(productImage.getLargeImageurl());
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; product.setVerySmallImageUrl(productImage.getVerySmallImageurl());
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int productQuantity = inventoryService.findProductQuantity(product.getId());
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; product.setQuantity(productQuantity);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; return new ResponseEntity&#60;Product&#62;(product, HttpStatus.OK);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+        </section>
+
+        <section class="angular">
+                <h5>product-page component</h5>
+
+                <p>Δημιουργούμε το component product-page και το τοποθετούμε στο φάκελο components. Το όνομα του προϊόντος το παιρνάμε 
+                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
+                </p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&#60;a routerLink="/product/{{product.name}}"&#62;&#60;p class="brand">{{product?.brand.name}}&#60;/p&#62;&#60;/a&#62;
+                    </code>
+                </pre>
+    
+                
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component product-page
+                    </code>
+                </pre>
+
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο getSingleProduct(name : string) του ProductService, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να πάρουμε το προϊόν.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-service.PNG" alt="Product Service">
+                
+                <p>product-page.component.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/product-page-ts.PNG" alt="Products Page Ts">
+
+                <p>product-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62;. Μετά, στην αριστερή στήλη εμφανίζουμε την εικόνα του προϊόντος και στην δεξιά 
+                    στοιχεία του.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/product-page-html-1.PNG" alt="Products Page Html 1">
+
+                <p>Εμφανίζουμε την περιγραφή του προϊόντος και εισάγουμε το template &#60;my-footer&#62;.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/product-page-html-2PNG.PNG" alt="Products Page Html 2">
+
+                <p>product-page.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/product-page-css.PNG" alt="Products Page Css">
+                
+        </section>
+
+        <section class="appearance">
+
+            <h5>Τελική εμφάνιση σελίδας</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/product-page-image.PNG" alt="Products Page Image">
+        </section>
+    </div>
+
+  </body>
+</html>
