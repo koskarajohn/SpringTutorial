@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Angular - category</title>
+    <title>Angular - category-page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -88,7 +88,7 @@
         <h1 class="text-center">Angular - category</h1>
 
         <section class="intro">
-            <p>Θα δημιουργήσουμε το category component, το οποίο περιέχει τα προϊόντα της κάθε κατηγορίας. Όταν ο client θέλει τα προϊόντα της κατηγορίας Vitamins, κάνει ένα <span class="bold">HTTP GET request</span> στο url 
+            <p>Θα δημιουργήσουμε το category-page component, το οποίο περιέχει τα προϊόντα της κάθε κατηγορίας. Όταν ο client θέλει τα προϊόντα της κατηγορίας Vitamins, κάνει ένα <span class="bold">HTTP GET request</span> στο url 
                 <span class="bold">http://localhost:8080/api/categories/vitamins?page=0&order=asc</span> και το Spring Boot θα του επιστρέφει την αντίστοιχη εξάδα προϊόντων.
             </p>
         </section>
@@ -214,58 +214,63 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(products, HttpStatus.OK);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                 </code>
             </pre>
 
-           
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
 
+            <img class="img-fluid mx-auto my-5" src="../img/categories-api-postman-1.PNG" alt="Categories Products 1">
 
         <section class="angular">
-                <h5>product-page component</h5>
+                <h5>category-page component</h5>
 
-                <p>Δημιουργούμε το component product-page και το τοποθετούμε στο φάκελο components. Το όνομα του προϊόντος το παιρνάμε 
+                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
                     χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
                 </p>
 
                 <pre>
                     <code>
-                            &emsp;&emsp;&emsp;&emsp;&#60;a routerLink="/product/{{product.name}}"&#62;&#60;p class="brand">{{product?.brand.name}}&#60;/p&#62;&#60;/a&#62;
+                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
                     </code>
                 </pre>
     
                 
                 <pre>
                     <code>
-                            &emsp;&emsp;&emsp;&emsp;ng generate component product-page
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
                     </code>
                 </pre>
 
-                <p>Θα χρησιμοποιήσουμε τη μέθοδο getSingleProduct(name : string) του ProductService, για να πραγματοποιήσουμε
-                    το HTTP αίτημα και να πάρουμε το προϊόν.
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να πάρουμε το προϊόντα.
                 </p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/products-service.PNG" alt="Product Service">
+                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
+
+                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
+                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                </p>
                 
-                <p>product-page.component.ts</p>
+                <p>category-page.component.ts</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/product-page-ts.PNG" alt="Products Page Ts">
+                <p></p>
 
-                <p>product-page.component.html</p>
+                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
 
-                <p>Εισάγουμε τα template &#60;navigation-bar&#62;. Μετά, στην αριστερή στήλη εμφανίζουμε την εικόνα του προϊόντος και στην δεξιά 
-                    στοιχεία του.
+                <p>category-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
+                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
+                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
                 </p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/product-page-html-1.PNG" alt="Products Page Html 1">
+                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
 
-                <p>Εμφανίζουμε την περιγραφή του προϊόντος και εισάγουμε το template &#60;my-footer&#62;.
-                </p>
+                <p>category-page.component.css</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/product-page-html-2PNG.PNG" alt="Products Page Html 2">
-
-                <p>product-page.component.css</p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/product-page-css.PNG" alt="Products Page Css">
+                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
                 
         </section>
 
@@ -273,7 +278,7 @@
 
             <h5>Τελική εμφάνιση σελίδας</h5>
 
-            <img class="img-fluid mx-auto my-5" src="../img/product-page-image.PNG" alt="Products Page Image">
+            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
         </section>
     </div>
 
