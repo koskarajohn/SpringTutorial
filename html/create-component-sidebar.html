@@ -117,7 +117,7 @@
             </ul>
         </section>
 
-        <section class="spring-boot">
+        <section class="spring-boot-brands">
             <h5>Spring Boot</h5>
 
             <p>Αρχικά θα χρειαστούμε μια μέθοδο, η οποία θα επιστρέφει τις εταιρίες των προϊόντων μιας κατηγορίας.</p>
@@ -231,6 +231,288 @@
             <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
 
             <img class="img-fluid mx-auto my-5" src="../img/brand-api-postman.PNG" alt="Brands Api">
+
+        </section>
+
+        <section class="filters">
+
+            <p class="mt-3">Θα δημιουργήσουμε τις μεθόδους, οι οποίες θα μας επιστρέφουν τον αριθμό των προϊόντων</p>
+
+            <p>Προσθέτουμε τις ακόλουθες μέθοδους στο ProductRepository, οι οποίες θα χρησιμοποιηθούν, όταν αρχικοποιηθούν
+                τα φίλτρα. Τα ερωτήμα είναι πάνω από τις υπογραφές των μεθόδων.
+            </p>
+
+             <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;....
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query(<span class="string">"select Count (prod) from Product prod where prod.category.id = :categoryid and prod.brand.id = :brandid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findNumberOfProductsOfBrandInCategory(@Param("categoryid") int categoryid, @Param("brandid") int brandid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query(<span class="string">"select Count (prod) from Product prod where prod.category = :category and prod.price between :min and :max"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findNumberOfProductsWithinPriceRange(@Param("category") Category category, @Param("min") double min, @Param("max") double max);
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τις ακόλουθες μεθόδους στο ProductService.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;....
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfProductsOfBrandInCategory(int categoryid, int brandid);
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfBrandProductsWithinSpecificRangesInCategory(Category category, Brand brand, List&#60;double[]&#60; priceRanges);
+
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfProductsWithinPriceRange(Category category, double min, double max);
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfSpecificBrandsProductsWithinPriceRange(Category category,  double min, double max, List&#60;Brand&#60; brands);
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τις υλοποιήσεις των μεθόδων, όταν δεν είναι επιλεγμένα τα αντίστοιχα φίλτρα
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"productService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductServiceImpl <span class="keyword">implements</span> ProductService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> EntityManager entityManager;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfProductsOfBrandInCategory(int categoryid, int brandid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findNumberOfProductsOfBrandInCategory(categoryid, brandid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfProductsWithinPriceRange(Category category, double min, double max) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findNumberOfProductsWithinPriceRange(category, min, max);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Η ακόλουθη μέθοδος findNumberOfSpecificBrandsProductsWithinPriceRange(), επιστρέφει τον αριθμό των προϊόντων ανά διάστημα τιμών,
+                όταν ο χρήστης έχει επιλέξει μία ή περισσότερες εταιρίες. Θα χρησιμοποιήσουμε το Criteria API, επειδή δεν γνωρίζουμε
+                από πριν, πόσες εταιρίες θα είναι επιλεγμένες.
+            </p>
+
+            <p>Δημιουργούμε το query root</p>
+
+             <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfSpecificBrandsProductsWithinPriceRange(Category category, double min, double max, List&#60;Brand&#62; brands){
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                </code>
+            </pre>
+
+            <p>Με το παρακάτω for, δημιουργούμε συνθήκες του WHERE, "prod.brand = :brand." και τα προσθέτουμε σε ένα array.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; brandPredicateList = new ArrayList&#60;&#62;();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; brands.size(); i++){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.add(criteriaBuilder.equal(productsRoot.get("brand"), brands.get(i)));
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] brandsPredicateArray = new Predicate[brandPredicateList.size()];
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.toArray(brandsPredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε τις συνθήκες "prod.category = :category" και "product.price between :min and :max" </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate categoryPredicate = criteriaBuilder.equal(productsRoot.get("category"), category);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.between(productsRoot.get("price"), min, max);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.or(brandsPredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.price between :min and ( prod.brand = :brand1 or prod.brand2 .....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, priceRangePredicate, brandsPredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
+
+
+            <p class="mt-5">Η ακόλουθη μέθοδος findNumberOfBrandProductsWithinSpecificRangesInCategory, επιστρέφει τον αριθμό των προϊόντων ανά εταιρία,
+                όταν ο χρήστης έχει επιλέξει ένα ή περισσότερα διαστήματα τιμών. 
+            </p>
+
+            <p>Δημιουργούμε το query root</p>
+
+             <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> findNumberOfBrandProductsWithinSpecificRangesInCategory(Category category, Brand brand, List&#60;double[]&#62; priceRanges) {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                </code>
+            </pre>
+
+            <p>Με το παρακάτω for, δημιουργούμε συνθήκες του WHERE, "prod.price between :range1 and :range2" και τα προσθέτουμε σε ένα array.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; priceRangePredicateList = new ArrayList&#60;&#62;();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(double[] range : priceRanges){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.add(criteriaBuilder.between(productsRoot.get("price"), range[0], range[1]));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] priceRangePredicateArray = new Predicate[priceRangePredicateList.size()];
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.toArray(priceRangePredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε τις συνθήκες "prod.category = :category" και "prod.brand = :brand" </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate categoryPredicate = criteriaBuilder.equal(productsRoot.get("category"), category);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.equal(productsRoot.get("brand"), brand);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.or(priceRangePredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.brand = :brand ( prod.price between :range1 and :range 2 or prod.price between :range3 and :range 4.....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPredicate, priceRangePredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
+        </section>
+
+        <section class="category-api-controller">
+
+            <h5>CategoryApiController</h5>
+
+            <p>Θα προσθέσουμε τις κατάλληλες μεθόδους στον CategoryApiController. Πρώτα προσθέτουμε κάποιες σταθερές στο Constants.java</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.util;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public final class</span> Constants {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;....
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_ZERO_TO_TEN = { 0.0 ,9.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_TEN_TO_TWENTY = { 10.0 ,19.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_TWENTY_TO_THIRTY = { 20.0 ,29.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_THIRTY_TO_FIFTY = { 30.0 ,50.0};
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τις κλάσεις-μοντέλα ProductsPerPriceRange και ProductsPerBrand</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductsPerPriceRange{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private double</span> min;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private double</span> max;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> rangeId;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductsPerPriceRange() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductsPerBrand{
+
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> brand;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductsPerBrand() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε δύο βοηθητικές μεθόδους στον CategoryApiController, οι οποίες θα επιστρέφουν το minx και το max του κάθε
+                εύρους τιμών.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public double</span> getRangeMin(String range){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double min = 0.0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&if(range.equals("1")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_ZERO_TO_TEN[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("2")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_TEN_TO_TWENTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else if(range.equals("3")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_TWENTY_TO_THIRTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("4")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_THIRTY_TO_FIFTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> min;
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public double</span> getRangeMax(String range){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double max = 0.0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&if(range.equals("1")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_ZERO_TO_TEN[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("2")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_TEN_TO_TWENTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else if(range.equals("3")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_TWENTY_TO_THIRTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("4")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_THIRTY_TO_FIFTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> max;
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+        </section>
 
         <section class="angular">
                 <h5>category-page component</h5>
