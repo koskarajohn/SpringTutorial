@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - category-sidebar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - category-sidebar</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε το category-sidebar component, το οποίο περιέχει δύο φίλτρα για τα προϊόντα. Ο χρήστης θα μπορεί, να αναζητήσει προϊόντα
+                συγκεκριμένων εταιριών ή/και μέσα σε ένα συγκεκριμένο διάστημα τιμών(10-20ευρώ).
+            </p>
+
+            <h5>Εταιρίες</h5>
+
+            <p>Για την αρχικοποίηση των τιμών των φίλτρων, ο client θα ζητάει τον αριθμό των προϊόντων της κάθε εταιρίας, σε μια κατηγορία.
+                Αν επιλεχθεί κάποιο φίλτρο από τα διαστήματα τιμών μετά, τότε στέλνει μια παράμετρο range, για να πάρει τον αριθμό των 
+                προϊόντων της κάθε εταιρίας, σε ένα διάστημα τιμών.
+            </p>
+
+            <ul>
+                <li>αρχικό αίτημα, για την εταιρία Solgar : HTTP GET http://localhost:8080/api/categories/vitamins/brands/Solgar/products/count</li>
+                <li>αριθμός προϊόντων εταιρίας Solgar, στα διαστήματα 0 - 9.99, 10 - 19.99 : HTTP GET http://localhost:8080/api/categories/vitamins/brands/Solgar/products/count?range=1&range=2</li>
+            </ul>
+
+            <h5>Διαστήματα τιμών</h5>
+
+            <p>Για την αρχικοποίηση των τιμών των φίλτρων, ο client θα ζητάει τον αριθμό των προϊόντων ανά διάστημα τιμών.
+                Αν επιλεχθεί κάποιο φίλτρο από τις εταιρίες μετά, τότε στέλνει μια παράμετρο brand, για να πάρει τον αριθμό των 
+                προϊόντων στο συγκεκριμένο διάστημα τιμών, που ανήκουν σε αυτές τις εταιρίες.
+            </p>
+
+            <ul>
+                <li>αρχικό αίτημα, για το διάστημα 0 - 9.99 : HTTP GET http://localhost:8080/api/categories/ranges/1/products/count</li>
+                <li>αριθμός προϊόντων εταιρίων Solgar και Solaray, στο διαστήμα 0 - 9.99 : HTTP GET http://localhost:8080/api/categories/vitamins/ranges/1/products/count?brand=Solgar&brand=Solaray</li>
+            </ul>
+        </section>
+
+        <section class="spring-boot">
+            <h5>Spring Boot</h5>
+
+            <p>Αρχικά θα χρειαστούμε μια μέθοδο, η οποία θα επιστρέφει τις εταιρίες των προϊόντων μιας κατηγορίας.</p>
+
+
+            <p>Προσθέτουμε την ακόλουθη μέθοδο στο ProductRepository. Θα επιστρέφει τη λίστα των εταιριών,
+                πραγματοποιώντας το ερώτημα JPQL <span class="bold">"select DISTINCT prod.brand from Product prod where prod.category.id = :id"</span>.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductRepository  extends JpaRepository&#60;Product, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;....
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query(<span class="string">"select DISTINCT prod.brand from Product prod where prod.category.id = :id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; findCategoryBrands(@Param("id") int id);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε την μέθοδο στο ProductService και ProductServiceImpl.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; findCategoryBrands(@Param("id") int id);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"productService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductServiceImpl <span class="keyword">implements</span> ProductService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Brand&#62; findCategoryBrands(@Param("id") int id){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findCategoryBrands(id);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε έναν BrandApiController στο springeshop.controller</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span><span class="string">"/api"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BrandApiController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static final</span>  Logger logger = LoggerFactory.getLogger(BrandApiController.class);
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductService productService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CategoryService categoryService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τη μέθοδο getCategoryBrands στον BrandApiController. Εάν δεν υπάρχει κατηγορία με αυτό το όνομα, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/brands"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryBrands(<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "category") String category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category requestedCategory = categoryService.findByName(getCorrectCategoryName(category));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(requestedCategory == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν η λίστα τον εταιριών είναι κενή, επιστρέφουμε status 204 NO CONTENT, αλλιώς τις ταξινομούμε σε αύξουσα αλφαβητική σειρά και επιστρέφουμε την
+                    λίστα με status 200.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; brands = productService.findCategoryBrands(requestedCategory.getId());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands.isEmpty())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brands.sort((Brand brand1, Brand brand2) -> brand1.getName().compareTo(brand2.getName()));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;Brand&#62;&#62;(brands, HttpStatus.OK);
+                </code>
+            </pre>
+
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/brand-api-postman.PNG" alt="Brands Api">
+
+        <section class="angular">
+                <h5>category-page component</h5>
+
+                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
+                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
+                </p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
+                    </code>
+                </pre>
+    
+                
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
+                    </code>
+                </pre>
+
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να πάρουμε το προϊόντα.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
+
+                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
+                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                </p>
+                
+                <p>category-page.component.ts</p>
+
+                <p></p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
+
+                <p>category-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
+                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
+                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
+
+                <p>category-page.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
+                
+        </section>
+
+        <section class="appearance">
+
+            <h5>Τελική εμφάνιση σελίδας</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
+        </section>
+    </div>
+
+  </body>
+</html>
