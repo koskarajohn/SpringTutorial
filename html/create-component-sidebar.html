@@ -694,53 +694,51 @@
         </section>
 
         <section class="angular">
-                <h5>category-page component</h5>
+                <h5>category-sidebar component</h5>
 
-                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
-                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
+                <p>Δημιουργούμε το component category-sidebar και το τοποθετούμε στο φάκελο components.
                 </p>
 
                 <pre>
                     <code>
-                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
-                    </code>
-                </pre>
-    
-                
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-sidebar
                     </code>
                 </pre>
 
-                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
-                    το HTTP αίτημα και να πάρουμε το προϊόντα.
-                </p>
+                <p>category.service.ts</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
+                <img class="img-fluid mx-auto my-5" src="../img/category-service-2.PNG" alt="Category Service 2">
 
-                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
-                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                <p>category-sidebar.component.html</p>
+
+                <p>Το html αρχείο περιέχει δύο λίστες με checkboxes.</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-html.PNG" alt="Category Sidebar Html">
+
+                <p>category-sidebar.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Sidebar Css">
+
+                <p>Δημιουργούμε τα αντίστοιχα μοντέλα ProductsPerBrand και ProductsPerPriceRange.</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-brand-ts.PNG" alt="Products Brands">
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-price-range-ts.PNG" alt="Products Price Range">
+
+                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, καλείται η μέθοδος ngOnChanges(), η οποία καλεί την updateSidebar(), για να
+                     πραγματοποίησει τα HTTP αιτήματα και να αρχικοποιήσει τα φίλτρα 
                 </p>
                 
-                <p>category-page.component.ts</p>
+                <p>category-sidebar.component.ts</p>
 
-                <p></p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
-
-                <p>category-page.component.html</p>
-
-                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
-                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
-                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-ts.PNG" alt="Category sidebar Ts">
+                
+                <p>Όταν ο χρήστης κάνει κλικ σε κάποια εταιρία (event), εκτελείται η μέθοδος onSelectedBrand(), η οποία ενημερώνει τον
+                    αριθμό των προϊόντων ανα διάστημα τιμών. Αντίστοιχα, όταν κάνει κλικ σε κάποιο διάστημα (event), 
+                    εκτελείται η μέθοδος onSelectedPriceRange(), η οποία ενημερώνει τον αριθμό των προϊόντων ανα εταιρία.
                 </p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
-
-                <p>category-page.component.css</p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-ts-2.PNG" alt="Category sidebar Ts">
                 
         </section>
 
