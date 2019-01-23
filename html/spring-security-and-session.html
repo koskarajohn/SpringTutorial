@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spring Security - Spring Session</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Spring Security - Spring Session</h1>
+
+        <section class="intro">
+            <p>Θα χρησιμοποιήσουμε το Spring Security, για να προστατεύσουμε τα URLS της εφαρμογής και να αυθεντικοποιούμε τους χρήστες. Με το Spring Session
+                θα καταγράφουμε τις συνεδρίες των χρήστων.
+            </p>
+        </section>
+
+        <section class="tables">
+            <h5>Πίνακας users</h5>
+
+            <p>Ο πίνακας users( <span class="underline">id</span>, username, email, password, first_name, last_name, phone, is_active) περιέχει τους χρήστης 
+                εφαρμογής. Η εντόλη δημιουργίας του πίνακα δίνεται παρακάτω
+
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/users-table.PNG" alt="Users Table"></p>
+
+            <p>Δημιουργούμε το entity User.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"users"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> User{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"username"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide username"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> username;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"username"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Email</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide email"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> email;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"password"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide password"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> password;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"first_name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide first name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(min = 2, max = 200, </span>message = <span class="string">"first name must be between 2 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> first_name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"last_name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide last name"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Size(min = 2, max = 200, </span>message = <span class="string">"last name must be between 2 and 200 characters"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> last_name;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"phone"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> phone;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"is_active"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private boolean</span> is_active;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> User() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <h5 class="mt-5">Πίνακας authorities</h5>
+
+            <p>Ο πίνακας users( <span class="underline">id</span>, username, roles) περιέχει τον ρόλο του κάθε χρήστη. Η εντόλη δημιουργίας του πίνακα δίνεται παρακάτω
+
+            <img class="img-fluid mx-auto my-5 w-100" src="../img/authorities.png" alt="Authoritites Table"></p>
+
+            <p>Δημιουργούμε το entity Authority.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"authorities"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Authority{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Id</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(</span>name = <span class="string">"id"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span>(fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@JoinColumn</span>(name = <span class="string">"username"</span>, referencedColumnName = <span class="string">"username"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private User</span> user;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"role"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide role type"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> email;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Authority() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+         
+        </section>
+
+    </div>
+
+  </body>
+</html>
