@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - ανανέωση προϊόντων κατηγορίας</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - ανανέωση προϊόντων κατηγορίας</h1>
+
+        <section class="intro">
+            <p>θα δημιουργήσουμε μια μέθοδο, που θα επιστρέφει τα προϊόντα της κατηγορίας, ανάλογα με τα φίλτρα και α προσαρμόσουμε τον CategoryApiController και το category-page, ώστε να ανανεώονται τα προϊόντα της κατηγορίας,
+                όταν ο χρήστης επιλέγει κάποιο φίλτρο.
+            </p>
+        </section>
+
+        <section class="spring-boot">
+            <h5>Spring Boot</h5>
+
+            <p>Δημιουργούμε ένα model ProductPage, το οποίο είναι αντίστοιχο με το Page&#60;Product&#62 του Spring</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductPage{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private List&#60;Product&#62</span> content;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> totalElements;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> totalPages;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductPage() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε την μέθοδο στο ProductService</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ProductService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductPage findByCategoryIdWithBrandAndPriceRange(Category category, List&#60;Brand&#62; brands,  List&#60;double[]&#62; priceRanges, int page, String order);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε την μέθοδο στο ProductServiceImpl</p>
+
+    
+                <p>Δημιουργούμε το query root</p>
+    
+                 <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductPage findByCategoryIdWithBrandAndPriceRange(Category category, List&#60;Brand&#62; brands,  List&#60;double[]&#62; priceRanges, int page, String order){
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε συνθήκες του WHERE, "prod.category = :category", "prod.price between :range1 and :range2" και "prod.brand = :brand"</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; brandPredicateList = new ArrayList&#60;&#62;();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; priceRangePredicateList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!brands.isEmpty()){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; brands.size(); i++){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.add(criteriaBuilder.equal(productsRoot.get("brand"), brands.get(i)));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!priceRanges.isEmpty()){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(double[] range : priceRanges){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.add(criteriaBuilder.between(productsRoot.get("price"), range[0], range[1]));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] brandsPredicateArray = new Predicate[brandPredicateList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; brandPredicateList.toArray(brandsPredicateArray);
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] priceRangePredicateArray = new Predicate[priceRangePredicateList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.toArray(priceRangePredicateArray);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.or(brandsPredicateArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.or(priceRangePredicateArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate categoryPredicate = criteriaBuilder.equal(productsRoot.get("category"), category);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε το κατάλληλο ερώτημα, ανάλογα με το αν είναι επιλέγμένα και τα δύο φίλτρα ή μόνο ένα. </p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!brands.isEmpty() && !priceRanges.isEmpty()){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPriceRangeAndPredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands.isEmpty()){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, priceRangePredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPredicate));
+                           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Ταξινομούμε τα προϊόντα με βάση την παράμετρο order, βρίσκουμε τον αριθμό των συνολικών προϊόντων και επιστρέφουμε την κατάλληλη σελίδα</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Order orderCriterion = order.equals("asc") ? criteriaBuilder.asc(productsRoot.get("price")) : criteriaBuilder.desc(productsRoot.get("price"));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.orderBy(orderCriterion);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductPage productPage = new ProductPage();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int totalProducts = entityManager.createQuery(criteriaQuery).getResultList().size();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int startProductPosition = page * 6;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productPage.setTotalElements(totalProducts);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productPage.setTotalPages(getProductPages(totalProducts));
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Product&#62; wantedProducts = entityManager.createQuery(criteriaQuery).setFirstResult(startProductPosition).setMaxResults(6).getResultList();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productPage.setContent(wantedProducts);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productPage.setNumber(page);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productPage.setNumberOfElements(wantedProducts.size());
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return productPage;
+                    </code>
+                </pre>
+
+            <p class="mt-5">Θα προσαρμόσουμε την μέθοδο getCategoryProducts του CategoryApiController.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/categories/{name}"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryProducts(<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "name") String name, 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span> (<span class="string">@value</span> = "page", required = true) int page, 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "order", required = true) String order,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "brand", required = false) String[] brands,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "range", required = false) String[] ranges){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Page&#60;Product&#62; products;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductPage filteredProductPage = new ProductPage();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p class="mt-5">Εάν δεν είναι επιλεγμένο κάποια φίλτρο, βρίσκουμε τα προϊόντα με τη μεθοδο findByCategoryId και τα επιστρέφουμε με status 200 OK</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands == null && ranges == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;products = productService.findByCategoryId(category.getId(), PageRequest.of(page, 6, sortDirection, "price"));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;addImagesAndQuantityToProducts(products.getContent());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!products.hasContent()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity &#60;&#62;(HttpStatus.NO_CONTENT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity &#60;&#62;(products, HttpStatus.OK);
+                    
+                </code>
+            </pre>
+
+            <p class="mt-5">Αλλιώς βρίσκουμε το ProductPage με τη μέθοδο findByCategoryIdWithBrandAndPriceRange και το επιστρέφουμε με status 200 OK.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; brandList = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; priceRangeList = new ArrayList&#60;&#62;();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands != null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandList = brandService.findSpecificBrands(brands);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(ranges != null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String range : ranges){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[0] = getRangeMin(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[1] = getRangeMax(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangeList.add(rangeValues);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;filteredProductPage = productService.findByCategoryIdWithBrandAndPriceRange(category, brandList, priceRangeList, page, order);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(filteredProductPage.getContent().isEmpty()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity &#60;&#62;(filteredProductPage, HttpStatus.NO_CONTENT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;addImagesAndQuantityToProducts(filteredProductPage.getContent());
+
+                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity&#60;&#62; (filteredProductPage, HttpStatus.OK);
+                    
+                </code>
+            </pre>
+
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/category-products-parameters.PNG" alt="Categories Parameters">
+
+        <section class="angular">
+                <h5>category-page component</h5>
+
+                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
+                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
+                </p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
+                    </code>
+                </pre>
+    
+                
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
+                    </code>
+                </pre>
+
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να πάρουμε το προϊόντα.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
+
+                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
+                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                </p>
+                
+                <p>category-page.component.ts</p>
+
+                <p></p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
+
+                <p>category-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
+                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
+                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
+
+                <p>category-page.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
+                
+        </section>
+
+        <section class="appearance">
+
+            <h5>Τελική εμφάνιση σελίδας</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
+        </section>
+    </div>
+
+  </body>
+</html>
