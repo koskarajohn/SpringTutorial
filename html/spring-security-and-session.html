@@ -264,6 +264,46 @@
             </pre>
         </section>
 
+        <section class="spring-session">
+                <h5>Spring Session</h5>
+    
+                <p>Εισάγουμε το ακόλουθο dependency στο pom.xml</p>
+    
+                <pre>
+                        <code>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;dependency&#62;</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span> org.springframework.session <span class="annotation">&#60;/groupId&#62;</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;artifactId&#60;</span> spring-session-jdbc <span class="annotation">&#60;/artifactId&#62;</span>
+                            &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;/dependency&#62;</span>
+                        </code>
+                </pre>
+
+                 <p class="mt-5">Προσθέτουμε τα ακόλουθα properties στο αρχείο application.properties. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;spring.session.store-type=jdbc
+                        &emsp;&emsp;&emsp;&emsp;spring.session.jdbc.initialize-schema=never
+                        &emsp;&emsp;&emsp;&emsp;spring.session.timeout = 6h
+                </code>
+            </pre>
+    
+                <p class="mt-5">Το Spring Session θα εισάγει αυτόματα τους χρήστες, οι οποίοι έχουν μια ενεργή συνεδρία HTTP και στοιχεία της συνεδρίας τους.
+                    Δημιουργούμε τους πίνακες SPRING_SESSION και SPRING_SESSION_ATTRIBUTES. Το ερώτημα δημιουργίας τους δίνεται παρακάτω:
+                </p>
+
+                <img class="img-fluid mx-auto my-5 w-100" src="../img/create-session-tables.PNG" alt="Session Tables">
+            </section>
+
+            <section class="references">
+
+                    <h5>Πηγές</h5>
+        
+                    <ul>
+                        <li><a href="https://dzone.com/articles/spring-jdbc-session">DZone - Manage User Session With Spring JDBC Session</a></li>
+                    </ul>
+                </section>
+
     </div>
 
   </body>
