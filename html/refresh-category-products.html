@@ -288,51 +288,22 @@
         <section class="angular">
                 <h5>category-page component</h5>
 
-                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
-                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
-                </p>
-
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
-                    </code>
-                </pre>
-    
-                
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
-                    </code>
-                </pre>
-
-                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
-                    το HTTP αίτημα και να πάρουμε το προϊόντα.
-                </p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
-
-                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
-                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                <p>Κάθε φορά που ο χρήστης επιλέγει ένα φίλτρο, αλλάζουμε route προγραμματιστικά από το SidebarComponent, δίνοντας
+                    τις επιλεγμένες εταιρίες και τα επιλεγμένα διαστήματα τιμών ως query params. Για παράδειγμα, όταν ο χρήστης επιλέγει
+                    την εταιρία Solgar και το διάστημα τιμών 10-19.99 το route παίρνει τιμή /category/vitamins?page=0&brand=Solgar&range=2 .
                 </p>
                 
+                <p>category-sidebar.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-ts-2.PNG" alt="Category Sidebar">
+
+                <p>Όταν αλλάζουν οι παράμετροι, το CategoryPageComponent, παίρνει τις τιμές τους, πραγματοποιεί ΗΤΤP αίτημα στο server πάλι
+                    και ανανεώνει τα προϊόντα.
+                </p>
+
                 <p>category-page.component.ts</p>
 
-                <p></p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
-
-                <p>category-page.component.html</p>
-
-                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
-                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
-                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
-                </p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
-
-                <p>category-page.component.css</p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
+                <img class="img-fluid mx-auto my-5" src="../img/category-refresh-products-ts.PNG" alt="Category Refresh">
                 
         </section>
 
@@ -340,7 +311,7 @@
 
             <h5>Τελική εμφάνιση σελίδας</h5>
 
-            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
+            <img class="img-fluid mx-auto my-5" src="../img/category-page-final-apperance.PNG" alt="Category Page Image">
         </section>
     </div>
 
