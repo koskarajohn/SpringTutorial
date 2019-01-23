@@ -112,7 +112,7 @@
             </p>
 
             <ul>
-                <li>αρχικό αίτημα, για το διάστημα 0 - 9.99 : HTTP GET http://localhost:8080/api/categories/ranges/1/products/count</li>
+                <li>αρχικό αίτημα, για το διάστημα 0 - 9.99 : HTTP GET http://localhost:8080/api/categories/vitamins/ranges/1/products/count</li>
                 <li>αριθμός προϊόντων εταιρίων Solgar και Solaray, στο διαστήμα 0 - 9.99 : HTTP GET http://localhost:8080/api/categories/vitamins/ranges/1/products/count?brand=Solgar&brand=Solaray</li>
             </ul>
         </section>
@@ -408,13 +408,75 @@
                 </code>
             </pre>
 
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.brand = :brand ( prod.price between :range1 and :range 2 or prod.price between :range3 and :range 4.....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPredicate, priceRangePredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
         </section>
 
         <section class="category-api-controller">
 
             <h5>CategoryApiController</h5>
 
-            <p>Θα προσθέσουμε τις κατάλληλες μεθόδους στον CategoryApiController. Πρώτα προσθέτουμε κάποιες σταθερές στο Constants.java</p>
+            <p>Θα προσθέσουμε τις κατάλληλες μεθόδους στον CategoryApiController. Πρώτα θα δημιουργήσουμε μια μέθοδο στο BrandService, η οποία
+                θα παίρνει τις παραμέτρους των εταιριών και θα επιστρέφει μια λίστα από Brand entities.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BrandService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; findSpecificBrands(String[] brands);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"brandService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BrandServiceImpl <span class="keyword">implements</span> BrandService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> EntityManager entityManager;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Brand&#62; findSpecificBrands(String[] brands) {
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Brand&#62; criteriaQuery = criteriaBuilder.createQuery(Brand.class);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Brand&#62; productsRoot = criteriaQuery.from(Brand.class);  
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] predicates = new Predicate[brands.length];
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; predicates.length; i++){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;predicates[i] = criteriaBuilder.equal(requestedBrands.get("name"), brands[i]);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.or(predicates));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> entityManager.createQuery(criteriaQuery).getResultList();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε κάποιες σταθερές στο Constants.java</p>
 
             <pre>
                 <code>
@@ -512,6 +574,123 @@
                     &emsp;&emsp;&emsp;&emsp;}
                 </code>
             </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getCategoryRangeProductsNumber στον controller. Αν δεν υπάρχει η ζητούμενη κατηγορία, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/categories/{name}/ranges/{rangeid}/products/count"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryRangeProductsNumber(<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "name") String name,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "rangeid") String rangeid,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "brand", required = false) String[] brands{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category category = categoryService.findByName(getCorrectCategoryName(name));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(requestedCategory == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν δεν είναι κάποιο φίλτρο επιλεγμένο καλούμε την findNumberOfProductsWithinPriceRange, αλλιώς βρίσκουμε τα αντίστοιχα Brand entities και το
+                παιρνάμε στην findNumberOfSpecificBrandsProductsWithinPriceRange.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductsPerPriceRange ppNumber = new ProductsPerPriceRange();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setNumber(productService.findNumberOfProductsWithinPriceRange(category, getRangeMin(rangeid), getRangeMax(rangeid)));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; brandPredicateList = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; brandList = brandService.findSpecificBrands(brands);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setNumber(productService.findNumberOfSpecificBrandsProductsWithinPriceRange(category, getRangeMin(rangeid), getRangeMax(rangeid), brandList));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε min, max του διαστήματος και το id του και το επιστρέφουμε με status 200 OK.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setMin(getRangeMin(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setMax(getRangeMax(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setRangeId(Integer.parseInt(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;ProductsPerPriceRang&#60;(ppNumber, HttpStatus.OK);
+                </code>
+            </pre>
+
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/filter-api-postman.PNG" alt="Filter Ranges Api">
+
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getCategoryBrandProductsNumber στον controller. Αν δεν υπάρχει η κατηγορία ή η εταιρία, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/categories/{categoryname}/brands/{brandname}/products/count"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryBrandProductsNumber(<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "categoryname") String categoryname,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "brandname") String brandname,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "range", required = false) String[] ranges{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category category = categoryService.findByName(getCorrectCategoryName(categoryname));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(category == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", categoryname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + categoryname + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!brandService.doesBrandExist(brandname)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Brand with name {} does not  exist.", brandname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Brand with name {} does not  exist" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν δεν είναι κάποιο διάστημα τιμών καλούμε την findNumberOfProductsOfBrandInCategory, αλλιώς δημιουργούμε μια λίστα από διαστήματα τιμών,
+                από την παράμετρο range και το παιρνάμε στην findNumberOfBrandProductsWithinSpecificRangesInCategory.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int productsNumber = 0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(ranges == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productsNumber = productService.findNumberOfProductsOfBrandInCategory(category.getId(), brandService.findByName(brandname).getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;double[]&#62; priceRangeList = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String range : ranges){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double[] rangeValues = new double[2];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[0] = getRangeMin(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[1] = getRangeMax(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangeList.add(rangeValues);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productsNumber = productService.findNumberOfBrandProductsWithinSpecificRangesInCategory(category, brandService.findByName(brandname), priceRangeList);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τον αριθμό και το όνομα της εταιρίας και το επιστρέφουμε με status 200 OK.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductsPerBrand pNumber =  new ProductsPerBrand();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;pNumber.setNumber(productsNumber);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;pNumber.setBrand(brandname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;ProductsPerBrand&#60;(pNumber, HttpStatus.OK);
+                </code>
+            </pre>
+            
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/brands-api-postman-.PNG" alt="Filter Ranges Api">
+
         </section>
 
         <section class="angular">
