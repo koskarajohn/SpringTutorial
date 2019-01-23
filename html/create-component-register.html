@@ -253,23 +253,75 @@
                 </code>
             </pre>
 
-            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+             <p class="mt-5">Δημιουργούμε τoν RegisterApiController στο πακέτο springeshop.controller</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/categories-api-postman-1.PNG" alt="Categories Products 1">
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span><span class="string">"/api"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> RegisterApiController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static final</span>  Logger logger = LoggerFactory.getLogger(RegisterApiController.class);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> AuthorityService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BCryptPasswordEncoder passwordEncoder;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο registerUser στον RegisterApiController. Εάν υπάρχει ήδη χρήστης, με αυτό το username ή email, επιστρέφουμε status 409 CONFILICT.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/register"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; registerUser(<span class="annotation">@Valid @RequestBody(</span>) User user{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(userService.doesUserExist(user)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Unable to register. A user with name {} already exist.", user.getUsername());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. A user with username"</span> + user.getUsername() + <span class="string">" already exists"</span>), HttpStatus.CONFLICT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ifuserService.doesEmailExist(user){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Unable to register. A user with email {} already exist.",  user.getEmail());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. A user with email"</span> +  user.getEmail() + <span class="string">" already exists"</span>), HttpStatus.CONFLICT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p class="mt-5">Κρυπτογραφούμε τον κωδικό του χρήστη, αποθηκεύουμε το χρήστη και το ρόλο του στη βάση. Αν αποθηκεύτηκαν επιτυχημένα επιστρέφουμε το χρήστη
+                με status 201 CREATED, αλλιώς επιστρέφουμε INTERNAL_SERVER_ERROR.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;user.setIs_active(true);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(userService.doesUserExist(user)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Authority authority = new Authority();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;authority.setUser(user);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(authorityService.saveAuthorityAndIsSuccess(authority)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity&#60;&#62;(user, HttpStatus.CREATED);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return new ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
+                </code>
+            </pre>
 
         <section class="angular">
-                <h5>category-page component</h5>
+                <h5>register-page component</h5>
 
-                <p>Δημιουργούμε το component category-page και το τοποθετούμε στο φάκελο components. Το όνομα της κατηγορίας το παιρνάμε 
-                    χρησιμοποιώντας ένα routerLink, το οποίο λέει στην Angular, να αλλάξει route.
-                </p>
-
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;&#60;a class="nav-link" routerLink="/category/{{category.englishName}}">{{category.greekName}}&#60;/p&#62;&#60;/a&#62;
-                    </code>
-                </pre>
-    
+                <p>Δημιουργούμε το component register-page και το service register και το τοποθετούμε στο φάκελο components.</p>
                 
                 <pre>
                     <code>
@@ -277,42 +329,52 @@
                     </code>
                 </pre>
 
-                <p>Θα χρησιμοποιήσουμε τη μέθοδο getCategoryProductsPage() του ProductService, για να πραγματοποιήσουμε
-                    το HTTP αίτημα και να πάρουμε το προϊόντα.
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate service register
+                    </code>
+                </pre>
+
+                <p>Δημιουργούμε ένα μοντέλο User, σύμφωνα με το αντίστοιχο entity
                 </p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/category-service-ts.PNG" alt="Category Service">
+                <img class="img-fluid mx-auto my-5" src="../img/user-ts.PNG" alt="User Ts">
 
-                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, παίρνουμε το όνομα της κατηγορίας από το route και πραγματοποιούμε
-                    το HTTP αίτημα, για να πάρουμε τα προϊόντα. 
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο registerUser() του registerUser, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να εγγράψουμε το χρήστη.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-service.PNG" alt="Register Service">
+
+                <p>register-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και &#60;my-footer&#62;. Δημιουργούμε μια φόρμα με πολλά πεδία και ένα
+                    κουμπί submit.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-html.PNG" alt="Register Page Html">
+
+                <p>register-page.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-css.PNG" alt="Register Page Css">
+
+                <p>Κάνουμε validation το input του χρήστη. Όταν πατήσει το submit, δεν υπάρχει ήδη χρήστης με αυτό το email ή username, τότε
+                    εισάγεται στον πίνακα users.
                 </p>
                 
-                <p>category-page.component.ts</p>
+                <p>register-page.component.ts</p>
 
                 <p></p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/category-ts-1.PNG" alt="Category Page Ts">
-
-                <p>category-page.component.html</p>
-
-                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και μετά εμφανίζουμε τον τίτλο της κατηγορίας. Μετά, στην αριστερή στήλη 
-                    τοθετούμε το template &#60;category-sidebar&#62; του CategorySidebarComponent, το οποίο θα δημιουργήσουμε μετά  και στην δεξιά 
-                    &#60;product-item&#62; templates, για να εμφανίσουμε τα προϊόντα. Τέλος, εισάγουμε τα template &#60;my-footer&#62;
-                </p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-html.PNG" alt="Category Page Html">
-
-                <p>category-page.component.css</p>
-
-                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Page Css">
-                
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-ts.PNG" alt="Register Page Ts">
+      
         </section>
 
         <section class="appearance">
 
             <h5>Τελική εμφάνιση σελίδας</h5>
 
-            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
+            <img class="img-fluid mx-auto my-5" src="../img/register-page-appeance.PNG" alt="Register Page Image">
         </section>
     </div>
 
