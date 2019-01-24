@@ -290,62 +290,73 @@
             <img class="img-fluid mx-auto my-5" src="../img/postman-logout.PNG" alt="Postman">
 
         <section class="angular">
-                <h5>register-page component</h5>
 
-                <p>Δημιουργούμε το component register-page και το service register και το τοποθετούμε στο φάκελο components.</p>
+            <h5>Login</h5>
+
+            <p>Δημιουργούμε το component login-page και το service authentication.</p>
                 
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
-                    </code>
-                </pre>
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;ng generate component login-page
+                </code>
+            </pre>
 
-                <pre>
-                    <code>
-                            &emsp;&emsp;&emsp;&emsp;ng generate service register
-                    </code>
-                </pre>
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;ng generate service authentication
+                </code>
+            </pre>
 
-                <p>Δημιουργούμε ένα μοντέλο User, σύμφωνα με το αντίστοιχο entity
-                </p>
+            <p>Δημιουργούμε ένα μοντέλο Session, σύμφωνα με το αντίστοιχο entity</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/user-ts.PNG" alt="User Ts">
+            <img class="img-fluid mx-auto my-5" src="../img/session-ts.PNG" alt="Session Ts">
 
-                <p>Θα χρησιμοποιήσουμε τη μέθοδο registerUser() του registerUser, για να πραγματοποιήσουμε
-                    το HTTP αίτημα και να εγγράψουμε το χρήστη.
-                </p>
+            <p>authentication.service.ts</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/register-service.PNG" alt="Register Service">
+            <img class="img-fluid mx-auto my-5" src="../img/authentication-service-login.PNG" alt="Authentication Service">
 
-                <p>register-page.component.html</p>
+            <p>Κάθε φορά που ο χρήστης πατάει το κουμπί Είσοδος, η μέθοδος login() του authentication service, κάνει το HTTP 
+                αίτημα και επιστρέφει το ανάλογα μήνυμα. Αν τα στοιχεία του χρήστη είναι σωστά, τον πηγαίνει στο IndexPageComponent.
+            </p>
 
-                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και &#60;my-footer&#62;. Δημιουργούμε μια φόρμα με πολλά πεδία και ένα
-                    κουμπί submit.
-                </p>
+            <p>login-page.component.ts</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/register-page-html.PNG" alt="Register Page Html">
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-ts.PNG" alt="Login Page Ts">
 
-                <p>register-page.component.css</p>
+            <p>login-page.component.html</p>
 
-                <img class="img-fluid mx-auto my-5" src="../img/register-page-css.PNG" alt="Register Page Css">
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-html.PNG" alt="Login Page Html">
 
-                <p>Κάνουμε validation το input του χρήστη. Όταν πατήσει το submit, δεν υπάρχει ήδη χρήστης με αυτό το email ή username, τότε
-                    εισάγεται στον πίνακα users.
-                </p>
-                
-                <p>register-page.component.ts</p>
+            <p>login-page.component.css</p>
 
-                <p></p>
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-css.PNG" alt="Login Page Css">
 
-                <img class="img-fluid mx-auto my-5" src="../img/register-page-ts.PNG" alt="Register Page Ts">
+            <p class="font-weight-bold">Εμφάνιση σελίδας</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/login-appearance.PNG" alt="Login Appearnce">
+
+          <h5>Logout</h5>
+
+          <p>Αφού κάνουμε login, η εμφάνιση της κεντρικής σελίδας είναι η εξής:</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/after-login-appearance.PNG" alt="After Login Appearnce">
+
+          <p>Ο πίνακας spring_session έχει μια εγγραφή</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/spring-session-image.PNG" alt="Spring Session">
+
+          <p>Για να κάνουμε logout, πατάμε στο κουμπί Αποσύνδεση. Καλείται η μέθοδος logout του NavigationBarComponent, η οποία
+              με τη σειρά της καλεί τη μέθοδο logout() του AuthenticationService.
+          </p>
+
+          <p>navigation-bar.component.ts</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/navigation-bar-ts-2.PNG" alt="Navigation Logout">
+
+          <p>authentication.service.ts</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/authentication-service-logout.PNG" alt="Authentication Service">
       
-        </section>
-
-        <section class="appearance">
-
-            <h5>Τελική εμφάνιση σελίδας</h5>
-
-            <img class="img-fluid mx-auto my-5" src="../img/register-page-appeance.PNG" alt="Register Page Image">
         </section>
 
         <section class="references">
