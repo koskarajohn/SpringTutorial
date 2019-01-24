@@ -59,11 +59,12 @@ h6{
 
 #mainNav ul ul ul{
     position:absolute;
-    top:100%;
-    left:-395%;
-    min-width:250px;
+    top:0;
+    left:-330%;
+    min-width:450px;
     display:none;
-    z-index:15}
+    z-index:15
+}
 
 #mainNav ul.navbar-nav li.dropdown ul.dropdown-menu{
     background:#33cc33;
@@ -80,6 +81,11 @@ h6{
     background-color: transparent;
     color: red;
 }
+
+#mainNav ul ul a.dropdown-toggle{
+    padding:16px;
+}
+
 
 /* --- Text Styling --- */
 
