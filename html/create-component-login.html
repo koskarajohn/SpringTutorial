@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - login-page, navigation-bar components (είσοδος και αποσύνδεση)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - login-page, navigation-bar components (είσοδος και αποσύνδεση)</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε το Angular - login-page component, στο οποίο ο χρήστης θα κάνει login στο λογαριασμό του,
+                αφού συμπληρώσει το email και τον κωδικό του. Επίσης, θα τροποιήσουμε το navigation-bar component, ώστε να
+                αποσυνδέεται.
+            </p>
+
+            <p class="font-weight-bold mt-5">HTTP Basic Authentication</p>
+
+            <p>Έχουμε ενεργοποιήσει το HTTP Basic Authentication. Αυτό σημαίνει ότι στα URLS, όπου ορίσαμε ότι ο χρήστης, πρέπει
+                να είναι αυθεντικοποιημένος, πρέπει να παρέχει ένα username και ένα κωδικό σε κάθε αίτημα. Κάθε αίτημα περιέχει
+                ένα header Authorization: Basic &#60;credentials&#60;, όπου το credentials είναι η base64 κωδικοποίηση του 
+                id και του κωδικού, ενωμένα με μια τελεία.
+            </p>
+
+            <p class="font-weight-bold mt-5">Cookies, HTTP Session</p>
+
+            <p>Ένα cookie είναι μια μικρή συλλογή πληροφορίας, το οποίο στέλνεται κάθε φορά από τον browser του client. O Server ανακτά
+                το cookie από κάθε αίτημα του client, ώστε να μπορεί να ξεχωρίζει τα αιτήματα από τον ίδιο client.
+            </p>
+
+            <p>Όταν ο client κάνει το πρώτο αίτημα του στο Server, το servlet container δημιουργεί ένα HttpSession, με την εντολή
+                HttpSession session = request.getSession(), δημιουργεί ένα μοναδικό ID και το αποθηκεύει στη μνήμη του server. Στο header
+                Set-Cookie της HTTP απάντησης του, ο server δημιουργεί ένα cookie με όνομα SESSIOΝ και του δίνει την τιμή του μοναδικού ID. Ο 
+                client αντίστοιχα στέλνει το cookie στα επόμενα αιτήματα του, ώστε να μπορεί να τον αναγνωρίσει ο server και να πάρει το 
+                αντίστοιχο HttpSession από την μνήμη.
+            </p>
+
+            <p class="font-weight-bold mt-5">Login</p>
+
+            <p>Για να κάνει login ο χρήστης, η Angular εφαρμογή θα κάνει ένα HTTP Post στο endpoint /authentication/validateuser, στέλνοντας
+                τα username και τον κωδικό του χρήστη. Αν είναι σωστά, τότε θα κάνει ένα HTTP GET στο /authentication/session, βάζοντας
+                τα στοιχεία στο Authorization: Basic &#60;credentials&#62;, να πάρει το Session cookie και να μην τα ξαναστέλνει σε κάθε αίτημα.
+            </p>
+        </section>
+
+        <section class="spring-boot">
+            <h5>Spring Boot</h5>
+
+            <p>Δημιουργούμε τις κλάσεις UserCredentials και Session στο springeshop.model</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> UserCredentials{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> email;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> password;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> UserCredentials() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Session{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> id;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> username;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> userid;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> type;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Session() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τoν AuthenticationController στο πακέτο springeshop.controller</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> AuthenticationController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BCryptPasswordEncoder passwordEncoder;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο login στον AuthenticationController.</p>
+
+            <ul>
+                <li>Ψάχνουμε τον πίκακα users και εάν δεν υπάρχει χρήστης με αυτό το email, επιστρέφουμε μήνυμα "Δεν υπάρχει λογαριασμός με αυτό το email" και status 404 NOT_FOUND</li>
+                <li>Βρίσκουμε τον κωδικό του χρήστη και εάν δεν ταιριάζουν, επιστρέφουμε μήνυμα "Ο κωδικός δεν είναι σωστός" και status 400 BAD_REQUEST.</li>
+                <li>Εάν τα στοιχεία είναι σώστα, επιστρέφουμε status 200 OK.</li>
+            </ul>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/validateuser"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; login(<span class="annotation">@RequestBody(</span>) UserCredentials userCredentials{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!userService.doesEmailExist(userCredentials.getEmail())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Δεν υπάρχει λογαριασμός με αυτό το email"</span> , HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByEmail(userCredentials.getEmail());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doPasswordsMatch = passwordEncoder.matches(userCredentials.getPassword(), user.getPassword());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!doPasswordsMatch){    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Ο κωδικός δεν είναι σωστός"</span> ,HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(user, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getSession στον AuthenticationController.</p>
+
+            <p>Επιστρέφουμε εκτός από το session cookie, και ένα αντικείμενο Session, το οποίο περιέχει στοιχεία του session.</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/session"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(Principal principal, HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByUsername(principal.getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(principal.getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String userId= user != null ? Integer.toString(user.getId()) : "";
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid(userId);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String type = principal == null ? "anonymous" : "user";
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType(type);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+        <section class="angular">
+                <h5>register-page component</h5>
+
+                <p>Δημιουργούμε το component register-page και το service register και το τοποθετούμε στο φάκελο components.</p>
+                
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-page
+                    </code>
+                </pre>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate service register
+                    </code>
+                </pre>
+
+                <p>Δημιουργούμε ένα μοντέλο User, σύμφωνα με το αντίστοιχο entity
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/user-ts.PNG" alt="User Ts">
+
+                <p>Θα χρησιμοποιήσουμε τη μέθοδο registerUser() του registerUser, για να πραγματοποιήσουμε
+                    το HTTP αίτημα και να εγγράψουμε το χρήστη.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-service.PNG" alt="Register Service">
+
+                <p>register-page.component.html</p>
+
+                <p>Εισάγουμε τα template &#60;navigation-bar&#62; και &#60;my-footer&#62;. Δημιουργούμε μια φόρμα με πολλά πεδία και ένα
+                    κουμπί submit.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-html.PNG" alt="Register Page Html">
+
+                <p>register-page.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-css.PNG" alt="Register Page Css">
+
+                <p>Κάνουμε validation το input του χρήστη. Όταν πατήσει το submit, δεν υπάρχει ήδη χρήστης με αυτό το email ή username, τότε
+                    εισάγεται στον πίνακα users.
+                </p>
+                
+                <p>register-page.component.ts</p>
+
+                <p></p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/register-page-ts.PNG" alt="Register Page Ts">
+      
+        </section>
+
+        <section class="appearance">
+
+            <h5>Τελική εμφάνιση σελίδας</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/register-page-appeance.PNG" alt="Register Page Image">
+        </section>
+
+        <section class="references">
+
+            <h5>Πηγές</h5>
+
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Wikipedia - Basic access authentication</a></li>
+                <li><a href="https://docs.oracle.com/cd/E19644-01/817-5451/dwsessn.html">Oracle Chapter 4 Creating and Managing User Sessions</a></li>
+                <li><a href="https://stackoverflow.com/questions/3106452/how-do-servlets-work-instantiation-sessions-shared-variables-and-multithreadi">stackoverflow - How do servlets work? Instantiation, sessions, shared variables and multithreading</a></li>
+            </ul>
+        </section>
+    </div>
+
+  </body>
+</html>
