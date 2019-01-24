@@ -230,6 +230,65 @@
                 </code>
             </pre>
 
+            <p class="mt-5">Προσθέτουμε τη μέθοδο logout, για να αποσυνδέεται ο χρήστης.</p>
+
+            <p>Κάνουμε invalidate το session και επιστρέφουμε status 200 OK.</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/logout"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.invalidate();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getSessionAnonymous</p>
+
+            <p>Επιστρέφουμε τα στοιχεία του session ενός ανώνυμου χρήστη</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/anonymous/session"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSessionAnonymous(Principal principal, HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isAnonymous = principal == null ? true : false;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(isAnonymous){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(""));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid("");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType("anonymous");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+            <h5>Postman</h5>
+
+            <p>Πραγματοποιούμε GET στο http://localhost:8080/authentication/session και μας επιστρέφει 401 Unauthorized</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-404.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε το ίδιο ερώτημα με το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login1.PNG" alt="Postman">
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login2.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε το ίδιο ερώτημα με το session cookie και χωρίς το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login-3.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε logout στο http://localhost:8080/authentication/logout, διαγράφει το session Cookie και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-logout.PNG" alt="Postman">
+
         <section class="angular">
                 <h5>register-page component</h5>
 
