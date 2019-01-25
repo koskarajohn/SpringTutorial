@@ -555,6 +555,34 @@
                 </code>
             </pre>
 
+             <p class="mt-5">Προσθέτουμε τη μέθοδο deleteUserCart(), η οποία δέχεται το id του χρήστη και διαγράφει το καλάθι του.
+            </p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.DELETE)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; deleteUserCart(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.findUserCartProducts(usrId).isEmpty()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Cart is empty"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.deleteUserCartAndIsSuccess(usrId)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
+                </code>
+            </pre>
+
         <section class="angular">
 
             <h5>Login</h5>
