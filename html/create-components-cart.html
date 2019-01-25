@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - cart-page component</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - cart-page component</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε το Angular cart-page component, το οποίο θα αντιπροσωπεύει το καλάθι του χρήστη</p>
+
+            <p>Εάν ο χρήστης είναι συνδεδεμένος τότε, το καλάθι του θα αποθηκεύεται στη βάση δεδομένων. Αλλιώς αν
+                είναι ανώνυμος, τότε θα αποθηκεύεται στο browser του στο localStorage.
+            </p>
+          
+        </section>
+
+        <section class="spring-boot">
+            <h5>Spring Boot</h5>
+
+            <p>Δημιουργούμε τον πίνακα Cart στη βάση</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/cart.PNG" alt="Cart">
+
+            <p>Δημιουργούμε το σύνθετο πρωτεύον κλειδί CartPrimaryKey και το entity Cart στο springeshop.model</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Embeddable</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartPrimaryKey implements Serializable{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> userId;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> productId;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> CartPrimaryKey() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean equals(Object o) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (this == o) <span class="keyword">return</span> true;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (!(o instanceof CartPrimaryKey)) <span class="keyword">return</span> false;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartPrimaryKey that = (CartPrimaryKey) o;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getProductId(), that.getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int hashCode() {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> Objects.hash(getUserId(), getProductId());  
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το entity Product. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Table(</span>name = <span class="string">"cart"</span>)
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> Cart{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@EmbeddedId</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private CartPrimaryKey</span> id;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span>(fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@MapsId</span>(<span class="string">"userId"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private User</span> user;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@OneToOne</span>(fetch = FetchType.LAZY)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@MapsId</span>(<span class="string">"productId"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private Product</span>  product;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"quantity"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@NotNull(</span>message = <span class="string">"Please provide quantity"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span>  quantity;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Column(name = </span><span class="string">"expiration"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private Timestamp</span>  expiration;
+
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Cart() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τoν AuthenticationController στο πακέτο springeshop.controller</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> AuthenticationController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BCryptPasswordEncoder passwordEncoder;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο login στον AuthenticationController.</p>
+
+            <ul>
+                <li>Ψάχνουμε τον πίκακα users και εάν δεν υπάρχει χρήστης με αυτό το email, επιστρέφουμε μήνυμα "Δεν υπάρχει λογαριασμός με αυτό το email" και status 404 NOT_FOUND</li>
+                <li>Βρίσκουμε τον κωδικό του χρήστη και εάν δεν ταιριάζουν, επιστρέφουμε μήνυμα "Ο κωδικός δεν είναι σωστός" και status 400 BAD_REQUEST.</li>
+                <li>Εάν τα στοιχεία είναι σώστα, επιστρέφουμε status 200 OK.</li>
+            </ul>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/validateuser"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; login(<span class="annotation">@RequestBody(</span>) UserCredentials userCredentials{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!userService.doesEmailExist(userCredentials.getEmail())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Δεν υπάρχει λογαριασμός με αυτό το email"</span> , HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByEmail(userCredentials.getEmail());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doPasswordsMatch = passwordEncoder.matches(userCredentials.getPassword(), user.getPassword());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!doPasswordsMatch){    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Ο κωδικός δεν είναι σωστός"</span> ,HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(user, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getSession στον AuthenticationController.</p>
+
+            <p>Επιστρέφουμε εκτός από το session cookie, και ένα αντικείμενο Session, το οποίο περιέχει στοιχεία του session.</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/session"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(Principal principal, HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByUsername(principal.getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(principal.getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String userId= user != null ? Integer.toString(user.getId()) : "";
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid(userId);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String type = principal == null ? "anonymous" : "user";
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType(type);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο logout, για να αποσυνδέεται ο χρήστης.</p>
+
+            <p>Κάνουμε invalidate το session και επιστρέφουμε status 200 OK.</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/logout"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.invalidate();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getSessionAnonymous</p>
+
+            <p>Επιστρέφουμε τα στοιχεία του session ενός ανώνυμου χρήστη</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/anonymous/session"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSessionAnonymous(Principal principal, HttpSession session){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isAnonymous = principal == null ? true : false;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(isAnonymous){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(""));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid("");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType("anonymous");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                </code>
+            </pre>
+
+            <h5>Postman</h5>
+
+            <p>Πραγματοποιούμε GET στο http://localhost:8080/authentication/session και μας επιστρέφει 401 Unauthorized</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-404.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε το ίδιο ερώτημα με το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login1.PNG" alt="Postman">
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login2.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε το ίδιο ερώτημα με το session cookie και χωρίς το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-login-3.PNG" alt="Postman">
+
+            <p>Πραγματοποιούμε logout στο http://localhost:8080/authentication/logout, διαγράφει το session Cookie και μας επιστρέφει 200 ΟΚ.</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/postman-logout.PNG" alt="Postman">
+
+        <section class="angular">
+
+            <h5>Login</h5>
+
+            <p>Δημιουργούμε το component login-page και το service authentication.</p>
+                
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;ng generate component login-page
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;ng generate service authentication
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε ένα μοντέλο Session, σύμφωνα με το αντίστοιχο entity</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/session-ts.PNG" alt="Session Ts">
+
+            <p>authentication.service.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/authentication-service-login.PNG" alt="Authentication Service">
+
+            <p>Κάθε φορά που ο χρήστης πατάει το κουμπί Είσοδος, η μέθοδος login() του authentication service, κάνει το HTTP 
+                αίτημα και επιστρέφει το ανάλογα μήνυμα. Αν τα στοιχεία του χρήστη είναι σωστά, τον πηγαίνει στο IndexPageComponent.
+            </p>
+
+            <p>login-page.component.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-ts.PNG" alt="Login Page Ts">
+
+            <p>login-page.component.html</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-html.PNG" alt="Login Page Html">
+
+            <p>login-page.component.css</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/login-page-css.PNG" alt="Login Page Css">
+
+            <p class="font-weight-bold">Εμφάνιση σελίδας</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/login-appearance.PNG" alt="Login Appearnce">
+
+          <h5>Logout</h5>
+
+          <p>Αφού κάνουμε login, η εμφάνιση της κεντρικής σελίδας είναι η εξής:</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/after-login-appearance.PNG" alt="After Login Appearnce">
+
+          <p>Ο πίνακας spring_session έχει μια εγγραφή</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/spring-session-image.PNG" alt="Spring Session">
+
+          <p>Για να κάνουμε logout, πατάμε στο κουμπί Αποσύνδεση. Καλείται η μέθοδος logout του NavigationBarComponent, η οποία
+              με τη σειρά της καλεί τη μέθοδο logout() του AuthenticationService.
+          </p>
+
+          <p>navigation-bar.component.ts</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/navigation-bar-ts-2.PNG" alt="Navigation Logout">
+
+          <p>authentication.service.ts</p>
+
+          <img class="img-fluid mx-auto my-5" src="../img/authentication-service-logout.PNG" alt="Authentication Service">
+      
+        </section>
+    </div>
+
+  </body>
+</html>
