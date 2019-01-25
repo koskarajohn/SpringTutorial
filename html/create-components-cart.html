@@ -134,7 +134,7 @@
                 </code>
             </pre>
 
-            <p>Δημιουργούμε το entity Product. </p>
+            <p class="mt-5">Δημιουργούμε το entity Cart. </p>
 
             <pre>
                 <code>
@@ -166,6 +166,145 @@
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
 
                     &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε ένα repository CartRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CartRepository  extends JpaRepository&#60;Cart, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select cartProduct from Cart cartProduct where cartProduct.user.id = :userid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; findUserCartProducts(@Param("userid") int userid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"delete from Cart cartProduct where cartProduct.user.id = :userid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteUserCart(@Param("userid") int userid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"select cartProduct from Cart cartProduct where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart findUserCartProductRow(@Param("userid") int userid, @Param("productid") int productid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"delete from Cart cartProduct where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteUserCartProductRow(@Param("userid") int userid, @Param("productid") int productid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"insert into cart (user_id, product_id, quantity, expiration) values ( :userid, :productid, :quantity, :expiration )",nativeQuery = true)</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void addProductToCart(@Param("userid") int userid, @Param("productid") int productid, @Param("quantity") int quantity, @Param("expiration") Timestamp expiration);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"update Cart cartProduct set cartProduct.quantity = :quantity where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void updateCartProduct (@Param("userid") int userid, @Param("productid") int productid, @Param("quantity") int quantity);
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε το CartService και CartServiceImpl στο springeshop.service . </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CartService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; findUserCartProducts(int userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean deleteUserCartAndIsSuccess(int userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart findUserCartRow(int userid, int productid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean deleteUserCartRowAndIsSuccess(int userid, int productid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean addProductToCartAndIsSuccess(Cart cartProduct);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean updateCartProductAndIsSuccess(int userid, int productid, int quantity);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doesUserCartRowExist(int userid, int productid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"cartService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartServiceImpl <span class="keyword">implements</span> CartService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CartRepository cartRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Cart&#62; findUserCartProducts(int userid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> userRepository.findByUsername(userName);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> deleteUserCartAndIsSuccess(int userid) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.deleteUserCart(userid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Cart findUserCartRow(int userid, int productid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> cartRepository.findUserCartProductRow(userid, productid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean deleteUserCartRowAndIsSuccess(int userid, int productid) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.deleteUserCartProductRow(userid, productid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean addProductToCartAndIsSuccess(Cart cartProduct) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.save(cartProduct);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean updateCartProductAndIsSuccess(int userid, int productid, int quantity) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.updateCartProduct(userid, productid, quantity);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> User findById(int id) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> userRepository.findById(id);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
                 </code>
             </pre>
 
