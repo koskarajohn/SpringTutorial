@@ -134,8 +134,6 @@
                 </code>
             </pre>
 
-            <p class="mt-5">Δημιουργούμε το entity Cart. </p>
-
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Entity</span>
@@ -162,6 +160,28 @@
 
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Cart() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε το CartProduct στο springeshop.model</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartProduct{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> userId;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> productId;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> name;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> brand ;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> imageUrl;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private double</span> price;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> quantity;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> CartProduct() {}
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
 
@@ -308,135 +328,232 @@
                 </code>
             </pre>
 
-            <p class="mt-5">Δημιουργούμε τoν AuthenticationController στο πακέτο springeshop.controller</p>
+            <p class="mt-5">Δημιουργούμε τoν CartApiController στο πακέτο springeshop.controller</p>
 
             <pre>
                 <code>
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
 
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
-                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> AuthenticationController{
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping</span>(<span class="string">"/api"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartApiController{
                         
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CartService cartService;
     
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BCryptPasswordEncoder passwordEncoder;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductService productService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductImageService productImageService;
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
                 </code>
             </pre>
 
-            <p class="mt-5">Προσθέτουμε τη μέθοδο login στον AuthenticationController.</p>
-
-            <ul>
-                <li>Ψάχνουμε τον πίκακα users και εάν δεν υπάρχει χρήστης με αυτό το email, επιστρέφουμε μήνυμα "Δεν υπάρχει λογαριασμός με αυτό το email" και status 404 NOT_FOUND</li>
-                <li>Βρίσκουμε τον κωδικό του χρήστη και εάν δεν ταιριάζουν, επιστρέφουμε μήνυμα "Ο κωδικός δεν είναι σωστός" και status 400 BAD_REQUEST.</li>
-                <li>Εάν τα στοιχεία είναι σώστα, επιστρέφουμε status 200 OK.</li>
-            </ul>
+            <p class="mt-5">Προσθέτουμε τη μέθοδο createCartProduct() στον CartApiController, με την οποία προσθέτουμε προϊόντα στο πίνακα Carts.
+                O client στέλνει το ένα CartProduct, που περιέχει το id του χρήστη και του προϊόντος και άλλα στοιχεία του και τα προσθέτουμε στον πίνακα. 
+            </p>
             
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/validateuser"</span>, method = RequestMethod.POST)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; login(<span class="annotation">@RequestBody(</span>) UserCredentials userCredentials{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; createCartProduct(<span class="annotation">@RequestBody(</span>) CartProduct cartProduct{
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!userService.doesEmailExist(userCredentials.getEmail())){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Δεν υπάρχει λογαριασμός με αυτό το email"</span> , HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findById(cartProduct.getProductid());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. User does not exist"</span> , HttpStatus.BAD_REQUEST);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByEmail(userCredentials.getEmail());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doPasswordsMatch = passwordEncoder.matches(userCredentials.getPassword(), user.getPassword());
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!doPasswordsMatch){    
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Ο κωδικός δεν είναι σωστός"</span> ,HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(product == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. Product does not exist"</span> , HttpStatus.BAD_REQUEST);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(user, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60; 0){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. Quantity does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartPrimaryKey cartProductCompositeId = new CartPrimaryKey(cartProduct.getUserid(), cartProduct.getProductid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart cartRow =  new Cart();	
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Timestamp expiration = new Timestamp(System.currentTimeMillis());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setId(cartProductCompositeId);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setUser(user);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setProduct(product);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setQuantity(cartProduct.getQuantity());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setExpiration(expiration);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60; 0){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct cartProductCreated = new CartProduct();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setUserid(cartRow.getId().getUserId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setProductid(cartRow.getId().getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setName(cartRow.getProduct().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setBrand(cartRow.getProduct().getBrand().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setQuantity(cartRow.getQuantity());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setPrice(cartRow.getProduct().getPrice());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(cartProductCreated, HttpStatus.CREATED);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
                 </code>
             </pre>
 
-            <p class="mt-5">Προσθέτουμε τη μέθοδο getSession στον AuthenticationController.</p>
-
-            <p>Επιστρέφουμε εκτός από το session cookie, και ένα αντικείμενο Session, το οποίο περιέχει στοιχεία του session.</p>
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getUserCartProducts(), η οποία δέχεται το id του χρήστη και επιστρέφει τα προϊόντα του καλαθιού του.
+            </p>
             
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/session"</span>, method = RequestMethod.GET)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(Principal principal, HttpSession session){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getUserCartProducts(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) int userid{
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByUsername(principal.getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(principal.getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String userId= user != null ? Integer.toString(user.getId()) : "";
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid(userId);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String type = principal == null ? "anonymous" : "user";
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType(type);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; products = cartService.findUserCartProducts(userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;CartProduct&#62; cartProducts = new ArrayList&#60;&#62;();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(products == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(Cart cart : products){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct prod = new CartProduct();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setUserid(cart.getId().getUserId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setProductid(cart.getId().getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setName(cart.getProduct().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setBrand(cart.getProduct().getBrand().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setQuantity(cart.getQuantity());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setPrice(cart.getProduct().getPrice());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage productImage = productImageService.findByProductId(prod.getProductid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setImageUrl(productImage.getVerySmallImageurl());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProducts.add(prod);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;CartProduct&#62;&#62;(cartProducts, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
                 </code>
             </pre>
 
-            <p class="mt-5">Προσθέτουμε τη μέθοδο logout, για να αποσυνδέεται ο χρήστης.</p>
-
-            <p>Κάνουμε invalidate το session και επιστρέφουμε status 200 OK.</p>
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getUserCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος, επιστρέφει το προϊόν αυτό.
+            </p>
             
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/authentication/logout"</span>, method = RequestMethod.POST)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSession(HttpSession session){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getUserCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.invalidate();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!cartService.doesUserCartRowExist(usrId, prodId)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart cartRow = cartService.findUserCartRow(usrId, prodId);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct cartProduct = new CartProduct();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setUserid(cart.getId().getUserId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setProductid(cart.getId().getProductId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setName(cart.getProduct().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setBrand(cart.getProduct().getBrand().getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setQuantity(cart.getQuantity());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setPrice(cart.getProduct().getPrice());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;CartProduct&#62;(cartProduct, HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
                 </code>
             </pre>
 
-            <p class="mt-5">Προσθέτουμε τη μέθοδο getSessionAnonymous</p>
-
-            <p>Επιστρέφουμε τα στοιχεία του session ενός ανώνυμου χρήστη</p>
+            <p class="mt-5">Προσθέτουμε τη μέθοδο deleteUserCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος, διαγράφει το προϊόν από το καλάθι.
+            </p>
             
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/anonymous/session"</span>, method = RequestMethod.GET)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getSessionAnonymous(Principal principal, HttpSession session){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.DELETE)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; deleteUserCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isAnonymous = principal == null ? true : false;
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(isAnonymous){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Session userSession = new Session();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setId(session.getId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUsername(""));
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setUserid("");
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;userSession.setType("anonymous");
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(userSession, HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!cartService.doesUserCartRowExist(usrId, prodId)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.deleteUserCartRowAndIsSuccess(usrId, prodId)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
                 </code>
             </pre>
 
-            <h5>Postman</h5>
+            <p class="mt-5">Προσθέτουμε τη μέθοδο updateCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος και ενημερώνουμε την ποσότητα του προϊόντος.
+            </p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.PATCH)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; updateCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
 
-            <p>Πραγματοποιούμε GET στο http://localhost:8080/authentication/session και μας επιστρέφει 401 Unauthorized</p>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
 
-            <img class="img-fluid mx-auto my-5" src="../img/postman-404.PNG" alt="Postman">
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findById(prodId);
+                    
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-            <p>Πραγματοποιούμε το ίδιο ερώτημα με το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(product == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-            <img class="img-fluid mx-auto my-5" src="../img/postman-login1.PNG" alt="Postman">
 
-            <img class="img-fluid mx-auto my-5" src="../img/postman-login2.PNG" alt="Postman">
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60;&#62; 0){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Quantity cannot be negative"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-            <p>Πραγματοποιούμε το ίδιο ερώτημα με το session cookie και χωρίς το Authorization Header και μας επιστρέφει 200 ΟΚ.</p>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int oldQuantity = cartService.findUserCartRow(usrId, prodId).getQuantity();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(oldQuantity != cartProduct.getQuantity()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.updateCartProductAndIsSuccess(usrId, prodId, cartProduct.getQuantity())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);	
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);	
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    }
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-            <img class="img-fluid mx-auto my-5" src="../img/postman-login-3.PNG" alt="Postman">
-
-            <p>Πραγματοποιούμε logout στο http://localhost:8080/authentication/logout, διαγράφει το session Cookie και μας επιστρέφει 200 ΟΚ.</p>
-
-            <img class="img-fluid mx-auto my-5" src="../img/postman-logout.PNG" alt="Postman">
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_OK);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
+                </code>
+            </pre>
 
         <section class="angular">
 
