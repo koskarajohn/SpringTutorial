@@ -585,71 +585,58 @@
 
         <section class="angular">
 
-            <h5>Login</h5>
+            <h5>Angular</h5>
 
-            <p>Δημιουργούμε το component login-page και το service authentication.</p>
+            <p>Δημιουργούμε το component cart-page και το service cart.</p>
                 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;ng generate component login-page
+                    &emsp;&emsp;&emsp;&emsp;ng generate component cart-page
                 </code>
             </pre>
 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;ng generate service authentication
+                    &emsp;&emsp;&emsp;&emsp;ng generate service cart
                 </code>
             </pre>
 
-            <p>Δημιουργούμε ένα μοντέλο Session, σύμφωνα με το αντίστοιχο entity</p>
+            <p>Δημιουργούμε ένα μοντέλο CartProduct</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/session-ts.PNG" alt="Session Ts">
+            <img class="img-fluid mx-auto my-5" src="../img/cartProduct-ts.PNG" alt="Cart Product">
 
-            <p>authentication.service.ts</p>
+            <p>cart.service.ts</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/authentication-service-login.PNG" alt="Authentication Service">
+            <p>Όταν ο χρήστης είναι συνδεδεμένος, το καλάθι αποθηκεύται στη βάση.</p>
 
-            <p>Κάθε φορά που ο χρήστης πατάει το κουμπί Είσοδος, η μέθοδος login() του authentication service, κάνει το HTTP 
-                αίτημα και επιστρέφει το ανάλογα μήνυμα. Αν τα στοιχεία του χρήστη είναι σωστά, τον πηγαίνει στο IndexPageComponent.
-            </p>
+            <img class="img-fluid mx-auto my-5" src="../img/cart-service-ts-1.PNG" alt="Cart Service">
 
-            <p>login-page.component.ts</p>
+            <p>Όταν ο χρήστης δεν είναι συνδεδεμένος, το καλάθι αποθηκεύεται στο localStorage ως String</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/login-page-ts.PNG" alt="Login Page Ts">
+            <img class="img-fluid mx-auto my-5" src="../img/cart-page-appearance-2.PNG" alt="Cart Appearance">
 
-            <p>login-page.component.html</p>
+            <img class="img-fluid mx-auto my-5" src="../img/cart-service-ts-2.PNG" alt="Cart Service">
 
-            <img class="img-fluid mx-auto my-5" src="../img/login-page-html.PNG" alt="Login Page Html">
+            <p>Προσθέτουμε τη μέθοδο addProductsToCart() στο ProductPageComponent, ώστε προσθέτει ο χρήστης προιόντα στο καλάθι</p>
 
-            <p>login-page.component.css</p>
+            <img class="img-fluid mx-auto my-5" src="../img/product-page-add-product.PNG" alt="Product Page">
 
-            <img class="img-fluid mx-auto my-5" src="../img/login-page-css.PNG" alt="Login Page Css">
+
+            <p>cart-page.component.ts</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/cart-page-ts.PNG" alt="Cart Page Ts">
+
+            <p>cart-page.component.html</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/cart-page-html.PNG" alt="Cart Page Html">
+
+            <p>cart-page.component.css</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/cart-page-css.PNG" alt="Cart Page Css">
 
             <p class="font-weight-bold">Εμφάνιση σελίδας</p>
 
-          <img class="img-fluid mx-auto my-5" src="../img/login-appearance.PNG" alt="Login Appearnce">
-
-          <h5>Logout</h5>
-
-          <p>Αφού κάνουμε login, η εμφάνιση της κεντρικής σελίδας είναι η εξής:</p>
-
-          <img class="img-fluid mx-auto my-5" src="../img/after-login-appearance.PNG" alt="After Login Appearnce">
-
-          <p>Ο πίνακας spring_session έχει μια εγγραφή</p>
-
-          <img class="img-fluid mx-auto my-5" src="../img/spring-session-image.PNG" alt="Spring Session">
-
-          <p>Για να κάνουμε logout, πατάμε στο κουμπί Αποσύνδεση. Καλείται η μέθοδος logout του NavigationBarComponent, η οποία
-              με τη σειρά της καλεί τη μέθοδο logout() του AuthenticationService.
-          </p>
-
-          <p>navigation-bar.component.ts</p>
-
-          <img class="img-fluid mx-auto my-5" src="../img/navigation-bar-ts-2.PNG" alt="Navigation Logout">
-
-          <p>authentication.service.ts</p>
-
-          <img class="img-fluid mx-auto my-5" src="../img/authentication-service-logout.PNG" alt="Authentication Service">
+          <img class="img-fluid mx-auto my-5" src="../img/cart-page-appearance-1.PNG" alt="Cart Page Appearnce">
       
         </section>
     </div>
