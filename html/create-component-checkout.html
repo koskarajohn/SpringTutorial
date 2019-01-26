@@ -354,55 +354,48 @@
                 </code>
             </pre>
 
-            <p class="mt-5">Δημιουργούμε ένα repository CartRepository. </p>
+            <p class="mt-5">Δημιουργούμε τα repositories BillingInfoRepository, ShippingInfoRepository. </p>
 
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
 
                     &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CartRepository  extends JpaRepository&#60;Cart, Integer&#62;  {
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select cartProduct from Cart cartProduct where cartProduct.user.id = :userid"</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; findUserCartProducts(@Param("userid") int userid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"delete from Cart cartProduct where cartProduct.user.id = :userid"</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteUserCart(@Param("userid") int userid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"select cartProduct from Cart cartProduct where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart findUserCartProductRow(@Param("userid") int userid, @Param("productid") int productid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"delete from Cart cartProduct where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void deleteUserCartProductRow(@Param("userid") int userid, @Param("productid") int productid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(value = <span class="string">"insert into cart (user_id, product_id, quantity, expiration) values ( :userid, :productid, :quantity, :expiration )",nativeQuery = true)</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void addProductToCart(@Param("userid") int userid, @Param("productid") int productid, @Param("quantity") int quantity, @Param("expiration") Timestamp expiration);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"update Cart cartProduct set cartProduct.quantity = :quantity where cartProduct.user.id = :userid and cartProduct.product.id = :productid"</span>)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Modifying</span>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void updateCartProduct (@Param("userid") int userid, @Param("productid") int productid, @Param("quantity") int quantity);
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BillingInfoRepository  extends JpaRepository&#60;BillingInfo, Integer&#62;  {
 
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
 
-            <p class="mt-5">Δημιουργούμε το CartService και CartServiceImpl στο springeshop.service . </p>
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ShippingInfoRepository  extends JpaRepository&#60;ShippingInfo, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τα BillingInfoService, ShippingInfoService, BillingInfoServiceImpl, ShippingInfoServiceImplστο springeshop.service . </p>
 
             <pre>
                 <code>
                     &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
-                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> CartService{
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BillingInfoService{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean saveBillingInfoAndIsSuccess(BillingInfo billingInfo);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; findUserCartProducts(int userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean deleteUserCartAndIsSuccess(int userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart findUserCartRow(int userid, int productid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean deleteUserCartRowAndIsSuccess(int userid, int productid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean addProductToCartAndIsSuccess(Cart cartProduct);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean updateCartProductAndIsSuccess(int userid, int productid, int quantity);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean doesUserCartRowExist(int userid, int productid);
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> ShippingInfoService{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean saveShippingInfoAndIsSuccess(ShippingInfo shippingInfo);
                     &emsp;&emsp;&emsp;&emsp;} 
                 </code>
             </pre>
@@ -411,24 +404,19 @@
                 <code>
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
 
-                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"cartService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"billingInfoService"</span>)
                         &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
-                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartServiceImpl <span class="keyword">implements</span> CartService{
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BillingInfoServiceImpl <span class="keyword">implements</span> BillingInfoService{
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CartRepository cartRepository;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BillingInfoRepository billingInfoRepository;
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Cart&#62; findUserCartProducts(int userid) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> userRepository.findByUsername(userName);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> deleteUserCartAndIsSuccess(int userid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean saveBillingInfoAndIsSuccess(BillingInfo billingInfo) {
                          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.deleteUserCart(userid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;billingInfoRepository.save(billingInfo);
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
@@ -438,62 +426,169 @@
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> Cart findUserCartRow(int userid, int productid) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> cartRepository.findUserCartProductRow(userid, productid);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean deleteUserCartRowAndIsSuccess(int userid, int productid) {
-                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.deleteUserCartProductRow(userid, productid);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean addProductToCartAndIsSuccess(Cart cartProduct) {
-                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.save(cartProduct);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span> boolean updateCartProductAndIsSuccess(int userid, int productid, int quantity) {
-                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRepository.updateCartProduct(userid, productid, quantity);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> User findById(int id) {
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> userRepository.findById(id);
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
                         }
                 </code>
             </pre>
 
-            <p class="mt-5">Δημιουργούμε τoν CartApiController στο πακέτο springeshop.controller</p>
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"shippingInfoService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ShippingInfoServiceImpl <span class="keyword">implements</span> ShippingInfoService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ShippingInfoRepository shippingInfoRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean saveShippingInfoAndIsSuccess(ShippingInfo shippingInfo) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;shippingInfoRepository.save(shippingInfo);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τα repositories OrderRepository, OrderProductRepository. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> OrderRepository  extends JpaRepository&#60;Order, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select order from Order order where order.user.id = :userid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Order&#62; findUserOrders(@Param("userid") int userid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.repositories;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Repository</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> OrderProductRepository  extends JpaRepository&#60;OrderProduct, Integer&#62;  {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Query</span>(<span class="string">"select prod from OrderProduct prod where prod.order.id = :orderid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Product&#62; findOrderProducts(@Param("orderid") int orderid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τα OrderService, OrderProductService, OrderServiceImpl, OrderProductServiceImpl στο springeshop.service . </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> OrderService{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean saveOrderAndIsSuccess(Order order);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Order&#62; findUserOrders(int userid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> OrderProductService{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void saveOrderProduct(OrderProduct orderProduct);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean saveOrderProducts(List&#60;OrderProduct&#62; orderProducts);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Product&#62; findOrderProducts(int orderid);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"orderService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderServiceImpl <span class="keyword">implements</span> OrderService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> OrderRepository orderRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean saveOrderAndIsSuccess(Order order) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderRepository.save(order);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Order&#62; findUserOrders(int userid);
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return orderRepository.findUserOrders(userid);
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"orderProductService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> OrderProductServiceImpl <span class="keyword">implements</span> OrderProductService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> OrderProductRepository orderProductRepository;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> void saveOrderProduct(OrderProduct orderProduct) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProductRepository.save(orderProduct);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Product&#62; findOrderProducts(int orderid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return orderProductRepository.findOrderProducts(orderid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> boolean saveOrderProducts(List&#60;OrderProduct&#62; orderProducts) {
+                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = false;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProductRepository.saveAll(orderProducts);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = true;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} catch (DataAccessException exception) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println(exception);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = false;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;} 
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> isSuccess;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τoν OrderApiController στο πακέτο springeshop.controller</p>
 
             <pre>
                 <code>
@@ -504,244 +599,82 @@
                         &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> CartApiController{
                         
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CartService cartService;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> OrderService orderService;
     
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> OrderProductService orderProductService;
 
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductService productService;
     
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductImageService productImageService;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> UserService userService;
 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ShippingInfoService shippingInfoService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BillingInfoService billingInfoService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> BillingInfoService billingInfoService;
+                        
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
                 </code>
             </pre>
 
-            <p class="mt-5">Προσθέτουμε τη μέθοδο createCartProduct() στον CartApiController, με την οποία προσθέτουμε προϊόντα στο πίνακα Carts.
-                O client στέλνει το ένα CartProduct, που περιέχει το id του χρήστη και του προϊόντος και άλλα στοιχεία του και τα προσθέτουμε στον πίνακα. 
+            <p class="mt-5">Προσθέτουμε τη μέθοδο createOrder() στον OrderApiController, με την οποία προσθέτουμε μια παραγγελία.
+                O client στέλνει ένα OrderDetails αντικείμενο, που περιέχει το καλάθι, το email του χρήστης, τις πληροφορίες χρέωσης και αποστολής. 
+                Προσθέτουμε την παραγγελία και τα προϊόντα στους πίνακες και στέλνουμε ένα email με τα στοιχεία της παραγγελίας στο χρήστη.
             </p>
             
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts"</span>, method = RequestMethod.POST)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; createCartProduct(<span class="annotation">@RequestBody(</span>) CartProduct cartProduct{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/orders"</span>, method = RequestMethod.POST)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; createCartProduct(<span class="annotation">@Valid @RequestBody(</span>) OrderDetails orderDetails{
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findById(cartProduct.getProductid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;boolean isAnonymous = principal == null ? true : false;
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. User does not exist"</span> , HttpStatus.BAD_REQUEST);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(isAnonymous && orderDetails.getEmail() == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Email was not provided"</span> , HttpStatus.BAD_REQUEST);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(product == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. Product does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(shippingInfoService.saveShippingInfoAndIsSuccess(orderDetails.getShipping_info()) && 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;billingInfoService.saveBillingInfoAndIsSuccess(orderDetails.getBilling_info())){
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60; 0){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Unable to create. Quantity does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Order order = new Order();
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartPrimaryKey cartProductCompositeId = new CartPrimaryKey(cartProduct.getUserid(), cartProduct.getProductid());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart cartRow =  new Cart();	
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Timestamp expiration = new Timestamp(System.currentTimeMillis());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setId(cartProductCompositeId);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setUser(user);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setProduct(product);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setQuantity(cartProduct.getQuantity());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartRow.setExpiration(expiration);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60; 0){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct cartProductCreated = new CartProduct();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setUserid(cartRow.getId().getUserId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setProductid(cartRow.getId().getProductId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setName(cartRow.getProduct().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setBrand(cartRow.getProduct().getBrand().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setQuantity(cartRow.getQuantity());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProductCreated.setPrice(cartRow.getProduct().getPrice());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(cartProductCreated, HttpStatus.CREATED);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
-                </code>
-            </pre>
-
-            <p class="mt-5">Προσθέτουμε τη μέθοδο getUserCartProducts(), η οποία δέχεται το id του χρήστη και επιστρέφει τα προϊόντα του καλαθιού του.
-            </p>
-            
-            <pre>
-                <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}"</span>, method = RequestMethod.GET)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getUserCartProducts(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) int userid{
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(cartProduct.getUserid());
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Cart&#62; products = cartService.findUserCartProducts(userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;CartProduct&#62; cartProducts = new ArrayList&#60;&#62;();
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(products == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(Cart cart : products){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct prod = new CartProduct();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setUserid(cart.getId().getUserId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setProductid(cart.getId().getProductId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setName(cart.getProduct().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setBrand(cart.getProduct().getBrand().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setQuantity(cart.getQuantity());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setPrice(cart.getProduct().getPrice());
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductImage productImage = productImageService.findByProductId(prod.getProductid());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;prod.setImageUrl(productImage.getVerySmallImageurl());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProducts.add(prod);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;CartProduct&#62;&#62;(cartProducts, HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
-                </code>
-            </pre>
-
-            <p class="mt-5">Προσθέτουμε τη μέθοδο getUserCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος, επιστρέφει το προϊόν αυτό.
-            </p>
-            
-            <pre>
-                <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.GET)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getUserCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
-                    
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!cartService.doesUserCartRowExist(usrId, prodId)){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.NOT_FOUND);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cart cartRow = cartService.findUserCartRow(usrId, prodId);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CartProduct cartProduct = new CartProduct();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setUserid(cart.getId().getUserId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setProductid(cart.getId().getProductId());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setName(cart.getProduct().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setBrand(cart.getProduct().getBrand().getName());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setQuantity(cart.getQuantity());
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cartProduct.setPrice(cart.getProduct().getPrice());
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;CartProduct&#62;(cartProduct, HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
-                </code>
-            </pre>
-
-            <p class="mt-5">Προσθέτουμε τη μέθοδο deleteUserCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος, διαγράφει το προϊόν από το καλάθι.
-            </p>
-            
-            <pre>
-                <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.DELETE)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; deleteUserCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
-                    
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!cartService.doesUserCartRowExist(usrId, prodId)){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.NOT_FOUND);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.deleteUserCartRowAndIsSuccess(usrId, prodId)){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
-                </code>
-            </pre>
-
-            <p class="mt-5">Προσθέτουμε τη μέθοδο updateCartProduct(), η οποία δέχεται το id του χρήστη και προϊόντος και ενημερώνουμε την ποσότητα του προϊόντος.
-            </p>
-            
-            <pre>
-                <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.PATCH)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; updateCartProduct(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid,
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable</span>(value = "productid", required = true)) String productid){
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int prodId = Integer.parseInt(productid);
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Product product = productService.findById(prodId);
-                    
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(product == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Product does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartProduct.getQuantity() &#60;&#62; 0){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Quantity cannot be negative"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int oldQuantity = cartService.findUserCartRow(usrId, prodId).getQuantity();
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(oldQuantity != cartProduct.getQuantity()){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.updateCartProductAndIsSuccess(usrId, prodId, cartProduct.getQuantity())){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);	
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);	
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!isAnonymous){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findByUsername(principal.getName());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setUser(user);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-                    }
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
-                </code>
-            </pre>
-
-             <p class="mt-5">Προσθέτουμε τη μέθοδο deleteUserCart(), η οποία δέχεται το id του χρήστη και διαγράφει το καλάθι του.
-            </p>
-            
-            <pre>
-                <code>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/carts/{userid}/products/{productid}"</span>, method = RequestMethod.DELETE)
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; deleteUserCart(<span class="annotation">@PathVariable</span>(value = "userid", required = true)) String userid){
-
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int usrId = Integer.parseInt(userid);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;User user = userService.findById(usrId);
                     
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(user == null){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"User does not exist"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setEmail(orderDetails.getEmail());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setStatus("Created");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Timestamp currentDate = new Timestamp(System.currentTimeMillis());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setOrder_date(currentDate);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setShippingInfo(orderDetails.getShipping_info());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;order.setBillingInfo(orderDetails.getBilling_info());
 
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.findUserCartProducts(usrId).isEmpty()){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Cart is empty"</span> , HttpStatus.BAD_REQUEST);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(orderService.saveOrderAndIsSuccess(order)){
 
-                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(cartService.deleteUserCartAndIsSuccess(usrId)){
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.OK);
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;OrderProduct&#62; orderProducts = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(CartProduct cartProduct : orderDetails.getCartProducts()){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;OrderProduct orderProduct = new OrderProduct();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;OrderProductPrimaryKey id = new OrderProductPrimaryKey(order.getId(), cartProduct.getProductid());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProduct.setId(id);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProduct.setOrder(order);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProduct.setProduct(productService.findById(cartProduct.getProductid()));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProduct.setQuantity(cartProduct.getQuantity());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;orderProducts.add(orderProduct);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(orderProductService.saveOrderProducts(orderProducts)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;emailService.sendEmail(order, orderDetails.getCartProducts());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;Order&#62;(order, HttpStatus.CREATED);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}  
 
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.INTERNAL_SERVER_ERROR);
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}               
