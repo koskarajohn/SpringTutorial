@@ -685,56 +685,55 @@
 
             <h5>Angular</h5>
 
-            <p>Δημιουργούμε το component cart-page και το service cart.</p>
+            <p>Δημιουργούμε το component checkout-page και το service checkout.</p>
                 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;ng generate component cart-page
+                    &emsp;&emsp;&emsp;&emsp;ng generate component checkout-page
                 </code>
             </pre>
 
             <pre>
                 <code>
-                    &emsp;&emsp;&emsp;&emsp;ng generate service cart
+                    &emsp;&emsp;&emsp;&emsp;ng generate service checkout
                 </code>
             </pre>
 
-            <p>Δημιουργούμε ένα μοντέλο CartProduct</p>
+            <p>Δημιουργούμε τις κλάσεις BillingInfo, ShippingInfo, Order, OrderDetails</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/cartProduct-ts.PNG" alt="Cart Product">
+            <img class="img-fluid mx-auto my-5" src="../img/billinginfo-ts.PNG" alt="BillingInfo">
 
-            <p>cart.service.ts</p>
+            <img class="img-fluid mx-auto my-5" src="../img/shipping-info-ts.PNG" alt="Shipping">
 
-            <p>Όταν ο χρήστης είναι συνδεδεμένος, το καλάθι αποθηκεύται στη βάση.</p>
+            <img class="img-fluid mx-auto my-5" src="../img/order-ts.PNG" alt="Order">
 
-            <img class="img-fluid mx-auto my-5" src="../img/cart-service-ts-1.PNG" alt="Cart Service">
+            <img class="img-fluid mx-auto my-5" src="../img/order-details-ts.PNG" alt="Order Details">
 
-            <p>Όταν ο χρήστης δεν είναι συνδεδεμένος, το καλάθι αποθηκεύεται στο localStorage ως String</p>
+            <p>checkout.service.ts</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/cart-page-appearance-2.PNG" alt="Cart Appearance">
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-service.PNG" alt="Checkout Service">
 
-            <img class="img-fluid mx-auto my-5" src="../img/cart-service-ts-2.PNG" alt="Cart Service">
+            <p>Όταν ο χρήστης πατήσει το κουμπί Ολοκλήρωση αγοράς, καλείται η μέθοδος onSubmit(), η οποία καλεί τη μέθοδο
+                addOrder(), ώστε να καταχωρηθεί η παραγγελία στο Server.
+            </p>
 
-            <p>Προσθέτουμε τη μέθοδο addProductsToCart() στο ProductPageComponent, ώστε προσθέτει ο χρήστης προιόντα στο καλάθι</p>
+            <p>checkout-page.component.ts</p>
 
-            <img class="img-fluid mx-auto my-5" src="../img/product-page-add-product.PNG" alt="Product Page">
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-component-ts.PNG" alt="Checkout Page Ts">
 
+            <p>checkout-page.component.html</p>
 
-            <p>cart-page.component.ts</p>
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-component-html.PNG" alt="Checkout Page Html">
 
-            <img class="img-fluid mx-auto my-5" src="../img/cart-page-ts.PNG" alt="Cart Page Ts">
+            <p>checkout-page.component.css</p>
 
-            <p>cart-page.component.html</p>
-
-            <img class="img-fluid mx-auto my-5" src="../img/cart-page-html.PNG" alt="Cart Page Html">
-
-            <p>cart-page.component.css</p>
-
-            <img class="img-fluid mx-auto my-5" src="../img/cart-page-css.PNG" alt="Cart Page Css">
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-component-css.PNG" alt="Checkout Page Css">
 
             <p class="font-weight-bold">Εμφάνιση σελίδας</p>
 
-          <img class="img-fluid mx-auto my-5" src="../img/cart-page-appearance-1.PNG" alt="Cart Page Appearnce">
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-appearance-1.PNG" alt="Cart Page Appearnce">
+
+            <img class="img-fluid mx-auto my-5" src="../img/checkout-appearance-2.PNG" alt="Checkout Page Appearnce">
       
         </section>
     </div>
