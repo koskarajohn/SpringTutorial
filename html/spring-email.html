@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spring Email - αποστολή E-mail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="spring.html">What is Spring</a>
+                              <a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>
+                              <a class="dropdown-item" href="spring-beans.html">Spring Beans</a>
+                              <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>
+                              <a class="dropdown-item" href="annotations.html">Annotations</a>
+                              <a class="dropdown-item" href="spring-boot.html">Spring Boot</a>
+                              <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a>
+                              <a class="dropdown-item" href="spring-security.html">Spring Security</a>
+                              <a class="dropdown-item" href="rest-api.html">Rest API</a>
+                              <a class="dropdown-item" href="application-properties.html">Application Properties</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="jpa.html">JPA</a>
+                              <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a>
+                              <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a>
+                              <a class="dropdown-item" href="heroku.html">Heroku</a>
+                              <a class="dropdown-item" href="postgresql.html">Postgres</a>
+                              <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a>
+                              <a class="dropdown-item" href="angular.html">Angular</a>
+                              <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a> 
+                              <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a>
+                            </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a>
+                            <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a>
+                            <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a>
+                            <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a>
+                            <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a>
+                            <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a>
+                            <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a>
+                            <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a>
+                            <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a>
+                            <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a>
+                            <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a>
+                            <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a>
+                        </div>
+                      </li>
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Spring Email - αποστολή E-mail</h1>
+
+        <section class="intro">
+            <p>Θα χρησιμoποιήσουμε το Spring Email , για να στείλουμε ένα e-mail στο χρήστη, με τα στοιχεία της παραγγελίας.</p>
+          
+        </section>
+
+        <section class="dependency">
+
+            <h5>Dependency</h5>
+
+            <p>Προσθέτουμε στο αρχείο pom.xml, τα ακόλουθα dependencies.</p>
+            
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;dependency&#62;</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;groupId&#62;</span>org.springframework.boot<span class="annotation">&#60;/groupId&#62;</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">&emsp;&emsp;&#60;artifactId&#60;</span> spring-boot-starter-mail <span class="annotation">&#60;/artifactId&#62;</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">&#60;/dependency&#62;</span>
+                </code>
+            </pre>
+        </section>
+
+        <section class="application-properties">
+
+            <h5>Application Properties</h5>
+
+            <p>Θα χρησιμoποιήσουμε το gmail, για να στείλουμε το email. Προσθέτουμε properties στο αρχείο application.properties, όπως τον
+                SMTP server host, το port του SMTP server, το όνομα χρήστη και τον κωδικό. 
+
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.host=smtp.gmail.com
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.port=587
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.username = ${GMAIL_USERNAME}
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.password = ${GMAIL_PASSWORD}
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.properties.mail.smtp.auth=true
+                    &emsp;&emsp;&emsp;&emsp;spring.mail.properties.mail.smtp.starttls.enable=true
+                </code>
+            </pre>
+        </section>
+
+        <section class="spring-boot">
+            <p class="mt-5">Δημιουργούμε την διεπαφή EmailService στο springeshop.service. </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> EmailService{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;void sendEmail(Order order, List&#60;CartProduct&#62; cartProducts);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Καλώντας τη μέθοδο sendEmail στέλνουμε το e-mail. Θα χρησιμοποιήσουμε το Thymeleaf template engine, για να περάσουμε τιμές στο αρχείο
+                email.html, που θα δημιουργήσουμε.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Component</span>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> EmailServiceImpl <span class="keyword">implements</span> EmailService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> JavaMailSender emailSender;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> TemplateEngine templateEngine;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Async</span>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">public </span>void sendEmail(Order order, List&#60;CartProduct&#62; cartProducts) {
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;try{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String processedHTMLTemplate = this.constructHTMLTemplate(order, cartProducts);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MimeMessage message = emailSender.createMimeMessage();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;helper.setTo(order.getEmail()); 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;helper.setSubject("Παραγγελία " + order.getId()); 
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;helper.setText(processedHTMLTemplate, true);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;emailSender.send(message);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}catch(MessagingException e) {
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">private </span>double getTotalCartPrice(List&#60;CartProduct&#62; cartProducts){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Context context = new Context();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("order", order);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("userFullName", getUserName(order));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("date", getDate(order.getOrder_date()));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("billingInfoFullName", order.getBillingInfo().getFirst_name() + " " + order.getBillingInfo().getLast_name());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("shippingInfoFullName", order.getShippingInfo().getFirst_name() + " " + order.getShippingInfo().getLast_name());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("cartProducts", cartProducts);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;context.setVariable("totalCartPrice", getTotalCartPrice(cartProducts));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return templateEngine.process("email", context);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">private </span>double getTotalCartPrice(List&#60;CartProduct&#62; cartProducts){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double total = 0;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(CartProduct cartProduct : cartProducts){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;total += cartProduct.getQuantity() * cartProduct.getPrice();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return total;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">private </span>String getUserName(Order order){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return order.getUser() == null ? null : order.getUser().getFirst_name() + ' ' + order.getUser().getLast_name();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">private </span>String getDate(Timestamp date){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return dateFormat.format(new Date());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    }
+                </code>
+            </pre>
+        </section>
+
+        <section class="thymeleaf-templatte">
+
+            <h5>Thymeleaf</h5>
+
+            <p>Θα δημιουργήσουμε ένα αρχείο email.html στο φάκελο /resources/templates.</p>
+
+            <p>email.html</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/email-template-html1.PNG" alt="Email"></p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/email-template-html2.PNG" alt="Email"></p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/email-template-css.PNG" alt="Email"></p>
+        </section>
+
+        <section class="email-appea">
+
+            <h5>Εμφάνιση Email</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/email-order-1.PNG" alt="Email"></p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/email-order-2.PNG" alt="Email"></p>
+        </section>
+    </div>
+
+  </body>
+</html>
