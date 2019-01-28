@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular - search-sidebar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">SpringTutorial</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" data-toggle="dropdown">Spring</a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="spring.html">What is Spring</a> </li>  
+                        <li><a class="dropdown-item" href="spring-container.html">Spring IoC Container</a>  </li>  
+                        <li>  <a class="dropdown-item" href="spring-beans.html">Spring Beans</a> </li> 
+                        <li> <a class="dropdown-item" href="dependency-injection.html">Dependency Injection</a>  </li> 
+                        <li> <a class="dropdown-item" href="annotations.html">Annotations</a> </li>  
+                        <li> <a class="dropdown-item" href="spring-boot.html">Spring Boot</a> </li>  
+                        <li> <a class="dropdown-item" href="spring-mvc.html">Spring Mvc</a> </li>  
+                        <li>  <a class="dropdown-item" href="spring-security.html">Spring Security</a> </li> 
+                        <li> <a class="dropdown-item" href="rest-api.html">Rest API</a>  </li> 
+                        <li><a class="dropdown-item" href="application-properties.html">Application Properties</a>  </li>  
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarJpa" data-toggle="dropdown">JPA</a>
+                  <ul class="dropdown-menu">
+                       <li> <a class="dropdown-item" href="jpa.html">JPA</a> </li>       
+                       <li>  <a class="dropdown-item" href="spring-data-jpa.html">Spring Data Jpa</a> </li>      
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarSetup" data-toggle="dropdown">Setup εφαρμογης</a>
+                    <ul class="dropdown-menu">
+                      <li> <a class="dropdown-item" href="app-architecture.html">Αρχιτεκτονική εφαρμογής</a> </li>        
+                      <li>  <a class="dropdown-item" href="spring-tool-suite.html">Spring Tool Suite</a> </li>       
+                      <li> <a class="dropdown-item" href="heroku.html">Heroku</a>  </li>       
+                      <li>  <a class="dropdown-item" href="postgresql.html">Postgres</a> </li>       
+                      <li> <a class="dropdown-item" href="amazon-s3.html">Amazon S3</a> </li>        
+                      <li>  <a class="dropdown-item" href="angular.html">Angular</a> </li>      
+                      <li> <a class="dropdown-item" href="create-frontend.html">Δημιουργία Frontend</a>   </li>      
+                      <li>  <a class="dropdown-item" href="visual-studio-code.html">Visual Studio Code</a> </li>      
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCreateApp" data-toggle="dropdown">Κώδικας εφαρμογης</a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item dropleft submenu">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarSpring" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Spring</a>
+                            <ul class="dropdown-menu">
+                                <li> <a class="dropdown-item" href="jpa-configuration.html">Ρύθμιση βάσης δεδομένων και JPA</a> </li>  
+                                <li>  <a class="dropdown-item" href="amazons3-configuration.html">Ρύθμιση Amazon S3</a> </li>     
+                                <li>  <a class="dropdown-item" href="upload-images.html">Ανέβασμα εικόνων στο Amazon S3</a> </li>   
+                                <li>  <a class="dropdown-item" href="create-tables-for-products.html">Δημιουργία πινάκων products, categories, brands, product_images, inventory</a> </li>    
+                               <li> <a class="dropdown-item" href="create-components-products.html">Δημιουργία repositories, services για τους πίνακες brands, categories...</a> </li>      
+                               <li> <a class="dropdown-item" href="insert-products.html">Δημιουργία controller,repository, service για την εισαγωγή προϊόντων</a> </li>     
+                                <li>  <a class="dropdown-item" href="create-tables-deals.html">Δημιουργία πινάκων deals, deal_images</a> </li>    
+                               <li> <a class="dropdown-item" href="create-components-deals.html">Δημιουργία controller,repository, service για την ανάκτηση προσφορών</a> </li>  
+                            </ul>
+                        </li>
+                       
+                        <li class="nav-item dropleft submenu">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarAngular" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Spring - Angular</a>
+                            <ul class="dropdown-menu">
+                               <li> <a class="dropdown-item" href="angular-routes.html">Angular - Routes</a> </li>     
+                               <li>  <a class="dropdown-item" href="create-common-components.html">Angular - Components my-footer, shop-services, navigation-bar και product</a> </li>     
+                               <li>  <a class="dropdown-item" href="create-index-page.html">Angular - index-page</a> </li>    
+                               <li> <a class="dropdown-item" href="create-component-product-page.html">Angular - product-page</a> </li>      
+                               <li>  <a class="dropdown-item" href="create-component-category.html">Angular - category-page</a> </li>    
+                               <li>  <a class="dropdown-item" href="create-component-sidebar.html">Angular - category-sidebar</a> </li>     
+                              <li>    <a class="dropdown-item" href="refresh-category-products.html">Angular - ανανέωση προϊόντων κατηγορίας</a></li>   
+                              <li>  <a class="dropdown-item" href="spring-security-and-session.html">Spring Security - Spring Session</a> </li>    
+                              <li><a class="dropdown-item" href="create-component-register.html">Angular - register-page component</a>  </li>     
+                              <li> <a class="dropdown-item" href="create-component-login.html">Angular - login-page, navigation-bar components (είσοδος και αποσύνδεση)</a>  </li>
+                              <li> <a class="dropdown-item" href="create-components-cart.html">Angular - cart-page component</a>  </li>
+                              <li> <a class="dropdown-item" href="create-component-checkout.html">Angular - checkout-page component</a>  </li>
+                              <li> <a class="dropdown-item" href="create-component-order.html">Angular - order-page component</a>  </li>
+                              <li> <a class="dropdown-item" href="spring-email.html">Spring Email - αποστολή E-mail</a>  </li>
+                            </ul>
+                        </li>  
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+      </div>
+   
+    </nav>
+
+    <div class="container">
+
+        <h1 class="text-center">Angular - search-sidebar</h1>
+
+        <section class="intro">
+            <p>Θα δημιουργήσουμε το search-sidebar component, το οποίο περιέχει δύο φίλτρα για τα προϊόντα. Ο χρήστης θα μπορεί, να αναζητήσει προϊόντα
+                συγκεκριμένων εταιριών ή/και μέσα σε ένα συγκεκριμένο διάστημα τιμών(10-20ευρώ).
+            </p>
+
+            <h5>Εταιρίες</h5>
+
+            <p>Για την αρχικοποίηση των τιμών των φίλτρων, ο client θα ζητάει τον αριθμό των προϊόντων της κάθε εταιρίας.
+                Αν επιλεχθεί κάποιο φίλτρο από τα διαστήματα τιμών μετά, τότε στέλνει μια παράμετρο range, για να πάρει τον αριθμό των 
+                προϊόντων της κάθε εταιρίας, σε ένα διάστημα τιμών.
+            </p>
+
+            <ul>
+                <li>αρχικό αίτημα, για την εταιρία Solgar : HTTP GET http://localhost:8080/api/search/brands/Solgar/products/count</li>
+                <li>αριθμός προϊόντων εταιρίας Solgar, στα διαστήματα 0 - 9.99, 10 - 19.99 : HTTP GET http://localhost:8080/api/categories/search/Solgar/products/count?range=1&range=2</li>
+            </ul>
+
+            <h5>Διαστήματα τιμών</h5>
+
+            <p>Για την αρχικοποίηση των τιμών των φίλτρων, ο client θα ζητάει τον αριθμό των προϊόντων ανά διάστημα τιμών.
+                Αν επιλεχθεί κάποιο φίλτρο από τις εταιρίες μετά, τότε στέλνει μια παράμετρο brand, για να πάρει τον αριθμό των 
+                προϊόντων στο συγκεκριμένο διάστημα τιμών, που ανήκουν σε αυτές τις εταιρίες.
+            </p>
+
+            <ul>
+                <li>αρχικό αίτημα, για το διάστημα 0 - 9.99 : HTTP GET http://localhost:8080/api/search/ranges/1/products/count</li>
+                <li>αριθμός προϊόντων εταιρίων Solgar και Solaray, στο διαστήμα 0 - 9.99 : HTTP GET http://localhost:8080/api/search/ranges/1/products/count?brand=Solgar&brand=Solaray</li>
+            </ul>
+        </section>
+
+        <section class="spring-boot-brands">
+            <h5>Spring Boot</h5>
+
+            <p>Υλοποιούμε τη μέθοδο List&#60;Brand&#62; findSearchBrands(String[] searchTerms) {</p>
+    
+                 <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Brand&#62; findSearchBrands(String[] searchTerms) {
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Brand&#62; criteriaQuery = criteriaBuilder.createQuery(Brand.class);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε τη συνθήκη του WHERE "prod.name like '%' + :searchTerm  + '%' "</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; searchPredicatesList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(searchTerms.length > 0){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String term : searchTerms){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.add(criteriaBuilder.like(productsRoot.get("name"), "%" + term +"%"));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] searchPredicatesArray = new Predicate[searchPredicatesList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.toArray(searchPredicatesArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate searchPredicate = criteriaBuilder.or(searchPredicatesArray);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Εκτελούμε το ερώτημα και επιστρέφουμε τις εταιρίες</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.select(productsRoot.get("brand")).distinct(true);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(searchPredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.orderBy(criteriaBuilder.asc(productsRoot.get("brand").get("name")));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; brands = entityManager.createQuery(criteriaQuery).getResultList();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return brands;
+                    </code>
+                </pre>
+
+             <p class="mt-5">Υλοποιούμε τη μέθοδο int findSearchProductsNumberByRange(String[] searchTerms, double min, double max, List&#60;Brand&#62; brands) {</p>
+    
+                 <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findSearchProductsNumberByRange(String[] searchTerms, double min, double max, List&#60;Brand&#62; brands) {
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε τις συνθήκες του WHERE "prod.name like '%' + :searchTerm  + '%' ", "prod.price between :range1 and :range2"</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; searchPredicatesList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(searchTerms.length > 0){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String term : searchTerms){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.add(criteriaBuilder.like(productsRoot.get("name"), "%" + term +"%"));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] searchPredicatesArray = new Predicate[searchPredicatesList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.toArray(searchPredicatesArray);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.or(brandsPredicateArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.between(productsRoot.get("price"), min, max);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε το κατάλληλο ερώτημα, ανάλογα με το αν είναι επιλεγμένο τo φίλτρo των εταιριών </p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!brands.isEmpty()){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; brandPredicateList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; brands.size(); i++){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.add(criteriaBuilder.equal(productsRoot.get("brand"), brands.get(i)));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] brandsPredicateArray = new Predicate[brandPredicateList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.toArray(brandsPredicateArray);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.or(brandsPredicateArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(searchPredicate, priceRangePredicate, brandsPredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(searchPredicate, priceRangePredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Βρίσκουμε τον αριθμό και τον επιστρέφουμε</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                    </code>
+                </pre>
+
+            <p class="mt-5">Υλοποιούμε τη μέθοδο int findSearchProductsNumberByBrand(String[] searchTerms, Brand brand, List&#60;double[]&#62; priceRanges) {</p>
+    
+                 <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findSearchProductsNumberByBrand(String[] searchTerms, Brand brand, List&#60;double[]&#62; priceRanges)) {
+    
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε τη συνθήκη WHERE "prod.name like '%' + :searchTerm  + '%' "</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; searchPredicatesList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(searchTerms.length > 0){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String term : searchTerms){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.add(criteriaBuilder.like(productsRoot.get("name"), "%" + term +"%"));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] searchPredicatesArray = new Predicate[searchPredicatesList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;searchPredicatesList.toArray(searchPredicatesArray);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandPredicate = criteriaBuilder.equal(productsRoot.get("brand"), brand);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate searchPredicate = criteriaBuilder.or(searchPredicatesArray);
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Δημιουργούμε το κατάλληλο ερώτημα, ανάλογα με το αν είναι επιλεγμένο τo φίλτρo των τιμών </p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(priceRanges.isEmpty())){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(searchPredicate, brandPredicate));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; priceRangePredicateList = new ArrayList&#60;&#62;();
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(double[] range : priceRanges){
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.add(criteriaBuilder.between(productsRoot.get("price"), range[0], range[1]));
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] priceRangePredicateArray = new Predicate[priceRangePredicateList.size()];
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.toArray(priceRangePredicateArray);
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.or(priceRangePredicateArray);
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(searchPredicate, brandPredicate, priceRangePredicate));
+                           
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                    </code>
+                </pre>
+    
+                <p class="mt-5">Βρίσκουμε τον αριθμό και τον επιστρέφουμε</p>
+    
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                    </code>
+                </pre>
+
+            <p>Δημιουργούμε έναν BrandApiController στο springeshop.controller</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.controller;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RestController</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span><span class="string">"/api"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BrandApiController{
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public static final</span>  Logger logger = LoggerFactory.getLogger(BrandApiController.class);
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> ProductService productService;
+    
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> CategoryService categoryService;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τη μέθοδο getCategoryBrands στον BrandApiController. Εάν δεν υπάρχει κατηγορία με αυτό το όνομα, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/brands"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryBrands(<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "category") String category{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category requestedCategory = categoryService.findByName(getCorrectCategoryName(category));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(requestedCategory == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν η λίστα τον εταιριών είναι κενή, επιστρέφουμε status 204 NO CONTENT, αλλιώς τις ταξινομούμε σε αύξουσα αλφαβητική σειρά και επιστρέφουμε την
+                    λίστα με status 200.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; brands = productService.findCategoryBrands(requestedCategory.getId());
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands.isEmpty())){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(HttpStatus.NO_CONTENT);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brands.sort((Brand brand1, Brand brand2) -> brand1.getName().compareTo(brand2.getName()));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;List&#60;Brand&#62;&#62;(brands, HttpStatus.OK);
+                </code>
+            </pre>
+
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/brand-api-postman.PNG" alt="Brands Api">
+
+        </section>
+
+        <section class="filters">
+
+            <p class="mt-3">Θα δημιουργήσουμε τις μεθόδους, οι οποίες θα μας επιστρέφουν τον αριθμό των προϊόντων</p>
+
+            <p>Προσθέτουμε τις ακόλουθες μέθοδους στο ProductRepository, οι οποίες θα χρησιμοποιηθούν, όταν αρχικοποιηθούν
+                τα φίλτρα. Τα ερωτήμα είναι πάνω από τις υπογραφές των μεθόδων.
+            </p>
+
+             <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;....
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query(<span class="string">"select Count (prod) from Product prod where prod.category.id = :categoryid and prod.brand.id = :brandid"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findNumberOfProductsOfBrandInCategory(@Param("categoryid") int categoryid, @Param("brandid") int brandid);
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;@Query(<span class="string">"select Count (prod) from Product prod where prod.category = :category and prod.price between :min and :max"</span>)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int findNumberOfProductsWithinPriceRange(@Param("category") Category category, @Param("min") double min, @Param("max") double max);
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τις ακόλουθες μεθόδους στο ProductService.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;....
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfProductsOfBrandInCategory(int categoryid, int brandid);
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfBrandProductsWithinSpecificRangesInCategory(Category category, Brand brand, List&#60;double[]&#60; priceRanges);
+
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfProductsWithinPriceRange(Category category, double min, double max);
+                    &emsp;&emsp;&emsp;&emsp;int findNumberOfSpecificBrandsProductsWithinPriceRange(Category category,  double min, double max, List&#60;Brand&#60; brands);
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τις υλοποιήσεις των μεθόδων, όταν δεν είναι επιλεγμένα τα αντίστοιχα φίλτρα
+            </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"productService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductServiceImpl <span class="keyword">implements</span> ProductService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private </span> EntityManager entityManager;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfProductsOfBrandInCategory(int categoryid, int brandid) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findNumberOfProductsOfBrandInCategory(categoryid, brandid);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfProductsWithinPriceRange(Category category, double min, double max) {
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> productRepository.findNumberOfProductsWithinPriceRange(category, min, max);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p>Η ακόλουθη μέθοδος findNumberOfSpecificBrandsProductsWithinPriceRange(), επιστρέφει τον αριθμό των προϊόντων ανά διάστημα τιμών,
+                όταν ο χρήστης έχει επιλέξει μία ή περισσότερες εταιρίες. Θα χρησιμοποιήσουμε το Criteria API, επειδή δεν γνωρίζουμε
+                από πριν, πόσες εταιρίες θα είναι επιλεγμένες.
+            </p>
+
+            <p>Δημιουργούμε το query root</p>
+
+             <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> int findNumberOfSpecificBrandsProductsWithinPriceRange(Category category, double min, double max, List&#60;Brand&#62; brands){
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                </code>
+            </pre>
+
+            <p>Με το παρακάτω for, δημιουργούμε συνθήκες του WHERE, "prod.brand = :brand." και τα προσθέτουμε σε ένα array.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; brandPredicateList = new ArrayList&#60;&#62;();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; brands.size(); i++){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.add(criteriaBuilder.equal(productsRoot.get("brand"), brands.get(i)));
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] brandsPredicateArray = new Predicate[brandPredicateList.size()];
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;brandPredicateList.toArray(brandsPredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε τις συνθήκες "prod.category = :category" και "product.price between :min and :max" </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate categoryPredicate = criteriaBuilder.equal(productsRoot.get("category"), category);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.between(productsRoot.get("price"), min, max);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.or(brandsPredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.price between :min and ( prod.brand = :brand1 or prod.brand2 .....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, priceRangePredicate, brandsPredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
+
+
+            <p class="mt-5">Η ακόλουθη μέθοδος findNumberOfBrandProductsWithinSpecificRangesInCategory, επιστρέφει τον αριθμό των προϊόντων ανά εταιρία,
+                όταν ο χρήστης έχει επιλέξει ένα ή περισσότερα διαστήματα τιμών. 
+            </p>
+
+            <p>Δημιουργούμε το query root</p>
+
+             <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> findNumberOfBrandProductsWithinSpecificRangesInCategory(Category category, Brand brand, List&#60;double[]&#62; priceRanges) {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Product&#62; criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Product&#62; productsRoot = criteriaQuery.from(Product.class);
+                </code>
+            </pre>
+
+            <p>Με το παρακάτω for, δημιουργούμε συνθήκες του WHERE, "prod.price between :range1 and :range2" και τα προσθέτουμε σε ένα array.</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Predicate&#62; priceRangePredicateList = new ArrayList&#60;&#62;();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(double[] range : priceRanges){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.add(criteriaBuilder.between(productsRoot.get("price"), range[0], range[1]));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] priceRangePredicateArray = new Predicate[priceRangePredicateList.size()];
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangePredicateList.toArray(priceRangePredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε τις συνθήκες "prod.category = :category" και "prod.brand = :brand" </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate categoryPredicate = criteriaBuilder.equal(productsRoot.get("category"), category);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate brandsPredicate = criteriaBuilder.equal(productsRoot.get("brand"), brand);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate priceRangePredicate = criteriaBuilder.or(priceRangePredicateArray);
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.brand = :brand ( prod.price between :range1 and :range 2 or prod.price between :range3 and :range 4.....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPredicate, priceRangePredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
+            <p>Δημιουργούμε το τελικό ερώτημα "select Count (prod) from Product prod where prod.category = :category and prod.brand = :brand ( prod.price between :range1 and :range 2 or prod.price between :range3 and :range 4.....)",
+                το εκτελεί ο entityManager και επιστρέφουμε τον αριθμο των αποτελεσμάτων. </p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.and(categoryPredicate, brandsPredicate, priceRangePredicate));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int number = 0;
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;number = entityManager.createQuery(criteriaQuery).getResultList().size();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;return number;
+                </code>
+            </pre>
+
+        </section>
+
+        <section class="category-api-controller">
+
+            <h5>CategoryApiController</h5>
+
+            <p>Θα προσθέσουμε τις κατάλληλες μεθόδους στον CategoryApiController. Πρώτα θα δημιουργήσουμε μια μέθοδο στο BrandService, η οποία
+                θα παίρνει τις παραμέτρους των εταιριών και θα επιστρέφει μια λίστα από Brand entities.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public interface</span> BrandService{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; findSpecificBrands(String[] brands);
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.service;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Service</span>(<span class="string">"brandService"</span>)
+                        &emsp;&emsp;&emsp;&emsp;<span class="annotation">@Transactional</span>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> BrandServiceImpl <span class="keyword">implements</span> BrandService{
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Autowired</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private</span> EntityManager entityManager;
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@Override</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> List&#60;Brand&#62; findSpecificBrands(String[] brands) {
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CriteriaQuery&#60;Brand&#62; criteriaQuery = criteriaBuilder.createQuery(Brand.class);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Root&#60;Brand&#62; productsRoot = criteriaQuery.from(Brand.class);  
+                        
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predicate[] predicates = new Predicate[brands.length];
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(int i=0; i &#60; predicates.length; i++){
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;predicates[i] = criteriaBuilder.equal(requestedBrands.get("name"), brands[i]);
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;criteriaQuery.where(criteriaBuilder.or(predicates));
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> entityManager.createQuery(criteriaQuery).getResultList();
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε κάποιες σταθερές στο Constants.java</p>
+
+            <pre>
+                <code>
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">package</span> springeshop.util;
+
+                        &emsp;&emsp;&emsp;&emsp;<span class="keyword">public final class</span> Constants {
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;....
+
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_ZERO_TO_TEN = { 0.0 ,9.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_TEN_TO_TWENTY = { 10.0 ,19.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_TWENTY_TO_THIRTY = { 20.0 ,29.99};
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private static final double[] </span> PRICE_RANGE_THIRTY_TO_FIFTY = { 30.0 ,50.0};
+                        }
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε τις κλάσεις-μοντέλα ProductsPerPriceRange και ProductsPerBrand</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductsPerPriceRange{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private double</span> min;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private double</span> max;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> rangeId;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductsPerPriceRange() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public class</span> ProductsPerBrand{
+
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private String</span> brand;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">private int</span> number;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ProductsPerBrand() {}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="comments">//Getters - Setters ...</span>
+
+                    &emsp;&emsp;&emsp;&emsp;} 
+                </code>
+            </pre>
+
+            <p class="mt-5">Δημιουργούμε δύο βοηθητικές μεθόδους στον CategoryApiController, οι οποίες θα επιστρέφουν το minx και το max του κάθε
+                εύρους τιμών.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public double</span> getRangeMin(String range){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double min = 0.0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&if(range.equals("1")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_ZERO_TO_TEN[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("2")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_TEN_TO_TWENTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else if(range.equals("3")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_TWENTY_TO_THIRTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("4")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;min = Constants.PRICE_RANGE_THIRTY_TO_FIFTY[0];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> min;
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;<span class="keyword">public double</span> getRangeMax(String range){
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double max = 0.0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&if(range.equals("1")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_ZERO_TO_TEN[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("2")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_TEN_TO_TWENTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;else if(range.equals("3")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_TWENTY_TO_THIRTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else if(range.equals("4")){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;max = Constants.PRICE_RANGE_THIRTY_TO_FIFTY[1];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return</span> max;
+                    &emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getCategoryRangeProductsNumber στον controller. Αν δεν υπάρχει η ζητούμενη κατηγορία, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/categories/{name}/ranges/{rangeid}/products/count"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryRangeProductsNumber(<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "name") String name,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "rangeid") String rangeid,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "brand", required = false) String[] brands{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category category = categoryService.findByName(getCorrectCategoryName(name));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(requestedCategory == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", name);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + name + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν δεν είναι κάποιο φίλτρο επιλεγμένο καλούμε την findNumberOfProductsWithinPriceRange, αλλιώς βρίσκουμε τα αντίστοιχα Brand entities και το
+                παιρνάμε στην findNumberOfSpecificBrandsProductsWithinPriceRange.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductsPerPriceRange ppNumber = new ProductsPerPriceRange();
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(brands == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setNumber(productService.findNumberOfProductsWithinPriceRange(category, getRangeMin(rangeid), getRangeMax(rangeid)));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;Brand&#62; brandPredicateList = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; brandList = brandService.findSpecificBrands(brands);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setNumber(productService.findNumberOfSpecificBrandsProductsWithinPriceRange(category, getRangeMin(rangeid), getRangeMax(rangeid), brandList));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε min, max του διαστήματος και το id του και το επιστρέφουμε με status 200 OK.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setMin(getRangeMin(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setMax(getRangeMax(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ppNumber.setRangeId(Integer.parseInt(rangeid));
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;ProductsPerPriceRang&#60;(ppNumber, HttpStatus.OK);
+                </code>
+            </pre>
+
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/filter-api-postman.PNG" alt="Filter Ranges Api">
+
+
+            <p class="mt-5">Προσθέτουμε τη μέθοδο getCategoryBrandProductsNumber στον controller. Αν δεν υπάρχει η κατηγορία ή η εταιρία, επιστρέφουμε status 404 NOT FOUND.</p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestMapping(</span>value = <span class="string">"/categories/{categoryname}/brands/{brandname}/products/count"</span>, method = RequestMethod.GET)
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">public</span> ResponseEntity&#60;?&#62; getCategoryBrandProductsNumber(<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "categoryname") String categoryname,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@PathVariable(</span>(<span class="string">@value</span> = "brandname") String brandname,
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="annotation">@RequestParam(</span>(<span class="string">@value</span> = "range", required = false) String[] ranges{
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Category category = categoryService.findByName(getCorrectCategoryName(categoryname));
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(category == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Category with name {} not found.", categoryname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Category with name "</span> + categoryname + <span class="string">" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(!brandService.doesBrandExist(brandname)){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;logger.error("Brand with name {} does not  exist.", brandname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;&#62;(new ErrorMessage(<span class="string">"Brand with name {} does not  exist" not found"</span>), HttpStatus.NOT_FOUND);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Εάν δεν είναι κάποιο διάστημα τιμών καλούμε την findNumberOfProductsOfBrandInCategory, αλλιώς δημιουργούμε μια λίστα από διαστήματα τιμών,
+                από την παράμετρο range και το παιρνάμε στην findNumberOfBrandProductsWithinSpecificRangesInCategory.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int productsNumber = 0;
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if(ranges == null){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productsNumber = productService.findNumberOfProductsOfBrandInCategory(category.getId(), brandService.findByName(brandname).getId());
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}else{
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;List&#60;double[]&#62; priceRangeList = new ArrayList&#60;&#62;();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;for(String range : ranges){
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;double[] rangeValues = new double[2];
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[0] = getRangeMin(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;rangeValues[1] = getRangeMax(range);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;priceRangeList.add(rangeValues);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;productsNumber = productService.findNumberOfBrandProductsWithinSpecificRangesInCategory(category, brandService.findByName(brandname), priceRangeList);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}
+                </code>
+            </pre>
+
+            <p>Προσθέτουμε τον αριθμό και το όνομα της εταιρίας και το επιστρέφουμε με status 200 OK.
+            </p>
+
+            <pre>
+                <code>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ProductsPerBrand pNumber =  new ProductsPerBrand();
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;pNumber.setNumber(productsNumber);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;pNumber.setBrand(brandname);
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="keyword">return new</span> ResponseEntity&#60;ProductsPerBrand&#60;(pNumber, HttpStatus.OK);
+                </code>
+            </pre>
+            
+            <p class="mt-5">Παράδειγμα αιτήματος με Postman</p>
+
+            <img class="img-fluid mx-auto my-5" src="../img/brands-api-postman-.PNG" alt="Filter Ranges Api">
+
+        </section>
+
+        <section class="angular">
+                <h5>category-sidebar component</h5>
+
+                <p>Δημιουργούμε το component category-sidebar και το τοποθετούμε στο φάκελο components.
+                </p>
+
+                <pre>
+                    <code>
+                            &emsp;&emsp;&emsp;&emsp;ng generate component category-sidebar
+                    </code>
+                </pre>
+
+                <p>category.service.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-service-2.PNG" alt="Category Service 2">
+
+                <p>category-sidebar.component.html</p>
+
+                <p>Το html αρχείο περιέχει δύο λίστες με checkboxes.</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-html.PNG" alt="Category Sidebar Html">
+
+                <p>category-sidebar.component.css</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-css.PNG" alt="Category Sidebar Css">
+
+                <p>Δημιουργούμε τα αντίστοιχα μοντέλα ProductsPerBrand και ProductsPerPriceRange.</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-brand-ts.PNG" alt="Products Brands">
+
+                <img class="img-fluid mx-auto my-5" src="../img/products-price-range-ts.PNG" alt="Products Price Range">
+
+                <p>Κάθε φορά που αλλάζει ο χρήστης κατηγορία, καλείται η μέθοδος ngOnChanges(), η οποία καλεί την updateSidebar(), για να
+                     πραγματοποίησει τα HTTP αιτήματα και να αρχικοποιήσει τα φίλτρα 
+                </p>
+                
+                <p>category-sidebar.component.ts</p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-ts.PNG" alt="Category sidebar Ts">
+                
+                <p>Όταν ο χρήστης κάνει κλικ σε κάποια εταιρία (event), εκτελείται η μέθοδος onSelectedBrand(), η οποία ενημερώνει τον
+                    αριθμό των προϊόντων ανα διάστημα τιμών. Αντίστοιχα, όταν κάνει κλικ σε κάποιο διάστημα (event), 
+                    εκτελείται η μέθοδος onSelectedPriceRange(), η οποία ενημερώνει τον αριθμό των προϊόντων ανα εταιρία.
+                </p>
+
+                <img class="img-fluid mx-auto my-5" src="../img/category-sidebar-ts-2.PNG" alt="Category sidebar Ts">
+                
+        </section>
+
+        <section class="appearance">
+
+            <h5>Τελική εμφάνιση σελίδας</h5>
+
+            <img class="img-fluid mx-auto my-5" src="../img/category-page-image.PNG" alt="Category Page Image">
+        </section>
+    </div>
+
+  </body>
+</html>
