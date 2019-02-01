@@ -57,6 +57,8 @@ h6{
 
 /* --- Dropdown --- */
 
+#mainNav ul ul{top:80%}
+
 #mainNav ul li:hover > ul{display:block}
 
 #mainNav ul ul ul{
