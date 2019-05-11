@@ -20,6 +20,10 @@ section{
     padding-right:48px;
 }
 
+h1{
+    margin-bottom: 1rem;
+}
+
 h5{
     font-weight: bold;
 }
@@ -97,7 +101,7 @@ div.container div.navigation-buttons{
     justify-content: space-between;
     padding-left:48px;
     padding-right:48px;
-    
+
 }
 
 #mainNav ul.navbar-nav > li.nav-item  > ul.dropdown-menu{top:80%}
